@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "17.0.0"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 17
+    }
+}
+
+dependencies {
+    //compile 'com.android.support:support-v4:13.0.+'
+    compile "com.android.support:appcompat-v7:18.0.+"
+    compile "com.squareup.dagger:dagger:1.0.+"
+    compile "org.slf4j:slf4j-android:1.6.1-RC1"
+    compile files('libs/GoogleAdMobAdsSdk-6.4.1.jar')
+    compile "com.google.code.gson:gson:2.2.4"
+    compile("de.keyboardsurfer.android.widget:crouton:1.8.1") {
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
+}

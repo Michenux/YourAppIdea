@@ -1,0 +1,25 @@
+<resources>
+
+    <!--
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat">
+        <item name="activatedBackgroundIndicator">?android:attr/activatedBackgroundIndicator</item>
+        <item name="textAppearanceMedium">?android:attr/textAppearanceMedium</item>
+        <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
+
+        <item name="android:activatedBackgroundIndicator">@drawable/listitem_background</item>
+
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_main</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Main</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Main</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Main</item>
+        <item name="android:actionBarStyle">@style/CustomActionBar</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_main</item>
+    </style>
+</resources>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|center"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp" >
+
+    <TextView
+        android:id="@+id/flight_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:text="flight_name"
+        android:textIsSelectable="true"
+        android:textSize="18dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/flight_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/flight_name"
+        android:gravity="right|center_vertical"
+        android:text="flight_from"
+        android:textIsSelectable="true"
+        android:textSize="16dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/flight_eta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flight_name"
+        android:layout_marginLeft="10px"
+        android:gravity="center_vertical"
+        android:text="eta"
+        android:textIsSelectable="true"
+        android:textSize="14dp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/flight_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/flight_from"
+        android:layout_marginLeft="10px"
+        android:layout_toRightOf="@id/flight_eta"
+        android:gravity="right|center_vertical"
+        android:text="type"
+        android:textIsSelectable="true"
+        android:textSize="14dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/flight_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/flight_type"
+        android:layout_marginLeft="10px"
+        android:gravity="center_vertical"
+        android:text="speed"
+        android:textColor="#0099CC"
+        android:textIsSelectable="true"
+        android:textSize="14dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/flight_alt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flight_type"
+        android:layout_marginRight="10px"
+        android:layout_toLeftOf="@id/flight_speed"
+        android:gravity="center_vertical"
+        android:text="altitude"
+        android:textColor="#0099CC"
+        android:textIsSelectable="true"
+        android:textSize="14dp" >
+    </TextView>
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="airport_title">Arrivals to Paris</string>
+    <string name="airport_altitude">Alt: %1$sm</string>
+    <string name="airport_speed">Speed: %1$skm/h</string>
+    <string name="airport_eta">Eta: %1$s</string>
+    <string name="airport_rest_url">http://www.flightradar24.com/AirportInfoService.php?airport=ORY&amp;type=%1$s</string>
+
+    <string-array name="airport_mode">
+        <item>Arrivals</item>
+        <item>Departures</item>
+    </string-array>
+
+</resources>

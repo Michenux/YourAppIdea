@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#444444"
+    android:padding="10dp">
+
+    <TextView android:text="@string/friend_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:textSize="24dp"/>
+    
+    <TextView
+        android:id="@+id/friend_name_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp">
+    </TextView>
+    
+    <TextView android:text="@string/friend_job_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"/>
+    
+    <TextView
+        android:id="@+id/friend_job_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp">
+    </TextView>
+    
+    <ImageView android:id="@+id/friend_face_value" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="30dp"/>
+
+    <!--
+                 android:hint="@string/friend_edit_summary"
+            android:imeOptions="actionNext"
+    -->
+
+</LinearLayout>

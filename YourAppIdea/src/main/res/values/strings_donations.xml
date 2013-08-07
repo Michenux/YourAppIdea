@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="donations__description">Do you find this application useful?\nSupport its development by sending a donation to the developer!</string>
+    <string name="donations_paypal">PayPal</string>
+    <string name="donations_paypal_donate_button">Donate !</string>
+
+</resources>

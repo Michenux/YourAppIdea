@@ -1,0 +1,5 @@
+<Spinner xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/airport_mode_spinner"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:entries="@array/airport_mode"/>

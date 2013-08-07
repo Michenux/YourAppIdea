@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="@dimen/action_button_min_width"
+    android:minWidth="@dimen/action_button_min_width">
+    <ProgressBar android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"/>
+</FrameLayout>
+
+<!-- 
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="@dimen/action_button_min_width"
+    android:minWidth="@dimen/action_button_min_width">
+    <ProgressBar android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"/>
+</FrameLayout>
+ -->
