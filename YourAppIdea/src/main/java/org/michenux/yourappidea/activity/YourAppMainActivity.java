@@ -47,6 +47,7 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     private void goHomeFragment() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new MainFragment(), HOME_FRAGMENT_TAG).commit();
+        setTitleWithDrawerTitle();
     }
 
     @Override

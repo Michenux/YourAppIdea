@@ -37,6 +37,6 @@
         ads:adSize="SMART_BANNER"
         ads:adUnitId="a150d852e9f388f"
         ads:loadAdOnCreate="true"
-        ads:testDevices="TEST_EMULATOR, 1174B15820BDCDE357023377AAF1D72D"/>
+        ads:testDevices="TEST_EMULATOR, 1174B15820BDCDE357023377AAF1D72D, FB73634EFAFEF29BE7973A97B5543A4D"/>
     
 </RelativeLayout>

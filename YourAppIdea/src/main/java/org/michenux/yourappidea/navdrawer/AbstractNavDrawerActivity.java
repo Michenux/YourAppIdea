@@ -145,14 +145,14 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
     
     public void selectItem(int position) {
     	NavDrawerItem selectedItem = navConf.getNavItems()[position];
-    	
+
     	this.onNavItemSelected(selectedItem.getId());
         mDrawerList.setItemChecked(position, true);
-        
+
         if ( selectedItem.updateActionBarTitle()) {
         	setTitle(selectedItem.getLabel());
         }
-        
+
         if ( this.mDrawerLayout.isDrawerOpen(this.mDrawerList)) {
         	mDrawerLayout.closeDrawer(mDrawerList);
         }
@@ -162,5 +162,9 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
+    }
+
+    protected void setTitleWithDrawerTitle() {
+        setTitle(mDrawerTitle);
     }
 }
