@@ -1,6 +1,8 @@
 package org.michenux.yourappidea.donations;
 
+import org.michenux.android.ui.animation.SquashAndStretch;
 import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.YourApplication;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,19 +14,36 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import javax.inject.Inject;
+
 public class DonateFragment extends Fragment implements OnClickListener {
-	
-	@Override
+
+    @Inject
+    SquashAndStretch squashAndStretchAnim;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((YourApplication) getActivity().getApplication()).inject(this);
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View view = inflater.inflate(R.layout.donations_fragment, container, false);
-		Button oButton = (Button) view.findViewById(R.id.donations_paypal_donate_button);
-		oButton.setOnClickListener(this);
+		final View view = inflater.inflate(R.layout.donations_fragment, container, false);
+		final Button button = (Button) view.findViewById(R.id.donations_paypal_donate_button);
+        button.setOnClickListener(this);
+
+        view.post( new Runnable() {
+            @Override
+            public void run() {
+                squashAndStretchAnim.animate(button, view, 300, 1);
+            }
+        });
 		return view;
 	}
-
-	@Override
+    @Override
 	public void onClick(View v) {
         Uri.Builder uriBuilder = new Uri.Builder();
         uriBuilder.scheme("https").authority("www.paypal.com").path("cgi-bin/webscr");

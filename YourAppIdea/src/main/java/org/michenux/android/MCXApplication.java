@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Application;
 import android.content.ContentProvider;
+import android.support.v4.app.Fragment;
+
 import dagger.ObjectGraph;
 
 public class MCXApplication extends Application {
@@ -21,6 +23,10 @@ public class MCXApplication extends Application {
 	public void inject(ContentProvider contentProvider) {
 		getObjectGraph().inject(contentProvider) ;
 	}
+
+    public void inject(Fragment fragment) {
+        getObjectGraph().inject(fragment);
+    }
 
 	public synchronized ObjectGraph getObjectGraph() {
 		if (objectGraph == null) {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog>
+    <release version="1.2.1" versioncode="121">
+        <change>Add animation on buttons  of the main menu</change>
+        <change>Add animation on paypal button of the donation screen</change>
+        <change>Show ChangeLog on app upgrade (display changelog from previous version)</change>
+        <change>Add ChangeLog in the navigation drawer (display full changelog)</change>
+        <change>Eula: use DialogFragment + fix rotation</change>
+        <change>Fix: Some menu items of navdrawer must not be marked as checked</change>
+        <change>Add "exit application" dialog on back pressed of the main screen</change>
+        <change>Replace volley source code with the volley jar.</change>
+    </release>
+    <release version="1.2.0" versioncode="120">
+        <change>Compatibility with Android Devices 2.3.3+</change>
+        <change>use ActionBarCompat</change>
+        <change>Fix navigation issues</change>
+        <change>Fix Friend List/Detail</change>
+    </release>    
+    <release version="1.1.0" versioncode="110">
+        <change>Add donation screen (paypal)</change>
+    </release>
+    <release version="1.0.9" versioncode="109">
+        <change>Remove splashscreen as they are devils</change>
+        <change>Add actionbar spinner on airport screen</change>
+        <change>Use dagger for dependency injection</change>
+    </release>
+    <release version="1.0.8" versioncode="108">
+        <change>Add volley and crouton libraries</change>
+    </release>
+    <release version="1.0.7" versioncode="107">
+        <change>Replace some activities with fragments (+nested fragments)</change>
+    </release>
+    <release version="1.0.6" versioncode="106">
+        <change>Replace SlidingMenu library with Navigation Drawer</change>
+    </release>
+    <release version="1.0.5" versioncode="105">
+        <change>Add sliding menu</change>
+    </release>
+    <release version="1.0.4" versioncode="104">
+        <change>AsyncTask example</change>
+        <change>Circular progressbar example</change>
+    </release>
+</changelog>

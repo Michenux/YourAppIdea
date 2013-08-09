@@ -27,15 +27,22 @@ public class ConfirmDialog extends DialogFragment {
 		return frag;
 	}
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+
 		return new AlertDialog.Builder(getActivity())
 				.setMessage(this.message)
 				.setPositiveButton(R.string.yes, this.positiveListener)
 				.setNegativeButton(R.string.no, this.negativeListener).create();
 	}
 
-	public void setMessage(int message) {
+    public void setMessage(int message) {
 		this.message = message;
 	}
 
@@ -46,4 +53,13 @@ public class ConfirmDialog extends DialogFragment {
 	public void setNegativeListener(OnClickListener negativeListener) {
 		this.negativeListener = negativeListener;
 	}
+
+    @Override
+    public void onDestroyView() // necessary for restoring the dialog
+    {
+        if (getDialog() != null && getRetainInstance())
+            getDialog().setOnDismissListener(null);
+
+        super.onDestroyView();
+    }
 }

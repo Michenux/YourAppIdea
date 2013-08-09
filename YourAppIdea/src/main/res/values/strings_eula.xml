@@ -5,5 +5,6 @@
     <string name="eula_accept">Accept</string>
     <string name="eula_refuse">Refuse</string>
     <string name="eula_close">Close</string>
+    <string name="eula_readererror">Error reading eula</string>
 
 </resources>

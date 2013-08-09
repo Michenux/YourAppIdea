@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <LinearLayout
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/donation_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:isScrollContainer="true"
-        android:orientation="vertical"
         android:padding="15dp"
-        android:scrollbars="vertical" >
+        android:scrollbars="vertical">
 
         <TextView
+            android:id="@+id/donation_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -19,19 +16,23 @@
             android:textAppearance="@android:style/TextAppearance.Small" />
 
         <TextView
+            android:id="@+id/paypal_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:text="@string/donations_paypal"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_below="@id/donation_description"/>
 
         <Button
             android:id="@+id/donations_paypal_donate_button"
             style="@style/ButtonText"
-            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_purple"
-            android:text="@string/donations_paypal_donate_button" />
-    </LinearLayout>
-
-</ScrollView>
+            android:text="@string/donations_paypal_donate_button"
+            android:layout_below="@id/paypal_title"
+            android:paddingLeft="75dp"
+            android:paddingRight="75dp"/>
+</RelativeLayout>
