@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
     <release version="1.2.1" versioncode="121">
+        <change>Add simple map screen (Google API v2)</change>
         <change>Add animation on buttons  of the main menu</change>
         <change>Add animation on paypal button of the donation screen</change>
         <change>Show ChangeLog on app upgrade (display changelog from previous version)</change>

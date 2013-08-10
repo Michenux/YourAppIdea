@@ -27,29 +27,17 @@ public class EulaChangeLogChainHelper extends EulaHelper {
     }
 
     public void show() {
-        showAcceptRefuse(this.eulaTitle, this.eulaAcceptLabel, this.eulaRefuseLabel);
-    }
+        //not shown = already accepted
+        boolean shown = showAcceptRefuse(this.eulaTitle, this.eulaAcceptLabel, this.eulaRefuseLabel);
 
-    @Override
-    public boolean showAcceptRefuse(int title, int acceptLabel, int refuseLabel) {
-        boolean shown = super.showAcceptRefuse(title, acceptLabel, refuseLabel);
-
-        if (!shown) {
-            showChangeLog();
-        }
-
-        return shown;
-    }
-
-    @Override
-    public void onAccept() {
-        super.onAccept();
-        showChangeLog();
-    }
-
-    protected void showChangeLog() {
         ChangeLogHelper changeLogHelper = new ChangeLogHelper();
-        changeLogHelper.showWhatsNew(changeLogTitle, changeLogClose, changeLog, getFragmentActivity());
+        if (!shown) {
+            changeLogHelper.showWhatsNew(changeLogTitle, changeLogClose, changeLog, getFragmentActivity());
+        }
+        else {
+            //We don't show the changelog at first run of the first install, but we have to save the current version
+            //for the future upgrades
+            changeLogHelper.saveCurrentVersion(getFragmentActivity());
+        }
     }
-
 }

@@ -1,6 +1,5 @@
 package org.michenux.android.ui.changelog;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -9,11 +8,9 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import org.michenux.android.info.VersionUtils;
 import org.michenux.android.lang.TextUtils;
-import org.michenux.android.ui.eula.EulaDialogFragment;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -142,6 +139,11 @@ public class ChangeLogHelper {
     private int loadLastShownVersion(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(PREFERENCE_CHANGELOG_LASTSHOWN_VERSION, 0);
+    }
+
+    public void saveCurrentVersion( Context context ) {
+        int appVersion = VersionUtils.getVersionCode(context);
+        saveLastShownVersion(appVersion, context);
     }
 
     private void saveLastShownVersion( int version, Context context ) {

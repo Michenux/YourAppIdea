@@ -39,6 +39,9 @@ public class MainFragment extends Fragment {
         Button button2 = (Button) mainView.findViewById(R.id.mainmenu_button2);
         liveButton.setupLiveAnimOnButton(button2, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 2));
 
+        Button button3 = (Button) mainView.findViewById(R.id.mainmenu_button3);
+        liveButton.setupLiveAnimOnButton(button3, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 3));
+
         return mainView;
     }
 }

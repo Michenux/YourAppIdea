@@ -36,8 +36,9 @@ dependencies {
     compile "org.slf4j:slf4j-android:1.6.1-RC1"
     compile files('libs/GoogleAdMobAdsSdk-6.4.1.jar')
     compile files('libs/volley-20130809.jar')
-     compile "com.google.code.gson:gson:2.2.4"
+    compile "com.google.code.gson:gson:2.2.4"
     compile("de.keyboardsurfer.android.widget:crouton:1.8.1") {
         exclude group: 'com.google.android', module: 'support-v4'
     }
+    compile 'com.google.android.gms:play-services:3.1.36'
 }

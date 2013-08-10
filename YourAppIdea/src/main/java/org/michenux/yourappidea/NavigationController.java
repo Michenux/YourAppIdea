@@ -39,7 +39,7 @@ public class NavigationController {
 
     public void confirmEulaAndShowChangeLog(FragmentActivity activity) {
         EulaChangeLogChainHelper chain = new EulaChangeLogChainHelper(R.string.eula_title, R.string.eula_accept,
-                R.string.eula_refuse, R.string.changelog_title, R.string.changelog_close, R.xml.changelog, activity);
+                R.string.eula_refuse, R.string.changelog_whatsnew_title, R.string.changelog_close, R.xml.changelog, activity);
         chain.show();
     }
 

@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.SupportMapFragment;
+
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.airport.AirportFragment;
@@ -45,6 +47,8 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 NavMenuItem.create(101, "List/Detail", "navdrawer_friends",
                         true, true, this),
                 NavMenuItem.create(102, "Airport", "navdrawer_airport", true, true,
+                this),
+                NavMenuItem.create(103, "Simple Map", "navdrawer_map", true, true,
                         this),
                 NavMenuSection.create(200, "General"),
                 NavMenuItem.create(202, "Rate this app", "navdrawer_rating",
@@ -81,6 +85,11 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
             case 102:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new AirportFragment())
+                        .commit();
+                break;
+            case 103:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, new SupportMapFragment())
                         .commit();
                 break;
             case 201:

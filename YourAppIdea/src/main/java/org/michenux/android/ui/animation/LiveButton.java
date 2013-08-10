@@ -28,7 +28,7 @@ public class LiveButton {
 
     @TargetApi(12)
     public void setupLiveAnimOnButtonL12( final Button button, final Runnable onEndRunnable ) {
-        button.animate().setDuration(200);
+        button.animate().setDuration(400);
         button.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -38,7 +38,7 @@ public class LiveButton {
                             scaleX(.7f).scaleY(.7f);
                 } else if (arg1.getAction() == MotionEvent.ACTION_UP) {
                     button.animate().setInterpolator(overshooter).
-                            scaleX(1f).scaleY(1f).withEndAction(onEndRunnable);
+                            scaleX(1.6f).scaleY(1.6f).withEndAction(onEndRunnable);
                 }
                 return false;
             }
