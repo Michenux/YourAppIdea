@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="ga_trackingId">UA-8347021-2</string>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_debug">true</bool>
+
+    <!-- The screen names that will appear in your reporting -->
+    <string name="org.michenux.yourappidea.home.YourAppMainActivity">YourAppMainActivity</string>
+
+    <!--
+    The inverval of time after all the collected data
+    should be sent to the server, in seconds.
+    -->
+    <integer name="ga_dispatchPeriod">30</integer>
+
+</resources>

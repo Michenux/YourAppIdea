@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import org.michenux.yourappidea.R;
@@ -20,11 +22,12 @@ import org.michenux.android.ui.navdrawer.NavDrawerAdapter;
 import org.michenux.android.ui.navdrawer.NavDrawerItem;
 import org.michenux.android.ui.navdrawer.NavMenuItem;
 import org.michenux.android.ui.navdrawer.NavMenuSection;
-import org.michenux.yourappidea.settings.MyPreferences;
 
 import javax.inject.Inject;
 
 public class YourAppMainActivity extends AbstractNavDrawerActivity {
+
+    private Tracker tracker;
 
     @Inject
     NavigationController navController;
@@ -34,10 +37,19 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
         super.onCreate(savedInstanceState);
         ((YourApplication) getApplication()).inject(this);
 
+        EasyTracker.getInstance().setContext(getApplicationContext());
+        tracker = EasyTracker.getTracker();
+
         if (savedInstanceState == null) {
-            this.navController.goHomeFragment(this);
+            this.navController.goHomeFragment(this, tracker);
             this.navController.confirmEulaAndShowChangeLog(this);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
@@ -51,12 +63,12 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 NavMenuItem.create(103, "Simple Map", "navdrawer_map", true, true,
                         this),
                 NavMenuSection.create(200, "General"),
+                NavMenuItem.create(201, "Settings", "navdrawer_settings", true, true, this),
                 NavMenuItem.create(202, "Rate this app", "navdrawer_rating",
                         false, false, this),
                 NavMenuItem.create(203, "Donate", "navdrawer_donations", true, true, this),
                 NavMenuItem.create(204, "ChangeLog", "navdrawer_changelog", false, false, this),
-                NavMenuItem.create(205, "Eula", "navdrawer_eula", false, false, this),
-                NavMenuItem.create(206, "Quit", "navdrawer_quit", false, false, this) };
+                NavMenuItem.create(205, "Eula", "navdrawer_eula", false, false, this) };
 
         NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
         navDrawerActivityConfiguration.setMainLayout(R.layout.main);
@@ -78,25 +90,28 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     protected void onNavItemSelected(int id) {
         switch (id) {
             case 101:
+                tracker.sendView("Friends");
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new FriendMainFragment())
                         .commit();
                 break;
             case 102:
+                tracker.sendView("Airport");
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new AirportFragment())
                         .commit();
                 break;
             case 103:
+                tracker.sendView("SimpleMap");
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new SupportMapFragment())
                         .commit();
                 break;
             case 201:
-                this.navController.showSettings(this);
+                this.navController.showSettings(this, tracker);
                 break;
             case 202:
-                this.navController.startAppRating(this);
+                this.navController.startAppRating(this, tracker);
                 break;
             case 203:
                 getSupportFragmentManager().beginTransaction()
@@ -104,10 +119,10 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                         .commit();
                 break;
             case 204:
-                this.navController.showChangeLog(this);
+                this.navController.showChangeLog(this, tracker);
                 break;
             case 205:
-                this.navController.showEula(this);
+                this.navController.showEula(this, tracker);
                 break;
             case 206:
                 this.navController.showExitDialog(this);
@@ -116,15 +131,10 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == MyPreferences.PREFERENCES_RESULTCODE) {
-            Toast.makeText(this, "Back from preferences", Toast.LENGTH_SHORT)
-                    .show();
-        }
+    protected void onStop() {
+        super.onStop();
+        EasyTracker.getInstance().activityStop(this);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -140,10 +150,10 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
         // Else, nothing in the direct fragment back stack
         else {
             if ( !NavigationController.HOME_FRAGMENT_TAG.equals(currentFragment.getTag())) {
-                this.navController.goHomeFragment(this);
+                this.navController.goHomeFragment(this, tracker);
             }
             else {
-                this.navController.showExitDialog(this);
+                super.onBackPressed();
             }
         }
     }

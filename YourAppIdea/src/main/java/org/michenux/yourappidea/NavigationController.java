@@ -7,15 +7,18 @@ import org.michenux.android.ui.changelog.ChangeLogHelper;
 import org.michenux.android.ui.changelog.EulaChangeLogChainHelper;
 import org.michenux.android.ui.eula.EulaHelper;
 import org.michenux.android.ui.fragment.dialog.ConfirmDialog;
-import org.michenux.yourappidea.settings.MyPreferences;
 import org.michenux.yourappidea.home.MainFragment;
 import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
+import org.michenux.yourappidea.settings.SettingsFragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 
 @Singleton
 public class NavigationController {
@@ -26,12 +29,14 @@ public class NavigationController {
 		
 	}
 	
-	public void startAppRating(Context context) {
+	public void startAppRating(Context context, Tracker tracker) {
+        tracker.sendView("App Rating");
 		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri
 				.parse("market://details?id=" + context.getPackageName())));
 	}
 
-    public void goHomeFragment( AbstractNavDrawerActivity activity) {
+    public void goHomeFragment( AbstractNavDrawerActivity activity, Tracker tracker) {
+        tracker.sendView("Home");
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new MainFragment(), HOME_FRAGMENT_TAG).commit();
         activity.setTitleWithDrawerTitle();
@@ -49,17 +54,20 @@ public class NavigationController {
                 R.string.eula_refuse);
 	}
 
-	public void showEula(FragmentActivity activity) {
+	public void showEula(FragmentActivity activity, Tracker tracker) {
+        tracker.sendView("Eula");
         EulaHelper eulaHelper = new EulaHelper(activity);
         eulaHelper.show(R.string.eula_title, R.string.eula_close);
 	}
 
-    public void showWhatsNew( FragmentActivity activity ) {
+    public void showWhatsNew( FragmentActivity activity, Tracker tracker ) {
+        tracker.sendView("Whatsnew");
         ChangeLogHelper changeLogHelper = new ChangeLogHelper();
         changeLogHelper.showWhatsNew(R.string.changelog_title, R.string.changelog_close, R.xml.changelog, activity);
     }
 
-    public void showChangeLog( FragmentActivity activity ) {
+    public void showChangeLog( FragmentActivity activity, Tracker tracker ) {
+        tracker.sendView("Changelog");
         ChangeLogHelper changeLogHelper = new ChangeLogHelper();
         changeLogHelper.showFullChangeLog(R.string.changelog_title, R.string.changelog_close, R.xml.changelog, activity);
     }
@@ -78,8 +86,10 @@ public class NavigationController {
 		newFragment.show(activity.getSupportFragmentManager(), "dialog");
 	}
 
-	public void showSettings(FragmentActivity activity) {
-		activity.startActivityForResult(new Intent(activity,
-				MyPreferences.class), MyPreferences.PREFERENCES_RESULTCODE);
-	}
+    public void showSettings(FragmentActivity activity, Tracker tracker) {
+        tracker.sendView("Settings");
+        SettingsFragment settingsFragment = SettingsFragment.newInstance(R.xml.preferences);
+        activity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, settingsFragment, null).commit();
+    }
 }

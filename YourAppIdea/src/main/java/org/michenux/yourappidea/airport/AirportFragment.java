@@ -165,7 +165,7 @@ public class AirportFragment extends ListFragment {
 				adapter.clear();
 				Collections.sort(response.getFlights(),
 						new FlightEtaComparator());
-				//Min Level 9: adapter.addAll(response.getFlights());
+				//Min Level 11: adapter.addAll(response.getFlights());
                 for( Flight flight: response.getFlights()) {
                     adapter.add(flight);
                 }
