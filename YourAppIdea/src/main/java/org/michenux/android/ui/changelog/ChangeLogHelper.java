@@ -63,7 +63,7 @@ public class ChangeLogHelper {
                     //Check if the version matches the release tag.
                     //When version is 0 every release tag is parsed.
                     int versionCode = Integer.parseInt(xmlParser.getAttributeValue(null, "versioncode"));
-                    if (versionCode >= fromVersion ) {
+                    if (versionCode > fromVersion ) {
                         parseReleaseTag(changeLogBuilder, xmlParser, context);
                         releaseFound = true; //At lease one release tag has been parsed.
                     }
