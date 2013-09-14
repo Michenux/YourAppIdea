@@ -6,8 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.Tracker;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import org.michenux.yourappidea.R;
@@ -27,8 +25,6 @@ import javax.inject.Inject;
 
 public class YourAppMainActivity extends AbstractNavDrawerActivity {
 
-    private Tracker tracker;
-
     @Inject
     NavigationController navController;
 
@@ -37,11 +33,8 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
         super.onCreate(savedInstanceState);
         ((YourApplication) getApplication()).inject(this);
 
-        EasyTracker.getInstance().setContext(getApplicationContext());
-        tracker = EasyTracker.getTracker();
-
         if (savedInstanceState == null) {
-            this.navController.goHomeFragment(this, tracker);
+            this.navController.goHomeFragment(this);
             this.navController.confirmEulaAndShowChangeLog(this);
         }
     }
@@ -49,7 +42,6 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        EasyTracker.getInstance().activityStart(this);
     }
 
     @Override
@@ -90,28 +82,25 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     protected void onNavItemSelected(int id) {
         switch (id) {
             case 101:
-                tracker.sendView("Friends");
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new FriendMainFragment())
                         .commit();
                 break;
             case 102:
-                tracker.sendView("Airport");
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new AirportFragment())
                         .commit();
                 break;
             case 103:
-                tracker.sendView("SimpleMap");
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new SupportMapFragment())
                         .commit();
                 break;
             case 201:
-                this.navController.showSettings(this, tracker);
+                this.navController.showSettings(this);
                 break;
             case 202:
-                this.navController.startAppRating(this, tracker);
+                this.navController.startAppRating(this);
                 break;
             case 203:
                 getSupportFragmentManager().beginTransaction()
@@ -119,10 +108,10 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                         .commit();
                 break;
             case 204:
-                this.navController.showChangeLog(this, tracker);
+                this.navController.showChangeLog(this);
                 break;
             case 205:
-                this.navController.showEula(this, tracker);
+                this.navController.showEula(this);
                 break;
             case 206:
                 this.navController.showExitDialog(this);
@@ -133,7 +122,6 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        EasyTracker.getInstance().activityStop(this);
     }
 
     @Override
@@ -150,7 +138,7 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
         // Else, nothing in the direct fragment back stack
         else {
             if ( !NavigationController.HOME_FRAGMENT_TAG.equals(currentFragment.getTag())) {
-                this.navController.goHomeFragment(this, tracker);
+                this.navController.goHomeFragment(this);
             }
             else {
                 super.onBackPressed();

@@ -3,7 +3,6 @@
     <release version="1.2.2" versioncode="122">
         <change>Remove "Quit" from NavigationDrawer and "Quit Confirm Dialog" (anti-pattern)</change>
         <change>Add preferences fragment (custom preference fragment compatible with Android 2.2+)</change>
-        <change>Add Google Analytics</change>
     </release>
     <release version="1.2.1" versioncode="121">
         <change>Add simple map screen (Google API v2)</change>
