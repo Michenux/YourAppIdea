@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.michenux.android.rest.GsonRequest;
-import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.AdapterView;
 
@@ -31,9 +33,9 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 //http://www.flightradar24.com/AirportInfoService.php?airport=ORY&type=in
 //LFRS
-public class AirportFragment extends ListFragment {
+public class AirportListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-	private static final Logger log = LoggerFactory.getLogger(AirportFragment.class);
+	private static final Logger log = LoggerFactory.getLogger(AirportListFragment.class);
 	
 	private Menu optionsMenu;
 
@@ -42,27 +44,38 @@ public class AirportFragment extends ListFragment {
 	private boolean requestRunning = false;
 
 	private String currentMode = "in" ;
-	
+
+    private AirportAdapter airportAdapter;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		log.info("AirportFragment.onCreate");
+		log.info("AirportListFragment.onCreate");
 		
-		setRetainInstance(true);
+		//setRetainInstance(true);
 		setHasOptionsMenu(true);
 		
-		AirportAdapter airportAdapter = new AirportAdapter(this.getActivity(),
+		this.airportAdapter = new AirportAdapter(this.getActivity(),
 				R.id.flight_name, new ArrayList<Flight>());
-		setListAdapter(airportAdapter);
 
 		this.requestQueue = Volley.newRequestQueue(this.getActivity());
 		this.startRequest();
 	}
 
-	@Override
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        log.info("AirportListFragment.onCreateView");
+        View view = inflater.inflate(R.layout.airport_listfragment, container, false);
+        ListView listView = (ListView) view.findViewById(R.id.airport_listview);
+        listView.setAdapter(this.airportAdapter);
+        listView.setOnItemClickListener(this);
+        return view;
+    }
+
+    @Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		log.info("AirportFragment.onCreateOptionsMenu");
+		log.info("AirportListFragment.onCreateOptionsMenu");
 		this.optionsMenu = menu;
 		inflater.inflate(R.menu.airport_menu, menu);
 		
@@ -81,14 +94,14 @@ public class AirportFragment extends ListFragment {
 			public void onItemSelected(AdapterView<?> adapterView, View view,
 					int position, long row) {
 				
-				AirportFragment.this.cancelRequests();
+				AirportListFragment.this.cancelRequests();
 				if ( position == 0 ) {
-					AirportFragment.this.currentMode = "in";
+					AirportListFragment.this.currentMode = "in";
 				}
 				else {
-					AirportFragment.this.currentMode = "out";
+					AirportListFragment.this.currentMode = "out";
 				}
-				AirportFragment.this.startRequest();
+				AirportListFragment.this.startRequest();
 			}
 
 			@Override
@@ -114,9 +127,9 @@ public class AirportFragment extends ListFragment {
 	}
 
 	private void startRequest() {
-		log.info("AirportFragment.startRequest");
+		log.info("AirportListFragment.startRequest");
 		if ( !requestRunning ) {
-			AirportFragment.this.requestRunning = true ;
+			AirportListFragment.this.requestRunning = true ;
 			
 			String url = getString(R.string.airport_rest_url, this.currentMode);
 			Log.d("TEST", url );
@@ -159,9 +172,8 @@ public class AirportFragment extends ListFragment {
 		return new Response.Listener<AirportRestResponse>() {
 			@Override
 			public void onResponse(AirportRestResponse response) {
-				log.info("AirportFragment.onResponse");
-				AirportAdapter adapter = (AirportAdapter) AirportFragment.this
-						.getListAdapter();
+				log.info("AirportListFragment.onResponse");
+				AirportAdapter adapter = (AirportAdapter) AirportListFragment.this.airportAdapter;
 				adapter.clear();
 				Collections.sort(response.getFlights(),
 						new FlightEtaComparator());
@@ -170,8 +182,8 @@ public class AirportFragment extends ListFragment {
                     adapter.add(flight);
                 }
 				adapter.notifyDataSetChanged();
-				AirportFragment.this.setRefreshActionButtonState(false);
-				AirportFragment.this.requestRunning = false ;
+				AirportListFragment.this.setRefreshActionButtonState(false);
+				AirportListFragment.this.requestRunning = false ;
 			}
 		};
 	}
@@ -180,12 +192,12 @@ public class AirportFragment extends ListFragment {
 		return new Response.ErrorListener() {
 			@Override
 			public void onErrorResponse(VolleyError error) {
-				log.info("AirportFragment.onErrorResponse");
-				AirportFragment.this.setRefreshActionButtonState(false);
-				AirportFragment.this.requestRunning = false ;
+				log.info("AirportListFragment.onErrorResponse");
+				AirportListFragment.this.setRefreshActionButtonState(false);
+				AirportListFragment.this.requestRunning = false ;
 				
 				Crouton.makeText(
-					AirportFragment.this.getActivity(),
+					AirportListFragment.this.getActivity(),
 					getString(R.string.error_retrievingdata),
 					Style.ALERT).show();
 				
@@ -195,9 +207,14 @@ public class AirportFragment extends ListFragment {
 	
 	@Override
 	public void onDestroy() {
-		log.info("AirportFragment.onDestroy");
+		log.info("AirportListFragment.onDestroy");
 		this.cancelRequests();
 		Crouton.cancelAllCroutons();
 		super.onDestroy();
 	}
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
 }

@@ -1,10 +1,9 @@
 buildscript {
     repositories {
-        mavenLocal()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:0.6.+'
     }
 }
 apply plugin: 'android'
@@ -14,24 +13,24 @@ repositories {
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17.0.0"
+    compileSdkVersion 18
+    buildToolsVersion "18.1.1"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 17
+        targetSdkVersion 18
     }
 
-    buildTypes {
-        debug {
+    //buildTypes {
+    //    debug {
             //packageNameSuffix ".debug"
-        }
-    }
+    //    }
+    //}
 }
 
 dependencies {
     //compile 'com.android.support:support-v4:13.0.+'
-    compile "com.android.support:appcompat-v7:18.0.+"
+    compile "com.android.support:appcompat-v7:+"
     compile "com.squareup.dagger:dagger:1.0.+"
     compile "org.slf4j:slf4j-android:1.6.1-RC1"
     compile files('libs/GoogleAdMobAdsSdk-6.4.1.jar')
@@ -41,5 +40,4 @@ dependencies {
         exclude group: 'com.google.android', module: 'support-v4'
     }
     compile 'com.google.android.gms:play-services:3.1.36'
-    compile files('libs/libGoogleAnalyticsV2.jar')
 }

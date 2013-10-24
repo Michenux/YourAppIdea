@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+    <release version="1.2.3" versioncode="123">
+        <change>SimpleMap: add my location</change>
+    </release>
     <release version="1.2.2" versioncode="122">
         <change>Remove "Quit" from NavigationDrawer and "Quit Confirm Dialog" (anti-pattern)</change>
         <change>Add preferences fragment (custom preference fragment compatible with Android 2.2+)</change>

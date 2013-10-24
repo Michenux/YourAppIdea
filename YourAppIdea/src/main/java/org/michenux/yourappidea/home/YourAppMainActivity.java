@@ -1,16 +1,12 @@
 package org.michenux.yourappidea.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.SupportMapFragment;
 
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.airport.AirportFragment;
+import org.michenux.yourappidea.airport.AirportListFragment;
 import org.michenux.yourappidea.NavigationController;
 import org.michenux.yourappidea.donations.DonateFragment;
 import org.michenux.yourappidea.friends.FriendMainFragment;
@@ -20,6 +16,7 @@ import org.michenux.android.ui.navdrawer.NavDrawerAdapter;
 import org.michenux.android.ui.navdrawer.NavDrawerItem;
 import org.michenux.android.ui.navdrawer.NavMenuItem;
 import org.michenux.android.ui.navdrawer.NavMenuSection;
+import org.michenux.yourappidea.map.SimpleMapFragment;
 
 import javax.inject.Inject;
 
@@ -88,12 +85,12 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 break;
             case 102:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, new AirportFragment())
+                        .replace(R.id.content_frame, new AirportListFragment())
                         .commit();
                 break;
             case 103:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, new SupportMapFragment())
+                        .replace(R.id.content_frame, new SimpleMapFragment())
                         .commit();
                 break;
             case 201:
