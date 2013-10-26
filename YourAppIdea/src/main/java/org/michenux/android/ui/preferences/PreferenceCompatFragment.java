@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ListView;
 
 import org.michenux.yourappidea.R;
@@ -21,17 +21,15 @@ import org.michenux.yourappidea.R;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-public class PreferenceCompatFragment extends ListFragment {
+public abstract class PreferenceCompatFragment extends Fragment {
 
     private static final int FIRST_REQUEST_CODE = 100;
-
-    private static final int MSG_BIND_PREFERENCES = 0;
-
+    private static final int MSG_BIND_PREFERENCES = 1;
+    private static final String PREFERENCES_TAG = "android:preferences";
+    private boolean mHavePrefs;
+    private boolean mInitDone;
+    private ListView mList;
     private PreferenceManager mPreferenceManager;
-
-    private ListView mListView;
-
-    private int xmlId;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -45,54 +43,139 @@ public class PreferenceCompatFragment extends ListFragment {
         }
     };
 
-    public static PreferenceCompatFragment newInstance(int preferences) {
-        PreferenceCompatFragment prefFragment = new PreferenceCompatFragment();
-        Bundle args = new Bundle();
-        args.putInt("xml", preferences);
-        prefFragment.setArguments(args);
-        return prefFragment;
+    final private Runnable mRequestFocus = new Runnable() {
+        public void run() {
+            mList.focusableViewAvailable(mList);
+        }
+    };
+
+    private void bindPreferences() {
+        PreferenceScreen localPreferenceScreen = getPreferenceScreen();
+        if (localPreferenceScreen != null) {
+            ListView localListView = getListView();
+            localPreferenceScreen.bind(localListView);
+        }
     }
 
-    @Override
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
-        xmlId = getArguments().getInt("xml");
-        this.mPreferenceManager = createPreferenceManager();
-        this.mListView = (ListView) LayoutInflater.from(getActivity()).inflate(R.layout.preference_list_content, null);
-        this.mListView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        addPreferencesFromResource(this.xmlId);
-        postBindPreferences();
-        //((OnPreferenceAttachedListener) getActivity()).onPreferenceAttached(getPreferenceScreen(), xmlId);
+    private void ensureList() {
+        if (mList == null) {
+            View view = getView();
+            if (view == null) {
+                throw new IllegalStateException("Content view not yet created");
+            }
+
+            View listView = view.findViewById(android.R.id.list);
+            if (!(listView instanceof ListView)) {
+                throw new RuntimeException("Content has view with id attribute 'android.R.id.list' that is not a ListView class");
+            }
+
+            mList = (ListView)listView;
+            if (mList == null) {
+                throw new RuntimeException("Your content must have a ListView whose id attribute is 'android.R.id.list'");
+            }
+
+            mHandler.post(mRequestFocus);
+        }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-        postBindPreferences();
-        return mListView;
+    private void postBindPreferences() {
+        if (mHandler.hasMessages(MSG_BIND_PREFERENCES)) {
+            mHandler.obtainMessage(MSG_BIND_PREFERENCES).sendToTarget();
+        }
+    }
+
+    private void requirePreferenceManager() {
+        if (this.mPreferenceManager == null) {
+            throw new RuntimeException("This should be called after super.onCreate.");
+        }
+    }
+
+    public void addPreferencesFromIntent(Intent intent) {
+        requirePreferenceManager();
+        PreferenceScreen screen = inflateFromIntent(intent, getPreferenceScreen());
+        setPreferenceScreen(screen);
+    }
+
+    public void addPreferencesFromResource(int resId) {
+        requirePreferenceManager();
+        PreferenceScreen screen = inflateFromResource(getActivity(), resId, getPreferenceScreen());
+        setPreferenceScreen(screen);
     }
 
     public Preference findPreference(CharSequence key) {
-        return this.mPreferenceManager.findPreference(key);
+        if (mPreferenceManager == null) {
+            return null;
+        }
+        return mPreferenceManager.findPreference(key);
+    }
+
+    public ListView getListView() {
+        ensureList();
+        return mList;
+    }
+
+    public PreferenceManager getPreferenceManager() {
+        return mPreferenceManager;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getListView().setScrollBarStyle(0);
+        if (mHavePrefs) {
+            bindPreferences();
+        }
+        mInitDone = true;
+        if (savedInstanceState != null) {
+            Bundle localBundle = savedInstanceState.getBundle(PREFERENCES_TAG);
+            if (localBundle != null) {
+                PreferenceScreen screen = getPreferenceScreen();
+                if (screen != null) {
+                    screen.restoreHierarchyState(localBundle);
+                }
+            }
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        this.dispatchActivityResult(requestCode, resultCode, data);
+        dispatchActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("xml", this.xmlId);
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        mPreferenceManager = createPreferenceManager();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
+        return paramLayoutInflater.inflate(R.layout.preference_list_content, paramViewGroup, false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dispatchActivityDestroy();
     }
 
     @Override
     public void onDestroyView() {
+        mList = null;
+        mHandler.removeCallbacks(mRequestFocus);
+        mHandler.removeMessages(MSG_BIND_PREFERENCES);
         super.onDestroyView();
-        ViewParent parentView = this.mListView.getParent();
-        if (parentView != null) {
-            ((ViewGroup) parentView).removeView(this.mListView);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        PreferenceScreen screen = getPreferenceScreen();
+        if (screen != null) {
+            Bundle localBundle = new Bundle();
+            screen.saveHierarchyState(localBundle);
+            bundle.putBundle(PREFERENCES_TAG, localBundle);
         }
     }
 
@@ -102,33 +185,13 @@ public class PreferenceCompatFragment extends ListFragment {
         dispatchActivityStop();
     }
 
-    @Override
-    public void onDestroy() {
-        mListView = null;
-        this.dispatchActivityDestroy();
-        super.onDestroy();
-    }
-
-    public PreferenceManager getPreferenceManager() {
-        return mPreferenceManager;
-    }
+    /** Access methods with visibility private **/
 
     private PreferenceManager createPreferenceManager() {
         try {
             Constructor<PreferenceManager> c = PreferenceManager.class.getDeclaredConstructor(Activity.class, int.class);
             c.setAccessible(true);
             return c.newInstance(this.getActivity(), FIRST_REQUEST_CODE);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    protected void addPreferencesFromResource(int preferencesResId) {
-        try {
-            Method m = PreferenceManager.class.getDeclaredMethod("inflateFromResource", Context.class, int.class, PreferenceScreen.class);
-            m.setAccessible(true);
-            PreferenceScreen prefScreen = (PreferenceScreen) m.invoke(mPreferenceManager, getActivity(), preferencesResId, getPreferenceScreen());
-            setPreferenceScreen(prefScreen);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -150,19 +213,21 @@ public class PreferenceCompatFragment extends ListFragment {
             m.setAccessible(true);
             boolean result = (Boolean) m.invoke(mPreferenceManager, preferenceScreen);
             if (result && preferenceScreen != null) {
-                postBindPreferences();
+                mHavePrefs = true;
+                if (mInitDone) {
+                    postBindPreferences();
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void bindPreferences() {
+    private void dispatchActivityResult(int requestCode, int resultCode, Intent data) {
         try {
-            final PreferenceScreen preferenceScreen = getPreferenceScreen();
-            if (preferenceScreen != null) {
-                preferenceScreen.bind(this.mListView);
-            }
+            Method m = PreferenceManager.class.getDeclaredMethod("dispatchActivityResult", int.class, int.class, Intent.class);
+            m.setAccessible(true);
+            m.invoke(mPreferenceManager, requestCode, resultCode, data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -188,23 +253,38 @@ public class PreferenceCompatFragment extends ListFragment {
         }
     }
 
-    private void dispatchActivityResult(int requestCode, int resultCode, Intent data) {
+
+    private void setFragment(PreferenceFragment preferenceFragment) {
         try {
-            Method m = PreferenceManager.class.getDeclaredMethod("dispatchActivityResult", int.class, int.class, Intent.class);
+            Method m = PreferenceManager.class.getDeclaredMethod("setFragment", PreferenceFragment.class);
             m.setAccessible(true);
-            m.invoke(mPreferenceManager, requestCode, resultCode, data);
+            m.invoke(mPreferenceManager, preferenceFragment);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void postBindPreferences() {
-        if (!mHandler.hasMessages(MSG_BIND_PREFERENCES)) {
-            mHandler.obtainMessage(MSG_BIND_PREFERENCES).sendToTarget();
+    public PreferenceScreen inflateFromResource(Context context, int resId, PreferenceScreen rootPreferences) {
+        PreferenceScreen preferenceScreen ;
+        try {
+            Method m = PreferenceManager.class.getDeclaredMethod("inflateFromResource", Context.class, int.class, PreferenceScreen.class);
+            m.setAccessible(true);
+            preferenceScreen = (PreferenceScreen) m.invoke(mPreferenceManager, context, resId, rootPreferences);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        return preferenceScreen;
     }
 
-    public interface OnPreferenceAttachedListener{
-        public void onPreferenceAttached(PreferenceScreen root, int xmlId);
+    public PreferenceScreen inflateFromIntent(Intent queryIntent, PreferenceScreen rootPreferences) {
+        PreferenceScreen preferenceScreen ;
+        try {
+            Method m = PreferenceManager.class.getDeclaredMethod("inflateFromIntent", Intent.class, PreferenceScreen.class);
+            m.setAccessible(true);
+            preferenceScreen = (PreferenceScreen) m.invoke(mPreferenceManager, queryIntent, rootPreferences);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return preferenceScreen;
     }
 }

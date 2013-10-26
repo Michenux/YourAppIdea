@@ -80,8 +80,7 @@ public class NavigationController {
 	}
 
     public void showSettings(FragmentActivity activity) {
-        SettingsFragment settingsFragment = SettingsFragment.newInstance(R.xml.preferences);
         activity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, settingsFragment, null).commit();
+                .replace(R.id.content_frame, new SettingsFragment(), null).commit();
     }
 }

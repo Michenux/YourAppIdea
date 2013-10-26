@@ -2,31 +2,18 @@ package org.michenux.yourappidea.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-import android.util.Log;
 
 import org.michenux.android.ui.preferences.PreferenceCompatFragment;
+import org.michenux.yourappidea.R;
 
-public class SettingsFragment extends PreferenceCompatFragment implements SharedPreferences.OnSharedPreferenceChangeListener,
-        PreferenceCompatFragment.OnPreferenceAttachedListener {
-
-    public static final String SHARED_PREFS_NAME = "settings";
-
-    public static SettingsFragment newInstance(int preferences) {
-        SettingsFragment prefFragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putInt("xml", preferences);
-        prefFragment.setArguments(args);
-        return prefFragment;
-    }
+public class SettingsFragment extends PreferenceCompatFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
-    public void onCreate(Bundle bundle) {
-        super.onCreate(bundle);
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        addPreferencesFromResource(R.xml.preferences);
         PreferenceManager preferenceManager = getPreferenceManager();
-        preferenceManager.setSharedPreferencesName(SHARED_PREFS_NAME);
         preferenceManager.getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
     }
@@ -35,13 +22,7 @@ public class SettingsFragment extends PreferenceCompatFragment implements Shared
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
         if ( key.equals("notificationPref")) {
-            //TODO:
+            //TODO
         }
-    }
-
-    @Override
-    public void onPreferenceAttached(PreferenceScreen root, int xmlId) {
-        if (root == null)
-            return; // can be null sometimes
     }
 }
