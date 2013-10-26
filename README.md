@@ -27,7 +27,7 @@ What you can find inside
 
 * Animations on buttons
 * Different layouts in landscape mode
-* No splashscreen
+* No splashscreen (because anti-pattern)
 
 
 **Architecture**
@@ -55,5 +55,7 @@ What you can find inside
 
 **Others**
 
+* Preferences (using Fragment and compatible with 2.2+)
 * Eula (End User Licence Agreement) : accept/refuse Eula on first time or just display.
-* Quit Dialog
+* Quit Dialog (not enabled by default cause anti-pattern)
+
