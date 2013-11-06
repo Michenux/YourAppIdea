@@ -1,8 +1,8 @@
 package org.michenux.android.ui.navdrawer;
 
-import org.michenux.android.resources.ResourceUtils;
-
 import android.content.Context;
+
+import org.michenux.android.resources.ResourceUtils;
 
 public class NavMenuItem implements NavDrawerItem {
 

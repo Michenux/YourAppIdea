@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import org.michenux.android.ui.animation.LiveButton;
+import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.android.ui.navdrawer.NavDrawerSelectItemRunnable;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
 
 import javax.inject.Inject;
 

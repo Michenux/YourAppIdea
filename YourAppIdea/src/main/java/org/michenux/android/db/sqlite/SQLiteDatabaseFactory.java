@@ -1,13 +1,13 @@
 package org.michenux.android.db.sqlite;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import org.michenux.android.info.VersionUtils;
-
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.sqlite.SQLiteDatabase;
+
+import org.michenux.android.info.VersionUtils;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * @author Michenux

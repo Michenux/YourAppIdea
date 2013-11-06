@@ -3,32 +3,31 @@ package org.michenux.yourappidea.map;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.michenux.android.ui.map.MCXSupportMapFragment;
+import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.michenux.yourappidea.YourApplication;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class SimpleMapFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, MCXSupportMapFragment.OnMapCreatedListener {
-
-    private static final Logger log = LoggerFactory.getLogger(SimpleMapFragment.class);
 
     private GoogleMap mMap;
 
@@ -40,7 +39,9 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        log.info("simpleMapFragment.onCreate");
+        if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onCreate");
+        }
 
         mLocationClient = new LocationClient(this.getActivity().getApplicationContext(), this, this);
         mRequest = LocationRequest.create()
@@ -51,7 +52,9 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        log.info("simpleMapFragment.onCreateView");
+        if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onCreateView");
+        }
         View view = container.findViewById(R.id.simplemap);
         view = inflater.inflate(R.layout.simplemap_fragment, container, false);
         return view ;
@@ -61,7 +64,9 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         MCXSupportMapFragment mapFragment = getMapFragment();
-        log.info("simpleMapFragment.onViewCreated - mapFragment = " + mapFragment);
+        if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onViewCreated - mapFragment = " + mapFragment);
+        }
         if ( mapFragment == null ) {
             mapFragment = new MCXSupportMapFragment();
             mapFragment.setOnMapCreatedListener(this);
@@ -80,32 +85,32 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
     @Override
     public void onResume() {
         super.onResume();
-        log.info("simpleMapFragment.onResume");
         mLocationClient.connect();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        log.info("simpleMapFragment.onPause");
-        mLocationClient.removeLocationUpdates(this);
-        mLocationClient.disconnect();
+        if ( mLocationClient.isConnected()) {
+            mLocationClient.removeLocationUpdates(this);
+            mLocationClient.disconnect();
+        }
     }
 
     @Override
     public void onConnected(Bundle bundle) {
-        log.info("simpleMapFragment.onConnected");
         mLocationClient.requestLocationUpdates(mRequest, this);
     }
 
     @Override
     public void onDisconnected() {
-        log.info("simpleMapFragment.onDisconnected");
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        log.info("simpleMapFragment.onLocationChanged");
+        if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onLocationChanged");
+        }
         if ( mMap != null ) {
             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(loc, 15);
@@ -123,8 +128,9 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
 
     @Override
     public void onMapCreated(GoogleMap googleMap) {
-        MCXSupportMapFragment mapFragment = getMapFragment();
-        mMap = mapFragment.getMap();
-        mMap.setMyLocationEnabled(true);
-    }
+        if ( mMap != null ) {
+            mMap = googleMap;
+            mMap.setMyLocationEnabled(true);
+        }
+     }
 }

@@ -1,9 +1,5 @@
 package org.michenux.yourappidea.airport;
 
-import java.util.List;
-
-import org.michenux.yourappidea.R;
-
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import org.michenux.yourappidea.R;
+
+import java.util.List;
 
 public class AirportAdapter extends ArrayAdapter<Flight> {
 	

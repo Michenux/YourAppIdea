@@ -1,8 +1,8 @@
 package org.michenux.yourappidea.airport;
 
-import java.sql.Timestamp;
-
 import com.google.gson.annotations.SerializedName;
+
+import java.sql.Timestamp;
 
 // {"callsign":"VLG1982","iata":"LIS","type":"A320","lat":39.379,"lon":-8.195,"spd":434,"alt":26175,"flight":"VY1982","name":"Lisbon Lisboa","eta":1364422653}
 public class Flight {

@@ -3,7 +3,6 @@ package org.michenux.android.info;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
 
 public class VersionUtils {
 

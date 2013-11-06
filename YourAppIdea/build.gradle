@@ -13,25 +13,25 @@ repositories {
 }
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "18.1.1"
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
 
     defaultConfig {
         minSdkVersion 10
-        targetSdkVersion 18
+        targetSdkVersion 19
     }
 
-    //buildTypes {
-    //    debug {
+    buildTypes {
+        debug {
+            //buildConfig "public final static boolean HAS_PROTOTYPE_FEATURE = true;"
             //packageNameSuffix ".debug"
-    //    }
-    //}
+        }
+    }
 }
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.squareup.dagger:dagger:1.0.+'
-    compile 'org.slf4j:slf4j-android:1.6.1-RC1'
     compile files('libs/GoogleAdMobAdsSdk-6.4.1.jar')
     compile files('libs/volley-20130809.jar')
     compile 'com.google.code.gson:gson:2.2.4'

@@ -1,9 +1,5 @@
 package org.michenux.yourappidea.donations;
 
-import org.michenux.android.ui.animation.SquashAndStretch;
-import org.michenux.yourappidea.R;
-import org.michenux.yourappidea.YourApplication;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +9,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import org.michenux.android.ui.animation.SquashAndStretch;
+import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.YourApplication;
 
 import javax.inject.Inject;
 

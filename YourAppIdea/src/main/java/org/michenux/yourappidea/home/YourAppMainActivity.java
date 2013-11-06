@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import org.michenux.yourappidea.R;
-import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.airport.AirportListFragment;
-import org.michenux.yourappidea.NavigationController;
-import org.michenux.yourappidea.donations.DonateFragment;
-import org.michenux.yourappidea.friends.FriendMainFragment;
 import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.android.ui.navdrawer.NavDrawerActivityConfiguration;
 import org.michenux.android.ui.navdrawer.NavDrawerAdapter;
 import org.michenux.android.ui.navdrawer.NavDrawerItem;
 import org.michenux.android.ui.navdrawer.NavMenuItem;
 import org.michenux.android.ui.navdrawer.NavMenuSection;
+import org.michenux.yourappidea.NavigationController;
+import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.YourApplication;
+import org.michenux.yourappidea.airport.AirportListFragment;
+import org.michenux.yourappidea.donations.DonateFragment;
+import org.michenux.yourappidea.friends.FriendMainFragment;
 import org.michenux.yourappidea.map.SimpleMapFragment;
 
 import javax.inject.Inject;

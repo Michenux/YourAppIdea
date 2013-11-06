@@ -1,10 +1,5 @@
 package org.michenux.yourappidea.friends;
 
-import javax.inject.Inject;
-
-import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;
-import org.michenux.yourappidea.YourApplication;
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -14,7 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
+
+import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;
+import org.michenux.yourappidea.YourApplication;
+
+import javax.inject.Inject;
 
 /**
  * @author Michenux

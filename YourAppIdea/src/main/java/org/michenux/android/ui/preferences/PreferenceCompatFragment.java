@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.Fragment;
@@ -248,17 +247,6 @@ public abstract class PreferenceCompatFragment extends Fragment {
             Method m = PreferenceManager.class.getDeclaredMethod("dispatchActivityStop");
             m.setAccessible(true);
             m.invoke(mPreferenceManager);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    private void setFragment(PreferenceFragment preferenceFragment) {
-        try {
-            Method m = PreferenceManager.class.getDeclaredMethod("setFragment", PreferenceFragment.class);
-            m.setAccessible(true);
-            m.invoke(mPreferenceManager, preferenceFragment);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,21 +1,21 @@
 package org.michenux.yourappidea;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import org.michenux.android.ui.changelog.ChangeLogHelper;
-import org.michenux.android.ui.changelog.EulaChangeLogChainHelper;
-import org.michenux.android.ui.eula.EulaHelper;
-import org.michenux.android.ui.fragment.dialog.ConfirmDialog;
-import org.michenux.yourappidea.home.MainFragment;
-import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
-import org.michenux.yourappidea.settings.SettingsFragment;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
+
+import org.michenux.android.ui.changelog.ChangeLogHelper;
+import org.michenux.android.ui.changelog.EulaChangeLogChainHelper;
+import org.michenux.android.ui.eula.EulaHelper;
+import org.michenux.android.ui.fragment.dialog.ConfirmDialog;
+import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
+import org.michenux.yourappidea.home.MainFragment;
+import org.michenux.yourappidea.settings.SettingsFragment;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 
 @Singleton

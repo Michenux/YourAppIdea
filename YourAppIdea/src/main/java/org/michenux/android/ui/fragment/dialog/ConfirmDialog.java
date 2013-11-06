@@ -1,12 +1,12 @@
 package org.michenux.android.ui.fragment.dialog;
 
-import org.michenux.yourappidea.R;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+
+import org.michenux.yourappidea.R;
 
 public class ConfirmDialog extends DialogFragment {
 

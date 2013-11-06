@@ -20,9 +20,17 @@ public class LiveButton {
     LiveButton() {
     }
 
-    public void setupLiveAnimOnButton( Button button, Runnable onEndRunnable ) {
+    public void setupLiveAnimOnButton( Button button, final Runnable onEndRunnable ) {
         if (android.os.Build.VERSION.SDK_INT>=12) {
             this.setupLiveAnimOnButtonL12(button, onEndRunnable);
+        }
+        else {
+            button.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onEndRunnable.run();;
+                }
+            });
         }
     }
 

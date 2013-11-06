@@ -1,12 +1,12 @@
-package org.michenux.android.rest;
-
-import java.lang.reflect.Type;
-import java.sql.Timestamp;
+package org.michenux.android.network.json;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+
+import java.lang.reflect.Type;
+import java.sql.Timestamp;
 
 public class TimestampDeserializer implements JsonDeserializer<Timestamp> {
 

@@ -8,9 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.michenux.android.ui.navdrawer.NavDrawerItem;
-import org.michenux.android.ui.navdrawer.NavMenuItem;
-import org.michenux.android.ui.navdrawer.NavMenuSection;
 import org.michenux.yourappidea.R;
 
 public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {

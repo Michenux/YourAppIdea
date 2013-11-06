@@ -1,4 +1,4 @@
-package org.michenux.android.cache;
+package org.michenux.android.network.volley;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

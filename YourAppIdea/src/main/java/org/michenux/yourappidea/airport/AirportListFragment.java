@@ -1,13 +1,5 @@
 package org.michenux.yourappidea.airport;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-import org.michenux.android.rest.GsonRequest;
-import org.michenux.yourappidea.R;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -18,15 +10,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.AdapterView;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+
+import org.michenux.android.network.volley.GsonRequest;
+import org.michenux.yourappidea.BuildConfig;
+import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.YourApplication;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -35,8 +35,6 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 //LFRS
 public class AirportListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-	private static final Logger log = LoggerFactory.getLogger(AirportListFragment.class);
-	
 	private Menu optionsMenu;
 
 	private RequestQueue requestQueue;
@@ -51,7 +49,9 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		log.info("AirportListFragment.onCreate");
+        if (BuildConfig.DEBUG) {
+		    Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreate");
+        }
 		
 		//setRetainInstance(true);
 		setHasOptionsMenu(true);
@@ -65,7 +65,9 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        log.info("AirportListFragment.onCreateView");
+        if (BuildConfig.DEBUG) {
+            Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreateView");
+        }
         View view = inflater.inflate(R.layout.airport_listfragment, container, false);
         ListView listView = (ListView) view.findViewById(R.id.airport_listview);
         listView.setAdapter(this.airportAdapter);
@@ -75,7 +77,9 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 
     @Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		log.info("AirportListFragment.onCreateOptionsMenu");
+        if (BuildConfig.DEBUG) {
+            Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreateOptionsMenu");
+        }
 		this.optionsMenu = menu;
 		inflater.inflate(R.menu.airport_menu, menu);
 		
@@ -127,12 +131,13 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 	}
 
 	private void startRequest() {
-		log.info("AirportListFragment.startRequest");
+        if (BuildConfig.DEBUG) {
+            Log.i(YourApplication.LOG_TAG, "AirportListFragment.startRequest");
+        }
 		if ( !requestRunning ) {
 			AirportListFragment.this.requestRunning = true ;
 			
 			String url = getString(R.string.airport_rest_url, this.currentMode);
-			Log.d("TEST", url );
 			GsonRequest<AirportRestResponse> jsObjRequest = new GsonRequest<AirportRestResponse>(
 					Method.GET, url,
 					AirportRestResponse.class, null,
@@ -142,8 +147,8 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 			this.setRefreshActionButtonState(true);
 			this.requestQueue.add(jsObjRequest);
 		}
-		else {
-			log.info("  request is already running");
+		else if (BuildConfig.DEBUG) {
+            Log.i(YourApplication.LOG_TAG, "  request is already running");
 		}
 	}
 	
@@ -172,7 +177,9 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 		return new Response.Listener<AirportRestResponse>() {
 			@Override
 			public void onResponse(AirportRestResponse response) {
-				log.info("AirportListFragment.onResponse");
+                if (BuildConfig.DEBUG) {
+                    Log.i(YourApplication.LOG_TAG, "AirportListFragment.onResponse");
+                }
 				AirportAdapter adapter = (AirportAdapter) AirportListFragment.this.airportAdapter;
 				adapter.clear();
 				Collections.sort(response.getFlights(),
@@ -192,7 +199,9 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 		return new Response.ErrorListener() {
 			@Override
 			public void onErrorResponse(VolleyError error) {
-				log.info("AirportListFragment.onErrorResponse");
+                if (BuildConfig.DEBUG) {
+                    Log.i(YourApplication.LOG_TAG, "AirportListFragment.onErrorResponse");
+                }
 				AirportListFragment.this.setRefreshActionButtonState(false);
 				AirportListFragment.this.requestRunning = false ;
 				
@@ -204,14 +213,16 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 			}
 		};
 	}
-	
-	@Override
-	public void onDestroy() {
-		log.info("AirportListFragment.onDestroy");
-		this.cancelRequests();
-		Crouton.cancelAllCroutons();
-		super.onDestroy();
-	}
+
+    @Override
+    public void onDestroy() {
+        if (BuildConfig.DEBUG) {
+            Log.i(YourApplication.LOG_TAG, "AirportListFragment.onDestroy");
+        }
+        this.cancelRequests();
+        Crouton.cancelAllCroutons();
+        super.onDestroy();
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

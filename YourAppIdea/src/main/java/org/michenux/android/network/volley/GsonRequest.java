@@ -1,8 +1,4 @@
-package org.michenux.android.rest;
-
-import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
-import java.util.Map;
+package org.michenux.android.network.volley;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -15,6 +11,12 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+
+import org.michenux.android.network.json.TimestampDeserializer;
+
+import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Map;
 
 public class GsonRequest<T> extends Request<T> {
 	

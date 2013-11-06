@@ -1,13 +1,5 @@
 package org.michenux.yourappidea.friends;
 
-import org.michenux.android.db.utils.CursorUtils;
-import org.michenux.android.resources.ResourceUtils;
-import org.michenux.android.ui.fragment.FragmentHelper;
-import org.michenux.android.ui.fragment.MasterDetailFragmentHelper;
-import org.michenux.yourappidea.R;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -25,18 +17,17 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.michenux.android.db.utils.CursorUtils;
+import org.michenux.android.resources.ResourceUtils;
+import org.michenux.android.ui.fragment.FragmentHelper;
+import org.michenux.yourappidea.R;
+
 /**
  * @author Michenux
  * 
  */
 public class FriendListFragment extends ListFragment implements
 		LoaderManager.LoaderCallbacks<Cursor> {
-
-	/**
-	 * Logger
-	 */
-	private static final Logger log = LoggerFactory
-			.getLogger(FriendListFragment.class);
 
 	/**
 	 * 
@@ -184,8 +175,6 @@ public class FriendListFragment extends ListFragment implements
 			long id) {
 		
 		super.onListItemClick(listView, view, position, id);
-
-		log.debug("onListItemClick, dual panel: {}", this.dualPanel);
 
 		Uri detailUri = Uri.parse(FriendContentProvider.CONTENT_URI + "/" + id);
 		FriendDetailFragment detailFragment = FriendDetailFragment
