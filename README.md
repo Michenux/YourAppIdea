@@ -39,6 +39,7 @@ What you can find inside
 **Network**
 
 * Json Request with Volley library
+* SyncAdapter
 
 
 **Promote your app**
