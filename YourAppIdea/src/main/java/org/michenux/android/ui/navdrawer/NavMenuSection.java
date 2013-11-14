@@ -31,11 +31,6 @@ public class NavMenuSection implements NavDrawerItem {
 		this.label = label;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return false;
-	}
-
 	public int getId() {
 		return id;
 	}

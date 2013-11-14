@@ -61,11 +61,6 @@ public class NavMenuItem implements NavDrawerItem {
 	}
 
 	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
-	@Override
 	public boolean updateActionBarTitle() {
 		return this.updateActionBarTitle;
 	}

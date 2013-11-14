@@ -107,11 +107,9 @@ public class SqlParser {
 	 * @param delim
 	 *            character delimiting each statement - typically a ';'
 	 *            character
-	 * @param statements
-	 *            the List that will contain the individual statements
 	 */
 	private static List<String> splitSqlScript(String script, char delim) {
-		List<String> statements = new ArrayList<String>();
+		List<String> statements = new ArrayList<>();
 		StringBuilder sb = new StringBuilder();
 		boolean inLiteral = false;
 		char[] content = script.toCharArray();

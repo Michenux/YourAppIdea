@@ -13,10 +13,9 @@ public class MasterDetailFragmentHelper {
 
 	public static MasterDetailFragments getCurrentFragments( int masterView, int detailView, Class<? extends Fragment> detailClass,
 			FragmentManager fm ) {
-        Log.d("LMI","getCurrentFragments");
 		MasterDetailFragments masterDetailFragments = new MasterDetailFragments();
 		
-		List<Fragment> fragmentToRemove = new ArrayList<Fragment>();
+		List<Fragment> fragmentToRemove = new ArrayList<>();
 		
 		Fragment frag1 = fm.findFragmentById(masterView);
 		if ( frag1 != null ) {

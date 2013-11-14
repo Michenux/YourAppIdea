@@ -95,13 +95,7 @@ public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {
 	public int getItemViewType(int position) {
 	    return this.getItem(position).getType();
 	}
-	
-    @Override
-    public boolean isEnabled(int position) {
-        return getItem(position).isEnabled();
-    }
-    
-    
+
 	private static class NavMenuItemHolder {
 		private TextView labelView;
 		private ImageView iconView;

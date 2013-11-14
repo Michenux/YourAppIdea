@@ -70,9 +70,7 @@ public class ChangeLogHelper {
                 }
                 eventType = xmlParser.next();
             }
-        } catch (XmlPullParserException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (XmlPullParserException | IOException e) {
             throw new RuntimeException(e);
         } finally {
             xmlParser.close();

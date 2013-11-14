@@ -49,12 +49,6 @@ public class FriendListFragment extends ListFragment implements
 		return frag;
 	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.d("LMI","FriendListFragment.onCreate");
-        super.onCreate(savedInstanceState);
-    }
-
     /**
 	 * {@inheritDoc}
 	 * 

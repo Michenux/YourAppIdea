@@ -37,13 +37,13 @@ public class StartActivityOnClickListener implements View.OnClickListener {
 	}
 	
 	/**
-	 * @param context
+	 * @param fragment
 	 * @param objectClass
 	 */
-	public StartActivityOnClickListener(Fragment frament, Class<?> objectClass) {
+	public StartActivityOnClickListener(Fragment fragment, Class<?> objectClass) {
 		super();
-		this.fragment = frament ;
-		this.intent = new Intent(frament.getActivity(), objectClass);
+		this.fragment = fragment ;
+		this.intent = new Intent(fragment.getActivity(), objectClass);
 	}
 	
 	/**

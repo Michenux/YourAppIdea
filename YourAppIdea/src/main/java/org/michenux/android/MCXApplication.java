@@ -39,7 +39,7 @@ public class MCXApplication extends Application {
 
 	public synchronized ObjectGraph getObjectGraph() {
 		if (objectGraph == null) {
-			List<Object> modules = new ArrayList<Object>();
+			List<Object> modules = new ArrayList<>();
 			buildDaggerModules(modules);
 			this.objectGraph = ObjectGraph.create(modules.toArray());
 			onObjectGraphCreated(this.objectGraph);
