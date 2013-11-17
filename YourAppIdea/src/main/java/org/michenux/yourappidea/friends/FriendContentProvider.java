@@ -21,6 +21,12 @@ import javax.inject.Inject;
  */
 public class FriendContentProvider extends ContentProvider {
 
+    public static final String TABLE_NAME = "T_FRIEND" ;
+    public static final String ID_COLUMN = "_ID";
+    public static final String NAME_COLUMN = "NAME";
+    public static final String JOB_COLUMN = "JOB";
+    public static final String FACE_COLUMN = "FACE";
+
 	/**
 	 * 
 	 */
@@ -86,17 +92,17 @@ public class FriendContentProvider extends ContentProvider {
 		int rowsDeleted = 0;
 		switch (uriType) {
 		case FRIENDS:
-			rowsDeleted = sqlDB.delete(FriendTable.NAME, selection,
+			rowsDeleted = sqlDB.delete(TABLE_NAME, selection,
 					selectionArgs);
 			break;
 		case FRIEND_ID:
 			String id = uri.getLastPathSegment();
 			if (TextUtils.isEmpty(selection)) {
-				rowsDeleted = sqlDB.delete(FriendTable.NAME,
-						FriendTable.Fields._ID + "=" + id, null);
+				rowsDeleted = sqlDB.delete(TABLE_NAME,
+                        ID_COLUMN + "=" + id, null);
 			} else {
-				rowsDeleted = sqlDB.delete(FriendTable.NAME,
-						FriendTable.Fields._ID + "=" + id + " and " + selection,
+				rowsDeleted = sqlDB.delete(TABLE_NAME,
+                        ID_COLUMN + "=" + id + " and " + selection,
 						selectionArgs);
 			}
 			break;
@@ -119,7 +125,7 @@ public class FriendContentProvider extends ContentProvider {
 		long id = 0;
 		switch (uriType) {
 		case FRIENDS:
-			id = sqlDB.insert(FriendTable.NAME, null, values);
+			id = sqlDB.insert(TABLE_NAME, null, values);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -135,7 +141,7 @@ public class FriendContentProvider extends ContentProvider {
 		SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
 		
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-		queryBuilder.setTables(FriendTable.NAME);
+		queryBuilder.setTables(TABLE_NAME);
 
 		int uriType = uriMatcher.match(uri);
 		switch (uriType) {
@@ -143,7 +149,7 @@ public class FriendContentProvider extends ContentProvider {
 			break;
 		case FRIEND_ID:
 			// Adding the ID to the original query
-			queryBuilder.appendWhere(FriendTable.Fields._ID + "="
+			queryBuilder.appendWhere(ID_COLUMN + "="
 					+ uri.getLastPathSegment());
 			break;
 		default:
@@ -167,17 +173,17 @@ public class FriendContentProvider extends ContentProvider {
 		int rowsUpdated = 0;
 		switch (uriType) {
 		case FRIENDS:
-			rowsUpdated = sqlDB.update(FriendTable.NAME, values, selection,
+			rowsUpdated = sqlDB.update(TABLE_NAME, values, selection,
 					selectionArgs);
 			break;
 		case FRIEND_ID:
 			String id = uri.getLastPathSegment();
 			if (TextUtils.isEmpty(selection)) {
-				rowsUpdated = sqlDB.update(FriendTable.NAME, values,
-						FriendTable.Fields._ID + "=" + id, null);
+				rowsUpdated = sqlDB.update(TABLE_NAME, values,
+                        ID_COLUMN + "=" + id, null);
 			} else {
-				rowsUpdated = sqlDB.update(FriendTable.NAME, values,
-						FriendTable.Fields._ID + "=" + id + " and " + selection,
+				rowsUpdated = sqlDB.update(TABLE_NAME, values,
+                        ID_COLUMN + "=" + id + " and " + selection,
 						selectionArgs);
 			}
 			break;

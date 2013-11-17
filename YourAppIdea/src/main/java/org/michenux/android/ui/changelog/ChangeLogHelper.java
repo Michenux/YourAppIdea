@@ -7,10 +7,10 @@ import android.content.res.XmlResourceParser;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import org.michenux.android.info.VersionUtils;
-import org.michenux.android.lang.TextUtils;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 

@@ -10,7 +10,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +77,7 @@ public class FriendListFragment extends ListFragment implements
 	 * 
 	 */
 	private void fillData() {
-		String[] from = new String[] { FriendTable.Fields.NAME.name()};
+		String[] from = new String[] { FriendContentProvider.NAME_COLUMN};
 		int[] to = new int[] { R.id.friend_name };
 
 		this.getLoaderManager().initLoader(0, null, this);
@@ -91,8 +90,8 @@ public class FriendListFragment extends ListFragment implements
 
 				if (paramView.getId() == R.id.friend_name) {
 
-					String faceName = CursorUtils.getString(FriendTable.Fields.FACE.name(), paramCursor);
-					String friendName = CursorUtils.getString(FriendTable.Fields.NAME.name(), paramCursor);
+					String faceName = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, paramCursor);
+					String friendName = CursorUtils.getString(FriendContentProvider.NAME_COLUMN, paramCursor);
 					Drawable face = ResourceUtils.getDrawableByName( faceName, FriendListFragment.this.getActivity());
 					face.setBounds( 0, 0, 70, 70 );
 
@@ -116,8 +115,8 @@ public class FriendListFragment extends ListFragment implements
 	 *      android.os.Bundle)
 	 */
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
-		String[] projection = { FriendTable.Fields._ID.name(),
-				FriendTable.Fields.NAME.name(), FriendTable.Fields.FACE.name() };
+		String[] projection = { FriendContentProvider.ID_COLUMN,
+                FriendContentProvider.NAME_COLUMN, FriendContentProvider.FACE_COLUMN };
 		CursorLoader cursorLoader = new CursorLoader(this.getActivity(),
 				FriendContentProvider.CONTENT_URI, projection, null, null, null);
 		return cursorLoader;

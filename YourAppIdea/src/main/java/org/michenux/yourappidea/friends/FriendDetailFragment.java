@@ -85,9 +85,9 @@ public class FriendDetailFragment extends Fragment {
 	 * @param uri
 	 */
 	private void fillData(Uri uri) {
-		String[] projection = { FriendTable.Fields.NAME.name(),  
-				FriendTable.Fields.JOB.name(),
-				FriendTable.Fields.FACE.name()};
+		String[] projection = { FriendContentProvider.TABLE_NAME,
+                FriendContentProvider.JOB_COLUMN,
+                FriendContentProvider.FACE_COLUMN};
 		Cursor cursor = this.getActivity().getContentResolver()
 				.query(uri, projection, null, null, null);
 		if (cursor != null) {
@@ -95,14 +95,11 @@ public class FriendDetailFragment extends Fragment {
 				cursor.moveToFirst();
 				this.nameField
 						.setText(
-							CursorUtils.getString(FriendTable.Fields.NAME
-									.name(), cursor));
+							CursorUtils.getString(FriendContentProvider.TABLE_NAME, cursor));
 				this.jobField
-					.setText(CursorUtils.getString(FriendTable.Fields.JOB
-							.name(), cursor));
+					.setText(CursorUtils.getString(FriendContentProvider.JOB_COLUMN, cursor));
 
-				String faceImg = CursorUtils.getString(FriendTable.Fields.FACE
-						.name(), cursor);
+				String faceImg = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, cursor);
 				this.faceField.setImageDrawable(
 					ResourceUtils.getDrawableByName(
 							faceImg, this.getActivity()));

@@ -17,6 +17,7 @@ import org.michenux.yourappidea.airport.AirportListFragment;
 import org.michenux.yourappidea.donations.DonateFragment;
 import org.michenux.yourappidea.friends.FriendMainFragment;
 import org.michenux.yourappidea.map.SimpleMapFragment;
+import org.michenux.yourappidea.tutorial.TutorialListFragment;
 
 import javax.inject.Inject;
 
@@ -45,6 +46,7 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
         NavDrawerItem[] menu = new NavDrawerItem[] {
                 NavMenuSection.create(100, "Demos"),
+                NavMenuItem.create(104, "Tutorials", "navdrawer_tutorial", true, true, this),
                 NavMenuItem.create(101, "List/Detail", "navdrawer_friends",
                         true, true, this),
                 NavMenuItem.create(102, "Airport", "navdrawer_airport", true, true,
@@ -91,6 +93,11 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
             case 103:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new SimpleMapFragment())
+                        .commit();
+                break;
+            case 104:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, new TutorialListFragment())
                         .commit();
                 break;
             case 201:

@@ -33,14 +33,17 @@ public class MainFragment extends Fragment {
         View mainView = inflater
                 .inflate(R.layout.main_fragment, container, false);
 
+        Button button0 = (Button) mainView.findViewById(R.id.mainmenu_button0);
+        liveButton.setupLiveAnimOnButton(button0, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 1));
+
         Button button1 = (Button) mainView.findViewById(R.id.mainmenu_button1);
-        liveButton.setupLiveAnimOnButton(button1, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 1));
+        liveButton.setupLiveAnimOnButton(button1, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 2));
 
         Button button2 = (Button) mainView.findViewById(R.id.mainmenu_button2);
-        liveButton.setupLiveAnimOnButton(button2, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 2));
+        liveButton.setupLiveAnimOnButton(button2, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 3));
 
         Button button3 = (Button) mainView.findViewById(R.id.mainmenu_button3);
-        liveButton.setupLiveAnimOnButton(button3, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 3));
+        liveButton.setupLiveAnimOnButton(button3, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 4));
 
         return mainView;
     }

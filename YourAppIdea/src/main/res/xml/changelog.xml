@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+    <release version="1.3.0" versioncode="130">
+        <change>Add tutorial screen</change>
+        <change>Change Java Compatibility to 1.7</change>
+        <change>Remove enumerations in code (Enums often require more than twice as much memory as static constants)</change>
+    </release>
     <release version="1.2.3" versioncode="123">
         <change>Notification when new tutorial available (SyncAdapter)</change>
         <change>SimpleMap: add my location</change>

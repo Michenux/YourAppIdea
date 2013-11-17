@@ -3,7 +3,7 @@ create table T_FRIEND (
 	JOB TEXT not null,
 	FACE TEXT not null,
 	NAME text not null);
-	
+
 insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Bertrand', 'Seller', 'face08');
 insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Romain', 'Teacher', 'face03');
 insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Alexis', 'Actor', 'face01');
@@ -13,3 +13,10 @@ insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Florence', 'Baker', 'f
 insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Lydie', 'Web Designer', 'face07');
 insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Vanessa', 'House wife', 'face04');
 
+create table T_TUTORIAL (
+	_id integer primary key autoincrement,
+	TITLE TEXT not null);
+
+insert into T_TUTORIAL(_id, TITLE) values (null, 'Tuto 1');
+insert into T_TUTORIAL(_id, TITLE) values (null, 'Tuto 2');
+insert into T_TUTORIAL(_id, TITLE) values (null, 'Tuto 3');
