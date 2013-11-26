@@ -21,6 +21,7 @@ What you can find inside
 * Spinner in ActionBar
 * Refresh button in Action Bar
 * Contextual toasts with Crouton library
+* Pull To Refresh with library ActionBar-PullToRefresh
 
 
 **Improove UX**
@@ -40,12 +41,13 @@ What you can find inside
 
 * Json Request with Volley library
 * SyncAdapter
+* Retrieve posts from wordpress website
 
 
 **Promote your app**
 
 * Link to the application on Google Play Store for adding rating/comments
-* ChangeLog screen (can show only what's new since last installed version or display full changelog)
+* ChangeLog screen (can show what's new since previous version or display full changelog)
 
 
 **Monetize your app**
