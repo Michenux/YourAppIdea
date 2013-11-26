@@ -1,0 +1,23 @@
+<resources>
+
+    <style name="Widget.Custom.PtrHeader" parent="android:Widget">
+        <item name="ptrHeaderBackground">@android:color/black</item>
+
+        <!-- This is commented out as you should not set this unless you know what you're doing -->
+        <!--<item name="ptrHeaderHeight"></item>-->
+
+        <item name="ptrHeaderTitleTextAppearance">@style/TextAppearance.Custom.PtrHeader.Title</item>
+        <item name="ptrProgressBarStyle">inside</item>
+        <item name="ptrProgressBarColor">@color/purple_dark</item>
+
+        <item name="ptrPullText">Swipe down to refresh...</item>
+        <item name="ptrRefreshingText">Checking for new tutorials</item>
+        <item name="ptrReleaseText">Let go if you want me to refresh!</item>
+    </style>
+
+    <style name="TextAppearance.Custom.PtrHeader.Title"
+        parent="android:TextAppearance.Large">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+</resources>

@@ -15,7 +15,6 @@ public class TutorialSyncService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(YourApplication.LOG_TAG, "tutorialSyncService.onCreate()");
         synchronized (sSyncAdapterLock) {
             if (sSyncAdapter == null) {
                 sSyncAdapter = new TutorialSyncAdapter(getApplicationContext(), true);
@@ -25,7 +24,6 @@ public class TutorialSyncService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(YourApplication.LOG_TAG, "tutorialSyncService.onBind()");
         return sSyncAdapter.getSyncAdapterBinder();
     }
 }

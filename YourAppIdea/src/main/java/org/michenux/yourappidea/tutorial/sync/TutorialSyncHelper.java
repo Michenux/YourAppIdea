@@ -79,7 +79,7 @@ public class TutorialSyncHelper {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date(now));
                 cal.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
-                Log.i(YourApplication.LOG_TAG, "set new last sync date to : " + sdf.format(cal.getTime()));
+                Log.d(YourApplication.LOG_TAG, "set new last sync date to : " + sdf.format(cal.getTime()));
             }
             SharedPreferences.Editor editor = prefs.edit();
             editor.putLong("lastTutoSync", now);
@@ -123,6 +123,15 @@ public class TutorialSyncHelper {
         }
     }
 
+    public void performSync() {
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        ContentResolver.requestSync(tutorialAccount, TutorialContentProvider.AUTHORITY, settingsBundle);
+    }
+
     public void removePeriodicSync() {
         Bundle bundle = new Bundle();
         ContentResolver.removePeriodicSync(tutorialAccount, TutorialContentProvider.AUTHORITY, bundle );
@@ -139,5 +148,11 @@ public class TutorialSyncHelper {
             }
         }
         return exists;
+    }
+
+
+    public boolean isActiveOrPending() {
+        return ContentResolver.isSyncActive(tutorialAccount, TutorialContentProvider.AUTHORITY) ||
+                ContentResolver.isSyncPending(tutorialAccount, TutorialContentProvider.AUTHORITY);
     }
 }

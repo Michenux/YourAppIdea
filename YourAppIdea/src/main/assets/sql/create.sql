@@ -15,8 +15,7 @@ insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Vanessa', 'House wife'
 
 create table T_TUTORIAL (
 	_id integer primary key autoincrement,
-	TITLE TEXT not null);
-
-insert into T_TUTORIAL(_id, TITLE) values (null, 'Tuto 1');
-insert into T_TUTORIAL(_id, TITLE) values (null, 'Tuto 2');
-insert into T_TUTORIAL(_id, TITLE) values (null, 'Tuto 3');
+	TITLE TEXT not null,
+	DESCRIPTION TEXT not null,
+	URL TEXT not null,
+	DATECREATION INTEGER  not null );

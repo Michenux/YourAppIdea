@@ -17,6 +17,8 @@
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Main</item>
         <item name="android:actionDropDownStyle">@style/DropDownNav.Main</item>
         <item name="android:actionBarStyle">@style/CustomActionBar</item>
+
+        <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
     </style>
 
     <style name="CustomActionBar" parent="@style/Widget.AppCompat.ActionBar">

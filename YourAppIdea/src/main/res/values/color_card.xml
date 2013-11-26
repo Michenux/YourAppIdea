@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <color name="card_color">#ff4c4c4c</color>
-    <color name="card_shadow">#ff040404</color> <!--#8c666666-->
-    <color name="card_second_grey">#ff181818</color>
+    <color name="card_color">#000000</color>
+    <color name="card_shadow">@color/purple_middle</color> <!--#8c666666-->
+    <color name="card_second_grey">@android:color/transparent</color>
 </resources>

@@ -2,6 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <string name="tutorial_sync_url">"http://www.michenux.net/?json=get_recent_posts&amp;count=1"</string>
+    <!-- http://www.michenux.net/?json=get_category_posts&slug=flex&amp;count=1&custom_fields=android_desc&exclude=comments,content,excerpt,thumbnail_size,thumbnail_images&categories=flex -->
     <string name="tutorial_notification_title">New android tutorial</string>
 
 </resources>

@@ -16,6 +16,9 @@
         <item name="actionDropDownStyle">@style/DropDownNav.Main</item>
 
         <item name="android:spinnerStyle">@style/DropDownNav.Main</item>
+
+        <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
+
     </style>
 
     <!-- Application theme. -->

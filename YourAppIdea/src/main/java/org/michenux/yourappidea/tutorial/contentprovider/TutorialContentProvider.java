@@ -20,6 +20,9 @@ public class TutorialContentProvider extends ContentProvider {
     public static final String TABLE_NAME = "T_TUTORIAL" ;
     public static final String ID_COLUMN = "_ID";
     public static final String TITLE_COLUMN = "TITLE";
+    public static final String DESCRIPTION_COLUMN = "DESCRIPTION";
+    public static final String URL_COLUMN = "URL";
+    public static final String DATECREATION_COLUMN = "DATECREATION";
 
     public static final String AUTHORITY = "org.michenux.yourappidea.provider";
 

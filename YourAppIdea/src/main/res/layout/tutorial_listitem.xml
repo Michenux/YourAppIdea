@@ -2,19 +2,52 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_card">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card"
+    android:paddingBottom="32dp"
+    android:paddingTop="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:src="@drawable/android"/>
 
     <TextView
         android:id="@+id/tutorial_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:paddingLeft="15dp"
-        android:lines="1"
-        android:textSize="28sp"
+        android:layout_height="54dp"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight">
+        tools:text="ANDROID: PREFERENCEFRAGMENTCOMPAT">
+    </TextView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tutorial_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="center_vertical"
+        tools:text="Unfortunately, PreferenceFragmentCompat is missing in android support library. In this tutorial, i show you a possible implementation that you can use until Google makes its own.">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tutorial_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:gravity="right|center_vertical"
+        android:textStyle="bold|italic"
+        tools:text="18 Oct. 2013">
     </TextView>
 
 </LinearLayout>

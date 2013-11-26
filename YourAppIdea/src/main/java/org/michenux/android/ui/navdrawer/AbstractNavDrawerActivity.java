@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -35,12 +36,19 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		navConf = getNavDrawerConfiguration();
 		
         setContentView(navConf.getMainLayout()); 
-		
-        mTitle = mDrawerTitle = getTitle();
+
+        if ( savedInstanceState == null ) {
+            mTitle = mDrawerTitle = getTitle();
+        }
+        else {
+            mTitle = savedInstanceState.getCharSequence("title");
+            mDrawerTitle = savedInstanceState.getCharSequence("drawerTitle");
+            lastItemChecked = savedInstanceState.getInt("lastItemChecked");
+            setTitle(mTitle);
+        }
         
         mDrawerLayout = (DrawerLayout) findViewById(navConf.getDrawerLayoutId());
         mDrawerList = (ListView) findViewById(navConf.getLeftDrawerId());
@@ -171,5 +179,13 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
 
     public void setTitleWithDrawerTitle() {
         setTitle(mDrawerTitle);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharSequence("title", this.mTitle);
+        outState.putCharSequence("drawerTitle", this.mDrawerTitle);
+        outState.putInt("lastItemChecked", this.lastItemChecked);
     }
 }

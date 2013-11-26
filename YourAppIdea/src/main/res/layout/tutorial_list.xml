@@ -6,4 +6,7 @@
     android:layout_height="match_parent"
     android:divider="@android:color/transparent"
     android:dividerHeight="0dip"
+    android:choiceMode="singleChoice"
+    android:drawSelectorOnTop="false"
+    android:listSelector="@drawable/tutorial_listselector"
     tools:listitem="@layout/tutorial_listitem" />

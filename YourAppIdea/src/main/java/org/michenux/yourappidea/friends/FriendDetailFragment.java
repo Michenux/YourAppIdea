@@ -85,7 +85,7 @@ public class FriendDetailFragment extends Fragment {
 	 * @param uri
 	 */
 	private void fillData(Uri uri) {
-		String[] projection = { FriendContentProvider.TABLE_NAME,
+		String[] projection = { FriendContentProvider.NAME_COLUMN,
                 FriendContentProvider.JOB_COLUMN,
                 FriendContentProvider.FACE_COLUMN};
 		Cursor cursor = this.getActivity().getContentResolver()
@@ -95,7 +95,7 @@ public class FriendDetailFragment extends Fragment {
 				cursor.moveToFirst();
 				this.nameField
 						.setText(
-							CursorUtils.getString(FriendContentProvider.TABLE_NAME, cursor));
+							CursorUtils.getString(FriendContentProvider.NAME_COLUMN, cursor));
 				this.jobField
 					.setText(CursorUtils.getString(FriendContentProvider.JOB_COLUMN, cursor));
 

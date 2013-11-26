@@ -6,6 +6,7 @@ import org.michenux.yourappidea.friends.FriendContentProvider;
 import org.michenux.yourappidea.home.MainFragment;
 import org.michenux.yourappidea.home.YourAppMainActivity;
 import org.michenux.yourappidea.settings.SettingsFragment;
+import org.michenux.yourappidea.tutorial.TutorialListFragment;
 import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncAdapter;
 
@@ -23,6 +24,7 @@ import dagger.Module;
             MainFragment.class,
             DonateFragment.class,
             SettingsFragment.class,
+            TutorialListFragment.class,
 
             TutorialSyncAdapter.class
 	    },

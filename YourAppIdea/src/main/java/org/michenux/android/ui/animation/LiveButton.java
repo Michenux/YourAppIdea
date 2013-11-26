@@ -21,8 +21,8 @@ public class LiveButton {
     }
 
     public void setupLiveAnimOnButton( Button button, final Runnable onEndRunnable ) {
-        if (android.os.Build.VERSION.SDK_INT>=12) {
-            this.setupLiveAnimOnButtonL12(button, onEndRunnable);
+        if (android.os.Build.VERSION.SDK_INT>=16) {
+            this.setupLiveAnimOnButtonL16(button, onEndRunnable);
         }
         else {
             button.setOnClickListener( new View.OnClickListener() {
@@ -34,8 +34,8 @@ public class LiveButton {
         }
     }
 
-    @TargetApi(12)
-    public void setupLiveAnimOnButtonL12( final Button button, final Runnable onEndRunnable ) {
+    @TargetApi(16)
+    public void setupLiveAnimOnButtonL16( final Button button, final Runnable onEndRunnable ) {
         button.animate().setDuration(400);
         button.setOnTouchListener(new View.OnTouchListener() {
 
