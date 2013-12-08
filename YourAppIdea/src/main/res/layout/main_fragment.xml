@@ -41,6 +41,13 @@
                 android:background="@drawable/button_purple"
                 android:text="@string/mainmenu_button3" >
         </Button>
+
+        <Button
+            android:id="@+id/mainmenu_button4"
+            style="@style/ButtonText"
+            android:background="@drawable/button_purple"
+            android:text="@string/mainmenu_button4" >
+        </Button>
     </LinearLayout>
 
     <com.google.ads.AdView

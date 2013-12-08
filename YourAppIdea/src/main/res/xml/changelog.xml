@@ -4,6 +4,7 @@
     Future:
         Builder pattern for navdrawer
         Offline mode for tutorials
+		Essayer avec une longue liste d'items dans le nav drawer. Bug peut-etre dans le get(position)
     -->
 
     <release version="1.3.0" versioncode="130">

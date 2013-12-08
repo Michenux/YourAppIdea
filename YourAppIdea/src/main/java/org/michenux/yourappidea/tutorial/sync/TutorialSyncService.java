@@ -3,9 +3,6 @@ package org.michenux.yourappidea.tutorial.sync;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
-
-import org.michenux.yourappidea.YourApplication;
 
 public class TutorialSyncService extends Service {
 

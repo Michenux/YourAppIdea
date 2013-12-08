@@ -3,8 +3,6 @@ package org.michenux.yourappidea.home;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
 
 import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.android.ui.navdrawer.NavDrawerActivityConfiguration;
@@ -16,6 +14,7 @@ import org.michenux.yourappidea.NavigationController;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.airport.AirportListFragment;
+import org.michenux.yourappidea.aroundme.AroundMeFragment;
 import org.michenux.yourappidea.donations.DonateFragment;
 import org.michenux.yourappidea.friends.FriendMainFragment;
 import org.michenux.yourappidea.map.SimpleMapFragment;
@@ -54,6 +53,8 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 NavMenuItem.create(102, "Airport", "navdrawer_airport", true, true,
                 this),
                 NavMenuItem.create(103, "Simple Map", "navdrawer_map", true, true,
+                        this),
+                NavMenuItem.create(105, "Around me", "navdrawer_aroundme", true, true,
                         this),
                 NavMenuSection.create(200, "General"),
                 NavMenuItem.create(201, "Settings", "navdrawer_settings", true, true, this),
@@ -100,6 +101,11 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
             case 104:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new TutorialListFragment())
+                        .commit();
+                break;
+            case 105:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, new AroundMeFragment())
                         .commit();
                 break;
             case 201:

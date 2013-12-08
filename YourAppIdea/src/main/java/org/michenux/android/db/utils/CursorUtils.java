@@ -2,10 +2,6 @@ package org.michenux.android.db.utils;
 
 import android.database.Cursor;
 
-/**
- * @author Michenux
- *
- */
 public class CursorUtils {
 
 	public static String getString( String columnName, Cursor cursor ) {
@@ -18,5 +14,9 @@ public class CursorUtils {
 
     public static long getLong( String columnName, Cursor cursor ) {
         return cursor.getLong(cursor.getColumnIndexOrThrow(columnName));
+    }
+
+    public static double getDouble( String columnName, Cursor cursor ) {
+        return cursor.getDouble(cursor.getColumnIndexOrThrow(columnName));
     }
 }

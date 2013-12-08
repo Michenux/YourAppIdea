@@ -1,12 +1,10 @@
 package org.michenux.yourappidea.tutorial;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -16,11 +14,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,8 +26,6 @@ import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
-
-import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -154,6 +146,7 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
         listView.setAdapter(this.mAdapter);
     }
 
+    @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
         String[] projection = { TutorialContentProvider.ID_COLUMN,
                 TutorialContentProvider.TITLE_COLUMN, TutorialContentProvider.DESCRIPTION_COLUMN, TutorialContentProvider.URL_COLUMN, TutorialContentProvider.DATECREATION_COLUMN };
@@ -162,10 +155,12 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
         return cursorLoader;
     }
 
+    @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         this.mAdapter.changeCursor(cursor);
     }
 
+    @Override
     public void onLoaderReset(Loader<Cursor> cursor) {
         this.mAdapter.changeCursor(null);
     }

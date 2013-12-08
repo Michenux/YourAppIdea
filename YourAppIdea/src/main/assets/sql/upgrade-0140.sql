@@ -1,25 +1,3 @@
-create table T_FRIEND (
-	_id integer primary key autoincrement, 
-	JOB TEXT not null,
-	FACE TEXT not null,
-	NAME text not null);
-
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Bertrand', 'Seller', 'face08');
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Romain', 'Teacher', 'face03');
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Alexis', 'Actor', 'face01');
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Vincent', 'Doctor', 'face09');
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Julie', 'Project Manager', 'face06');
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Florence', 'Baker', 'face03');
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Lydie', 'Web Designer', 'face07');
-insert into T_FRIEND(_id, NAME, JOB, FACE) values (null, 'Vanessa', 'House wife', 'face04');
-
-create table T_TUTORIAL (
-	_id integer primary key autoincrement,
-	TITLE TEXT not null,
-	DESCRIPTION TEXT not null,
-	URL TEXT not null,
-	DATECREATION INTEGER  not null );
-
 create table T_PLACE (
 	_id integer primary key autoincrement,
 	NAME TEXT not null,
@@ -47,5 +25,3 @@ insert into T_PLACE(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Easte
 insert into T_PLACE(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Capitol Hill','United States',-77.00174649999997, 38.8844371);
 insert into T_PLACE(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Niagara Falls','Canada',-79.08610759999999, 43.0903891);
 insert into T_PLACE(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Chichen Itza','Mexique',-88.56861099999998, 20.6795187);
-
-

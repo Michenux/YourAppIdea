@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/aroundme_placename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:textIsSelectable="true"
+        android:textSize="18dp"
+        tools:text="Place">
+    </TextView>
+
+    <TextView
+        android:id="@+id/aroundme_placecountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/aroundme_placename"
+        android:gravity="right|center_vertical"
+        android:textIsSelectable="true"
+        android:textSize="16dp"
+        tools:text="country">
+    </TextView>
+
+    <TextView
+        android:id="@+id/aroundme_placedistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aroundme_placecountry"
+        android:layout_marginRight="10px"
+        android:layout_toLeftOf="@id/aroundme_placename"
+        android:gravity="center_vertical"
+        android:textColor="#0099CC"
+        android:textIsSelectable="true"
+        android:textSize="14dp"
+        android:layout_alignParentRight="true"
+        tools:text="distance">
+    </TextView>
+
+</RelativeLayout>

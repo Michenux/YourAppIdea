@@ -24,12 +24,9 @@ import org.michenux.android.network.volley.GsonRequest;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.inject.Inject;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;

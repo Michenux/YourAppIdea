@@ -2,8 +2,6 @@ package org.michenux.android.wordpress.json;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class WPJsonPost {
     private int id ;
     private String post;
