@@ -33,7 +33,9 @@ public class ChangeLogHelper {
         int lastShownVersion = this.loadLastShownVersion(fragmentActivity);
         int appVersion = VersionUtils.getVersionCode(fragmentActivity);
         if ( lastShownVersion < appVersion ) {
-            this.showChangeLogFromVersion(resTitle, resCloseLabel, resChangeLog, lastShownVersion, fragmentActivity);
+            if ( lastShownVersion != 0 ) {
+                this.showChangeLogFromVersion(resTitle, resCloseLabel, resChangeLog, lastShownVersion, fragmentActivity);
+            }
             this.saveLastShownVersion(appVersion, fragmentActivity);
         }
     }

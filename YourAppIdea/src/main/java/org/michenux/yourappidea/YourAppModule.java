@@ -1,6 +1,7 @@
 package org.michenux.yourappidea;
 
 import org.michenux.android.MCXModule;
+import org.michenux.yourappidea.aroundme.AroundMeFragment;
 import org.michenux.yourappidea.aroundme.PlaceContentProvider;
 import org.michenux.yourappidea.donations.DonateFragment;
 import org.michenux.yourappidea.friends.FriendContentProvider;
@@ -27,6 +28,7 @@ import dagger.Module;
             DonateFragment.class,
             SettingsFragment.class,
             TutorialListFragment.class,
+            AroundMeFragment.class,
 
             TutorialSyncAdapter.class
 	    },

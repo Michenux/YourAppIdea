@@ -34,7 +34,7 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
 
         if (savedInstanceState == null) {
             this.navController.goHomeFragment(this);
-            this.navController.confirmEulaAndShowChangeLog(this);
+            this.navController.showWhatsNew(this);
         }
     }
 

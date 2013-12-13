@@ -8,11 +8,22 @@
     android:paddingTop="5dp"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <ImageView
+        android:id="@+id/aroundme_placeimage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="10dp"/>
+
     <TextView
         android:id="@+id/aroundme_placename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@id/aroundme_placeimage"
         android:gravity="center_vertical"
         android:textIsSelectable="true"
         android:textSize="18dp"
@@ -23,11 +34,11 @@
         android:id="@+id/aroundme_placecountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/aroundme_placename"
+        android:layout_toRightOf="@id/aroundme_placeimage"
+        android:layout_below="@id/aroundme_placename"
         android:gravity="right|center_vertical"
         android:textIsSelectable="true"
-        android:textSize="16dp"
+        android:textSize="13dp"
         tools:text="country">
     </TextView>
 
@@ -41,7 +52,7 @@
         android:gravity="center_vertical"
         android:textColor="#0099CC"
         android:textIsSelectable="true"
-        android:textSize="14dp"
+        android:textSize="18dp"
         android:layout_alignParentRight="true"
         tools:text="distance">
     </TextView>

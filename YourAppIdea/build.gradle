@@ -37,12 +37,12 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.squareup.dagger:dagger:1.0.+'
-    compile files('libs/GoogleAdMobAdsSdk-6.4.1.jar')
-    compile files('libs/volley-20130809.jar')
+    compile files('libs/volley-20131211.jar')
     compile 'com.google.code.gson:gson:2.2.4'
     compile('de.keyboardsurfer.android.widget:crouton:1.8.1') {
         exclude group: 'com.google.android', module: 'support-v4'
     }
-    compile 'com.google.android.gms:play-services:3.1.36'  //
+    compile 'com.google.android.gms:play-services:4.0.30'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abc:+'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.0'
 }

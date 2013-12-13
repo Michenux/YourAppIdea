@@ -1,18 +1,16 @@
 package org.michenux.yourappidea.aroundme;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.michenux.yourappidea.R;
-import org.michenux.yourappidea.YourApplication;
 
 import java.util.List;
 
@@ -20,17 +18,12 @@ public class PlaceListAdapter extends ArrayAdapter<Place> {
 
     private List<Place> mPlaces;
 
-    private ImageLoader mImageLoader;
-
-    public PlaceListAdapter(Context context, int textViewResourceId,
-                            List<Place> objects, ImageLoader imageLoader) {
+    public PlaceListAdapter(Context context, int textViewResourceId, List<Place> objects) {
         super(context, textViewResourceId, objects);
         mPlaces = objects;
-        mImageLoader = imageLoader;
     }
 
     public View getView(int position, View view, ViewGroup viewGroup) {
-        Log.d(YourApplication.LOG_TAG, "PlaceListAdapter.getView - position: " + position);
 
         View updateView;
         ViewHolder viewHolder;
@@ -52,7 +45,7 @@ public class PlaceListAdapter extends ArrayAdapter<Place> {
                     .findViewById(R.id.aroundme_placecountry);
 
             //Url
-            viewHolder.placeImageView = (NetworkImageView) updateView
+            viewHolder.placeImageView = (ImageView) updateView
                     .findViewById(R.id.aroundme_placeimage);
 
             updateView.setTag(viewHolder);
@@ -65,7 +58,7 @@ public class PlaceListAdapter extends ArrayAdapter<Place> {
         viewHolder.placeNameView.setText(place.getName());
         viewHolder.placeCountryView.setText(place.getCountry());
         viewHolder.placeDistanceView.setText(this.getContext().getString(R.string.aroundme_placedistance, (int) (place.getDistance() / 1000)));
-        viewHolder.placeImageView.setImageUrl(place.getImage(), mImageLoader);
+        ImageLoader.getInstance().displayImage(place.getImage(), viewHolder.placeImageView);
 
         return updateView;
     }
@@ -74,6 +67,6 @@ public class PlaceListAdapter extends ArrayAdapter<Place> {
         public TextView placeNameView;
         public TextView placeDistanceView;
         public TextView placeCountryView;
-        public NetworkImageView placeImageView;
+        public ImageView placeImageView;
     }
 }

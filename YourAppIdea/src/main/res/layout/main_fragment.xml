@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
- 	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"    
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainmenu"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -50,14 +50,12 @@
         </Button>
     </LinearLayout>
 
-    <com.google.ads.AdView
+    <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="a150d852e9f388f"
-        ads:loadAdOnCreate="true"
-        ads:testDevices="TEST_EMULATOR, 1174B15820BDCDE357023377AAF1D72D, FB73634EFAFEF29BE7973A97B5543A4D"/>
+        ads:adUnitId="a150d852e9f388f"/>
     
 </RelativeLayout>
