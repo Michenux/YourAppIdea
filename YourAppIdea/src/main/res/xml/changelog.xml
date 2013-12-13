@@ -6,6 +6,7 @@
         Tutorial: offline mode
         Aroundme: Selection du pays, add admob
         General: Info in action bar
+        About me screen
     -->
     <release version="1.4.0" versioncode="140">
         <change>Add Around me screen</change>
