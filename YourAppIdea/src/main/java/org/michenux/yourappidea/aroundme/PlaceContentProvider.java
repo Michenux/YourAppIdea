@@ -17,10 +17,11 @@ import javax.inject.Inject;
 
 public class PlaceContentProvider extends ContentProvider {
 
-    public static final String TABLE_NAME = "T_PLACE" ;
+    public static final String TABLE_NAME = "T_PLACE";
     public static final String ID_COLUMN = "_ID";
     public static final String NAME_COLUMN = "NAME";
     public static final String COUNTRY_COLUMN = "COUNTRY";
+    public static final String URL_COLUMN = "URL";
     public static final String LONGITUDE_COLUMN = "LONGITUDE";
     public static final String LATITUDE_COLUMN = "LATITUDE";
 
@@ -43,7 +44,7 @@ public class PlaceContentProvider extends ContentProvider {
     }
 
     @Inject
-    SQLiteDatabaseFactory sqliteDatabaseFactory ;
+    SQLiteDatabaseFactory sqliteDatabaseFactory;
 
     @Override
     public boolean onCreate() {

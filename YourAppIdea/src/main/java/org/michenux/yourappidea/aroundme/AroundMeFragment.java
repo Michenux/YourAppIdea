@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
@@ -24,16 +27,16 @@ import com.google.android.gms.location.LocationRequest;
 
 import org.michenux.android.db.utils.CursorUtils;
 import org.michenux.android.geoloc.DistanceComparator;
-import org.michenux.android.geoloc.LocalizableComparator;
+import org.michenux.android.network.volley.BitmapCacheHolder;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -52,9 +55,19 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
     private DistanceComparator mDistanceComparator = new DistanceComparator();
 
+    private RequestQueue mRequestQueue;
+
+    private ImageLoader mImageLoader;
+
+    private String cityName;
+
+    @Inject
+    BitmapCacheHolder mBitmapCache;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((YourApplication) getActivity().getApplication()).inject(this);
         setRetainInstance(true);
 
         mLocationClient = new LocationClient(this.getActivity().getApplicationContext(), this, this);
@@ -66,7 +79,14 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
         mGeocoder = new Geocoder(this.getActivity(), Locale.getDefault());
 
-        mPlaceListAdapter = new PlaceListAdapter(getActivity(), R.id.aroundme_placename, new ArrayList<Place>());
+        mRequestQueue = Volley.newRequestQueue(this.getActivity());
+        mImageLoader = new ImageLoader(mRequestQueue, mBitmapCache.getBitmapCache());
+
+        mPlaceListAdapter = new PlaceListAdapter(getActivity(), R.id.aroundme_placename, new ArrayList<Place>(), mImageLoader);
+
+        if (savedInstanceState != null) {
+            this.cityName = savedInstanceState.getString("cityName");
+        }
     }
 
     @Override
@@ -76,13 +96,20 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
         ListView listView = (ListView) view.findViewById(R.id.aroundme_listview);
         listView.setAdapter(this.mPlaceListAdapter);
 
+        if (cityName != null) {
+            TextView textView = (TextView) view.findViewById(R.id.aroundme_cityname);
+            textView.setText(cityName);
+        }
+
         return view ;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mLocationClient.connect();
+        if (!mLocationClient.isConnected()) {
+            mLocationClient.connect();
+        }
     }
 
     @Override
@@ -95,12 +122,19 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("cityName", this.cityName);
+    }
+
+    @Override
     public void onConnected(Bundle bundle) {
         mLocationClient.requestLocationUpdates(mRequest, this);
     }
 
     @Override
     public void onDisconnected() {
+        mLocationClient.removeLocationUpdates(this);
     }
 
     @Override
@@ -116,8 +150,9 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
             if(addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
+                this.cityName = address.getLocality();
                 TextView textView = (TextView) getView().findViewById(R.id.aroundme_cityname);
-                textView.setText(address.getLocality());
+                textView.setText(cityName);
             }
 
             this.getLoaderManager().restartLoader(1, null, this);
@@ -141,7 +176,8 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
             Log.d(YourApplication.LOG_TAG, "AroundmeFragment.onCreateLoader()");
         }
 
-        String[] projection = { PlaceContentProvider.NAME_COLUMN, PlaceContentProvider.COUNTRY_COLUMN, PlaceContentProvider.LONGITUDE_COLUMN, PlaceContentProvider.LATITUDE_COLUMN };
+        String[] projection = {PlaceContentProvider.NAME_COLUMN, PlaceContentProvider.COUNTRY_COLUMN,
+                PlaceContentProvider.URL_COLUMN, PlaceContentProvider.LONGITUDE_COLUMN, PlaceContentProvider.LATITUDE_COLUMN};
 
         StringBuilder sort = new StringBuilder("abs(");
         sort.append(PlaceContentProvider.LATITUDE_COLUMN);
@@ -151,10 +187,8 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
         sort.append(PlaceContentProvider.LONGITUDE_COLUMN);
         sort.append(" - ");
         sort.append(this.mCurrentLocation.getLongitude());
-        sort.append(") LIMIT 10 ");
-        CursorLoader cursorLoader = new CursorLoader(this.getActivity(),
-                PlaceContentProvider.CONTENT_URI, projection, null, null, sort.toString());
-        return cursorLoader;
+        sort.append(") LIMIT 20 ");
+        return new CursorLoader(this.getActivity(), PlaceContentProvider.CONTENT_URI, projection, null, null, sort.toString());
     }
 
     @Override
@@ -168,6 +202,7 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
             Place place = new Place();
             place.setName(CursorUtils.getString(PlaceContentProvider.NAME_COLUMN, cursor));
             place.setCountry(CursorUtils.getString(PlaceContentProvider.COUNTRY_COLUMN, cursor));
+            place.setImage(CursorUtils.getString(PlaceContentProvider.URL_COLUMN, cursor));
             Location loc = new Location("database");
             loc.setLatitude(CursorUtils.getDouble(PlaceContentProvider.LATITUDE_COLUMN, cursor));
             loc.setLongitude(CursorUtils.getDouble(PlaceContentProvider.LONGITUDE_COLUMN, cursor));

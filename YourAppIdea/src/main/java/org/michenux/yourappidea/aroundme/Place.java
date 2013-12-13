@@ -3,13 +3,13 @@ package org.michenux.yourappidea.aroundme;
 import android.location.Location;
 
 import org.michenux.android.geoloc.DistanceHolder;
-import org.michenux.android.geoloc.Localizable;
 
 public class Place implements DistanceHolder {
 
-    private long id ;
+    private long id;
     private String name;
     private String country;
+    private String image;
     private Location location;
     private float distance;
 
@@ -51,5 +51,13 @@ public class Place implements DistanceHolder {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
