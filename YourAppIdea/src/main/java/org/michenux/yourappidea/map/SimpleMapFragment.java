@@ -127,7 +127,10 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
 
     @Override
     public void onMapCreated(GoogleMap googleMap) {
-        if ( mMap != null ) {
+        if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onMapCreated - map: " + googleMap);
+        }
+        if ( googleMap != null ) {
             mMap = googleMap;
             mMap.setMyLocationEnabled(true);
         }
