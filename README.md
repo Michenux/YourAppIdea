@@ -8,7 +8,7 @@ You can try the application [here](https://play.google.com/store/apps/details?id
 Requirements
 ============
 
-* Android SDK 18 (with extras/Google Repository)
+* Android SDK 19 (with extras/Google Repository)
 * Android Studio
 
 What you can find inside
@@ -34,7 +34,13 @@ What you can find inside
 **Architecture**
 
 * Dependency injection with Dagger
+
+
+**Persistence**
+
 * Sqlite Database : manage creation/upgrade of database using sql scripts
+* ContentProvider examples
+* AsyncTaskLoader and CursorLoader
 
 
 **Network**
@@ -42,6 +48,12 @@ What you can find inside
 * Json Request with Volley library
 * SyncAdapter
 * Retrieve posts from wordpress website
+
+
+**Geoloc**
+
+* Localization with Google Play Services
+* Geocoder example, Distance compute, sort by distance
 
 
 **Promote your app**
