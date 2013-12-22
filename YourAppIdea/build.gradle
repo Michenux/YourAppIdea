@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:0.7.+'
     }
 }
 apply plugin: 'android'
@@ -19,12 +19,18 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 19
+        versionCode 141
+        versionName "1.4.1"
     }
 
     buildTypes {
         debug {
             //buildConfig "public final static boolean HAS_PROTOTYPE_FEATURE = true;"
             //packageNameSuffix ".debug"
+        }
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 
@@ -36,7 +42,8 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
-    compile 'com.squareup.dagger:dagger:1.0.+'
+    compile 'com.squareup.dagger:dagger-compiler:1.2.0'
+    compile 'com.squareup.dagger:dagger:1.2.0'
     compile files('libs/volley-20131211.jar')
     compile 'com.google.code.gson:gson:2.2.4'
     compile('de.keyboardsurfer.android.widget:crouton:1.8.1') {
