@@ -1,5 +1,7 @@
 package org.michenux.android.network.volley;
 
+import android.location.Location;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -12,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
+import org.michenux.android.network.json.LocationDeserializer;
 import org.michenux.android.network.json.TimestampDeserializer;
 
 import java.io.UnsupportedEncodingException;
@@ -31,6 +34,7 @@ public class GsonRequest<T> extends Request<T> {
         
         GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Timestamp.class, new TimestampDeserializer());
+        gsonBuilder.registerTypeAdapter(Location.class, new LocationDeserializer());
 		this.gson = gsonBuilder.create();
         this.clazz = clazz;
         this.headers = headers;

@@ -67,7 +67,8 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
             this.mCityName = savedInstanceState.getString("cityName");
         }
 
-        mPlaceProvider = new PlaceLocalProvider(this, this);
+        //mPlaceProvider = new PlaceLocalProvider(this, this);
+        mPlaceProvider = new PlaceRemoteProvider(this, this);
     }
 
     @Override
@@ -162,5 +163,11 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
             mPlaceListAdapter.add(place);
         }
         this.mPlaceListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroy() {
+        mPlaceProvider.onDestroy();
+        super.onDestroy();
     }
 }

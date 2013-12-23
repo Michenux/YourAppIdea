@@ -2,4 +2,6 @@
 <resources>
     <string name="aroundme_nolocation">Waiting for location updates...</string>
     <string name="aroundme_placedistance">%1$s km</string>
+    <string name="aroundme_placeremoteprovider_url" >https://api.mongolab.com/api/1/databases/michenuxdb/collections/Places?q={\'location\':{$near:{$geometry:{\'type\':\'Point\',\'coordinates\':[%1$s,%2$s]},$maxDistance:%3$s}}}&amp;apiKey=50a2444ae4b0cd0bfc124248
+</string>
 </resources>

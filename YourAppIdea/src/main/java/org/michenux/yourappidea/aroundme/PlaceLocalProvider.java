@@ -92,4 +92,9 @@ public class PlaceLocalProvider implements PlaceProvider, LoaderManager.LoaderCa
             this.mCallback.onPlaceLoadFinished(new ArrayList<Place>());
         }
     }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }
