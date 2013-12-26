@@ -10,7 +10,7 @@ public class NavMenuItem implements NavDrawerItem {
 	
 	private int id ;
 	
-	private String label ;
+	private int label ;
 	
 	private int icon ;
 	
@@ -18,19 +18,6 @@ public class NavMenuItem implements NavDrawerItem {
 
     private boolean checkable ;
 
-	private NavMenuItem() {
-	}
-
-	public static NavMenuItem create( int id, String label, String icon, boolean updateActionBarTitle, boolean checkable, Context context ) {
-		NavMenuItem item = new NavMenuItem();
-		item.setId(id);
-		item.setLabel(label);
-		item.setIcon(ResourceUtils.getDrawableIdByName(icon, context));
-		item.setUpdateActionBarTitle(updateActionBarTitle);
-        item.setCheckable(checkable);
-		return item;
-	}
-	
 	@Override
 	public int getType() {
 		return ITEM_TYPE;
@@ -44,11 +31,11 @@ public class NavMenuItem implements NavDrawerItem {
 		this.id = id;
 	}
 
-	public String getLabel() {
+	public int getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
+	public void setLabel(int label) {
 		this.label = label;
 	}
 

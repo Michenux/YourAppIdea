@@ -4,7 +4,7 @@ public interface NavDrawerItem {
 
 	public int getId();
 	
-	public String getLabel();
+	public int getLabel();
 	
 	public int getType();
 

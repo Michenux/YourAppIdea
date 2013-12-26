@@ -6,28 +6,18 @@ public class NavMenuSection implements NavDrawerItem {
 
 	private int id;
 	
-	private String label;
+	private int label;
 
-	private NavMenuSection() {
-		
-	}
-	
-	public static NavMenuSection create( int id, String label ) {
-		NavMenuSection section = new NavMenuSection();
-		section.setLabel(label);
-		return section;
-	}
-	
 	@Override
 	public int getType() {
 		return SECTION_TYPE;
 	}
 
-	public String getLabel() {
+	public int getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
+	public void setLabel(int label) {
 		this.label = label;
 	}
 

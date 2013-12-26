@@ -8,8 +8,7 @@ import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.android.ui.navdrawer.NavDrawerActivityConfiguration;
 import org.michenux.android.ui.navdrawer.NavDrawerAdapter;
 import org.michenux.android.ui.navdrawer.NavDrawerItem;
-import org.michenux.android.ui.navdrawer.NavMenuItem;
-import org.michenux.android.ui.navdrawer.NavMenuSection;
+import org.michenux.android.ui.navdrawer.NavMenuBuilder;
 import org.michenux.yourappidea.NavigationController;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
@@ -45,38 +44,34 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
 
     @Override
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
-        NavDrawerItem[] menu = new NavDrawerItem[] {
-                NavMenuSection.create(100, "Demos"),
-                NavMenuItem.create(104, "Tutorials", "navdrawer_tutorial", true, true, this),
-                NavMenuItem.create(101, "List/Detail", "navdrawer_friends",
-                        true, true, this),
-                NavMenuItem.create(102, "Airport", "navdrawer_airport", true, true,
-                this),
-                NavMenuItem.create(103, "Simple Map", "navdrawer_map", true, true,
-                        this),
-                NavMenuItem.create(105, "Around me", "navdrawer_aroundme", true, true,
-                        this),
-                NavMenuSection.create(200, "General"),
-                NavMenuItem.create(201, "Settings", "navdrawer_settings", true, true, this),
-                NavMenuItem.create(202, "Rate this app", "navdrawer_rating",
-                        false, false, this),
-                NavMenuItem.create(203, "Donate", "navdrawer_donations", true, true, this),
-                NavMenuItem.create(204, "ChangeLog", "navdrawer_changelog", false, false, this),
-                NavMenuItem.create(205, "Eula", "navdrawer_eula", false, false, this) };
 
-        NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration();
-        navDrawerActivityConfiguration.setMainLayout(R.layout.main);
-        navDrawerActivityConfiguration.setDrawerLayoutId(R.id.drawer_layout);
-        navDrawerActivityConfiguration.setLeftDrawerId(R.id.left_drawer);
-        navDrawerActivityConfiguration.setNavItems(menu);
-        navDrawerActivityConfiguration
-                .setDrawerShadow(R.drawable.drawer_shadow);
-        navDrawerActivityConfiguration.setDrawerOpenDesc(R.string.drawer_open);
-        navDrawerActivityConfiguration
-                .setDrawerCloseDesc(R.string.drawer_close);
-        navDrawerActivityConfiguration.setBaseAdapter(new NavDrawerAdapter(
-                this, R.layout.navdrawer_item, menu));
-        navDrawerActivityConfiguration.setDrawerIcon(R.drawable.ic_drawer);
+        NavDrawerItem[] menu = new NavMenuBuilder()
+                .addSection(100, R.string.navdrawer_demos)
+                .addSectionItem(104, R.string.navdrawer_tutorial, R.drawable.navdrawer_tutorial, true, true)
+                .addSectionItem(101, R.string.navdrawer_listdetail,  R.drawable.navdrawer_friends, true, true)
+                .addSectionItem(102, R.string.navdrawer_airport, R.drawable.navdrawer_airport, true, true)
+                .addSectionItem(103, R.string.navdrawer_simplemap, R.drawable.navdrawer_map, true, true)
+                .addSectionItem(105, R.string.navdrawer_aroundme, R.drawable.navdrawer_aroundme, true, true)
+                .addSection(200, R.string.navdrawer_general)
+                .addSectionItem(201, R.string.navdrawer_settings, R.drawable.navdrawer_settings, true, true)
+                .addSectionItem(202, R.string.navdrawer_rating, R.drawable.navdrawer_rating, false, false)
+                .addSectionItem(203, R.string.navdrawer_donations, R.drawable.navdrawer_donations, true, true)
+                .addSectionItem(204, R.string.navdrawer_changelog, R.drawable.navdrawer_changelog, false, false)
+                .addSectionItem(205, R.string.navdrawer_eula, R.drawable.navdrawer_eula, false, false)
+                .build();
+
+        NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration.Builder()
+                .mainLayout(R.layout.main)
+                .drawerLayoutId(R.id.drawer_layout)
+                .leftDrawerId(R.id.left_drawer)
+                .menu(menu)
+                .drawerShadow(R.drawable.drawer_shadow)
+                .drawerOpenDesc(R.string.drawer_open)
+                .drawerCloseDesc(R.string.drawer_close)
+                .adapter(new NavDrawerAdapter(this, R.layout.navdrawer_item, menu))
+                .drawerIcon(R.drawable.ic_drawer)
+                .build();
+
         return navDrawerActivityConfiguration;
     }
 

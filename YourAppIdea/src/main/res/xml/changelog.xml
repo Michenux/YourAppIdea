@@ -4,9 +4,11 @@
     Future:
         NavDrawer: builder pattern
         Tutorial: offline mode
-        Aroundme: Selection du pays, add admob
+        Aroundme: Selection du pays, add admob, button to switch between remote/local
         General: Info in action bar
         About me screen
+        Theme Holo.light
+        Find another layout for home screen
     -->
     <release version="1.4.0" versioncode="140">
         <change>Add Around me screen</change>

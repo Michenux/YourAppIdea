@@ -95,4 +95,63 @@ public class NavDrawerActivityConfiguration {
     public void setDrawerIcon(int drawerIcon) {
         this.drawerIcon = drawerIcon;
     }
+
+
+    public static class Builder {
+
+        private NavDrawerActivityConfiguration mConf = new NavDrawerActivityConfiguration();
+
+        public Builder() {
+
+        }
+
+        public Builder mainLayout(int mainLayout) {
+            mConf.setMainLayout(mainLayout);
+            return this;
+        }
+
+        public NavDrawerActivityConfiguration build() {
+            return mConf;
+        }
+
+        public Builder drawerLayoutId(int drawerLayoutId) {
+            mConf.setDrawerLayoutId(drawerLayoutId);
+            return this;
+        }
+
+        public Builder leftDrawerId(int leftDrawerId) {
+            mConf.setLeftDrawerId(leftDrawerId);
+            return this;
+        }
+
+        public Builder menu(NavDrawerItem menuitems[]) {
+            mConf.setNavItems(menuitems);
+            return this;
+        }
+
+        public Builder drawerShadow(int drawerShadowId) {
+            mConf.setDrawerShadow(drawerShadowId);
+            return this;
+        }
+
+        public Builder drawerOpenDesc(int drawerOpenId) {
+            mConf.setDrawerOpenDesc(drawerOpenId);
+            return this;
+        }
+
+        public Builder drawerCloseDesc(int drawerCloseId) {
+            mConf.setDrawerCloseDesc(drawerCloseId);
+            return this;
+        }
+
+        public Builder adapter( BaseAdapter adapter) {
+            mConf.setBaseAdapter(adapter);
+            return this;
+        }
+
+        public Builder drawerIcon(int icDrawer) {
+            mConf.setDrawerIcon(icDrawer);
+            return this;
+        }
+    }
 }
