@@ -7,7 +7,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import org.michenux.android.MCXApplication;
 import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;

@@ -12,4 +12,5 @@
           android:alphabeticShortcut="r"
           android:orderInCategory="1"
           yourapp:showAsAction="always"/>
+
 </menu>

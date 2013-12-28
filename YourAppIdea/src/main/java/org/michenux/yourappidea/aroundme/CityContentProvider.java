@@ -5,28 +5,27 @@ import android.net.Uri;
 
 import org.michenux.android.db.AbstractContentProvider;
 
-public class PlaceContentProvider extends AbstractContentProvider {
+public class CityContentProvider extends AbstractContentProvider {
 
-    public static final String TABLE_NAME = "T_PLACE";
+    public static final String TABLE_NAME = "T_CITY";
     public static final String NAME_COLUMN = "NAME";
     public static final String COUNTRY_COLUMN = "COUNTRY";
-    public static final String URL_COLUMN = "URL";
     public static final String LONGITUDE_COLUMN = "LONGITUDE";
     public static final String LATITUDE_COLUMN = "LATITUDE";
 
-    private static final String AUTHORITY = "org.michenux.yourappidea.places";
-    private static final String BASE_PATH = "places";
+    private static final String AUTHORITY = "org.michenux.yourappidea.cities";
+    private static final String BASE_PATH = "cities";
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
-    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    protected static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         uriMatcher.addURI(AUTHORITY, BASE_PATH, LIST);
         uriMatcher.addURI(AUTHORITY, BASE_PATH + "/#", ITEM_ID);
     }
 
-    public PlaceContentProvider() {
+    public CityContentProvider() {
         super(TABLE_NAME, uriMatcher, BASE_PATH );
     }
 }

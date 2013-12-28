@@ -23,8 +23,6 @@ public class MainFragment extends Fragment {
     @Inject
     LiveButton liveButton ;
 
-    private AdView mAdView ;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,15 +35,6 @@ public class MainFragment extends Fragment {
 
         View mainView = inflater
                 .inflate(R.layout.main_fragment, container, false);
-
-        mAdView = (AdView) mainView.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("1174B15820BDCDE357023377AAF1D72D")
-                .addTestDevice("FB73634EFAFEF29BE7973A97B5543A4D")
-                .addTestDevice("3C4438D5DE2E7086B63C92FC5846F662") //LG Nexus 5
-                .build();
-        mAdView.loadAd(adRequest);
 
         Button button0 = (Button) mainView.findViewById(R.id.mainmenu_button0);
         liveButton.setupLiveAnimOnButton(button0, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 1));
@@ -63,23 +52,5 @@ public class MainFragment extends Fragment {
         liveButton.setupLiveAnimOnButton(button4, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 5));
 
         return mainView;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mAdView.pause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mAdView.resume();
-    }
-
-    @Override
-    public void onDestroy() {
-        mAdView.destroy();
-        super.onDestroy();
     }
 }

@@ -2,8 +2,6 @@ package org.michenux.yourappidea.aroundme;
 
 import android.location.Location;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.michenux.android.geoloc.DistanceHolder;
 
 public class Place implements DistanceHolder {

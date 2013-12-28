@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.android.ui.navdrawer.NavDrawerActivityConfiguration;
 import org.michenux.android.ui.navdrawer.NavDrawerAdapter;
@@ -26,6 +29,8 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     @Inject
     NavigationController navController;
 
+    private AdView mAdView ;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +40,15 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
             this.navController.goHomeFragment(this);
             this.navController.showWhatsNew(this);
         }
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("1174B15820BDCDE357023377AAF1D72D")
+                .addTestDevice("FB73634EFAFEF29BE7973A97B5543A4D")
+                .addTestDevice("3C4438D5DE2E7086B63C92FC5846F662") //LG Nexus 5
+                .build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -127,11 +136,6 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public void onBackPressed() {
 
         // See bug: http://stackoverflow.com/questions/13418436/android-4-2-back-stack-behaviour-with-nested-fragments/14030872#14030872
@@ -151,5 +155,23 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 super.onBackPressed();
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    public void onDestroy() {
+        mAdView.destroy();
+        super.onDestroy();
     }
 }

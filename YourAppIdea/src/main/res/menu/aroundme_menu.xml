@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/aroundme_menu_myposition"
+        android:titleCondensed="My location"
+        android:title="My location"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        yourapp:showAsAction="never"/>
+
+    <item
+        android:id="@+id/aroundme_menu_selectlocation"
+        android:titleCondensed="City..."
+        android:title="Select city..."
+        yourapp:showAsAction="never"/>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/aroundme_menu_localprovider"
+            android:titleCondensed="Local"
+            android:title="Local database"
+            yourapp:showAsAction="never"/>
+        <item
+            android:id="@+id/aroundme_menu_remoteprovider"
+            android:titleCondensed="Remote"
+            android:title="Remote webservice"
+            yourapp:showAsAction="never"/>
+    </group>
+</menu>

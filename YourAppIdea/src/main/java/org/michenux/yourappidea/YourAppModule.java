@@ -2,6 +2,7 @@ package org.michenux.yourappidea;
 
 import org.michenux.android.MCXModule;
 import org.michenux.yourappidea.aroundme.AroundMeFragment;
+import org.michenux.yourappidea.aroundme.CityContentProvider;
 import org.michenux.yourappidea.aroundme.PlaceContentProvider;
 import org.michenux.yourappidea.donations.DonateFragment;
 import org.michenux.yourappidea.friends.FriendContentProvider;
@@ -23,6 +24,7 @@ import dagger.Module;
     		FriendContentProvider.class,
             TutorialContentProvider.class,
             PlaceContentProvider.class,
+            CityContentProvider.class,
 
             MainFragment.class,
             DonateFragment.class,

@@ -52,6 +52,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".aroundme.CityActivity"
+            android:label="@string/cityactivity_title"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@style/AppTheme">
+        </activity>
+
         <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 
@@ -68,11 +75,18 @@
         </provider>
 
         <provider
+            android:name="org.michenux.yourappidea.aroundme.CityContentProvider"
+            android:authorities="org.michenux.yourappidea.cities"
+            android:exported="false" >
+        </provider>
+
+        <provider
             android:name=".tutorial.contentprovider.TutorialContentProvider"
             android:authorities="org.michenux.yourappidea.provider"
             android:exported="false"
             android:syncable="true"
             >
+
         </provider>
 
         <service

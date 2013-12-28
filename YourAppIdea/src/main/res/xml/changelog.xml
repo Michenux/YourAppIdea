@@ -2,14 +2,27 @@
 <changelog>
     <!--
     Future:
-        NavDrawer: builder pattern
-        Tutorial: offline mode
-        Aroundme: Selection du pays, add admob, button to switch between remote/local
-        General: Info in action bar
+        General:
+            - Info in action bar
+            - Theme Holo.light
+            - Network/Batterie best pratices
+        Home
+            - Find another layout for home screen
+        Tutorials
+            - offline mode
+        Airport
+            - fix speed/altitude
+        Aroundme
+            - test connectivity for Geocoder.fromLocation
         About me screen
-        Theme Holo.light
-        Find another layout for home screen
+        CityActivity
+            - search activity, filter, etc..
+            - integrate a line: my position
     -->
+    <release version="1.4.1" versioncode="141">
+        <change>Around me screen: local and remote provider</change>
+        <change>Around me screen: select city</change>
+    </release>
     <release version="1.4.0" versioncode="140">
         <change>Add Around me screen</change>
         <change>Use the new Admob included in Google Play Services</change>

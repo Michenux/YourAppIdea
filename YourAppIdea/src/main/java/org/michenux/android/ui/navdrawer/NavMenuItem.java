@@ -1,9 +1,5 @@
 package org.michenux.android.ui.navdrawer;
 
-import android.content.Context;
-
-import org.michenux.android.resources.ResourceUtils;
-
 public class NavMenuItem implements NavDrawerItem {
 
 	public static final int ITEM_TYPE = 1 ;
