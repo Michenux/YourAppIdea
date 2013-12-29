@@ -4,6 +4,13 @@
     xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/aroundme_menu_info"
+        android:titleCondensed="Info"
+        android:title="Info"
+        android:icon="@android:drawable/ic_menu_info_details"
+        yourapp:showAsAction="always"/>
+
+    <item
         android:id="@+id/aroundme_menu_myposition"
         android:titleCondensed="My location"
         android:title="My location"

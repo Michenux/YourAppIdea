@@ -2,6 +2,7 @@ package org.michenux.yourappidea.airport;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import org.michenux.android.network.volley.GsonRequest;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
+import org.michenux.yourappidea.home.InfoDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -126,7 +128,14 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 		case R.id.airport_menuRefresh:
 			this.startRequest();
 			return true;
-		}
+
+        case R.id.airport_menu_info:
+            FragmentManager fm = getChildFragmentManager();
+            InfoDialog infoDialog = InfoDialog.newInstance(R.string.airport_info_title, R.string.airport_info_details);
+            infoDialog.show(fm, "airport_info_dialog");
+            return true;
+        }
+
 		return super.onOptionsItemSelected(item);
 	}
 

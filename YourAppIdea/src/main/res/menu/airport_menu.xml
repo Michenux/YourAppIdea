@@ -13,4 +13,12 @@
           android:orderInCategory="1"
           yourapp:showAsAction="always"/>
 
+    <item
+        android:id="@+id/airport_menu_info"
+        android:titleCondensed="Info"
+        android:title="Info"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:orderInCategory="2"
+        yourapp:showAsAction="ifRoom"/>
+
 </menu>

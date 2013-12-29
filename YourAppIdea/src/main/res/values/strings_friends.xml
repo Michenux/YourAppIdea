@@ -5,4 +5,18 @@
     <string name="friend_name_label">Name :</string>
     <string name="friend_job_label">Job :</string>
 
+    <string name="friends_info_title">Info</string>
+    <string name="friends_info_details"><![CDATA[
+        <p><b>Features:</b></p>
+        <p>- List/detail screen.</p>
+        <p>- In portrait orientation, detail is displayed above the list.</p>
+        <p>- In landscape orientation, the screen is divided in two columns, one for the list, one for detail.</p>
+        <p>- On rotation, the state of the screen is preserved.</p>
+
+        <p><b>API and libraries:</b></p>
+        <p>- Fragments.</p>
+        <p>- ContentProvider for data.</p>
+        ]]>
+        </string>
+
 </resources>

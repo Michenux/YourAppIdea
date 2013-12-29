@@ -12,4 +12,17 @@
         <item>Departures</item>
     </string-array>
 
+    <string name="airport_info_title">Info</string>
+    <string name="airport_info_details"><![CDATA[
+        <p><b>Features:</b></p>
+        <p>- Retrieve flight information of Orly Airport (Paris/France).</p>
+        <p>- Use the spinner in action bar to choose between incoming and outgoing flights.</p>
+        <p>- Use the refresh button to refresh the list.</p>
+
+        <p><b>API and libraries:</b></p>
+        <p>- Volley and Gson libraries are used to query the remote web service.</p>
+        <p>- Crouton library to display errors.</p>
+        ]]>
+        </string>
+
 </resources>

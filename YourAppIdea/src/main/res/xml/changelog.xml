@@ -3,9 +3,10 @@
     <!--
     Future:
         General:
-            - Info in action bar
+            - Theme for dialog
             - Theme Holo.light
             - Network/Batterie best pratices
+            - Gradle release
         Home
             - Find another layout for home screen
         Tutorials
@@ -22,6 +23,7 @@
     <release version="1.4.1" versioncode="141">
         <change>Around me screen: local and remote provider</change>
         <change>Around me screen: select city</change>
+        <change>Add info icon in action bar to explain features and technical details of the current screen.</change>
     </release>
     <release version="1.4.0" versioncode="140">
         <change>Add Around me screen</change>

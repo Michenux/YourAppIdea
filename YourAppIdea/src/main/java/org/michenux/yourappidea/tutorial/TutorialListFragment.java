@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -15,6 +16,9 @@ import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 import org.michenux.android.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
+import org.michenux.yourappidea.home.InfoDialog;
 import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
@@ -54,6 +59,7 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         ((YourApplication) getActivity().getApplication()).inject(this);
         setRetainInstance(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -83,6 +89,24 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
         else {
             Log.d(YourApplication.LOG_TAG, "onViewCreated: not synchronizing");
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.tutorial_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.aroundme_menu_info:
+                FragmentManager fm = getChildFragmentManager();
+                InfoDialog infoDialog = InfoDialog.newInstance(R.string.tutorial_info_title, R.string.tutorial_info_details);
+                infoDialog.show(fm, "tutorial_info_dialog");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -4,4 +4,20 @@
     <string name="aroundme_placedistance">%1$s km</string>
     <string name="aroundme_placeremoteprovider_url" >https://api.mongolab.com/api/1/databases/michenuxdb/collections/Places?q={\'location\':{$near:{$geometry:{\'type\':\'Point\',\'coordinates\':[%1$s,%2$s]},$maxDistance:%3$s}}}&amp;apiKey=50a2444ae4b0cd0bfc124248</string>
     <string name="cityactivity_title">Select city...</string>
+    <string name="aroundme_info_title">Info</string>
+    <string name="aroundme_info_details"><![CDATA[
+        <p><b>Features:</b></p>
+        <p>- Use the actionbar menu to choose between loading the places from the local database, or loading the places from a remote webservice (mongolab).</p>
+        <p>- Use the actionbar menu to select a city or to find your location.</p>
+        <p>- Works in offline with configuration: Select a city and Local database.</p>
+
+        <p><b>API and libraries:</b></p>
+        <p>- ContentProvider/CursorLoader/LoaderManager are used to load the places from the database.</p>
+        <p>- Volley and Gson libraries are used to query the remote web service.</p>
+        <p>- Universal Image Loader library is used to load the images of the places.</p>
+        <p>- Google Play Service is used to find the location of the user.</p>
+        <p>- Geocoder is used to get the real address from the location.</p>
+        <p>- Crouton library to display errors.</p>
+        ]]>
+        </string>
 </resources>

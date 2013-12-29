@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +29,7 @@ import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
+import org.michenux.yourappidea.home.InfoDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +107,12 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+            case R.id.aroundme_menu_info:
+                FragmentManager fm = getChildFragmentManager();
+                InfoDialog infoDialog = InfoDialog.newInstance(R.string.aroundme_info_title, R.string.aroundme_info_details);
+                infoDialog.show(fm, "aroundme_info_dialog");
+                return true;
 
             case R.id.aroundme_menu_myposition:
                 if ( !this.mUseLocationClient) {

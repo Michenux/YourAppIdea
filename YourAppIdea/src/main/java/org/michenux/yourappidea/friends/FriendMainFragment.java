@@ -2,13 +2,18 @@ package org.michenux.yourappidea.friends;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.michenux.android.ui.fragment.MasterDetailFragmentHelper;
 import org.michenux.android.ui.fragment.MasterDetailFragments;
 import org.michenux.yourappidea.R;
+import org.michenux.yourappidea.home.InfoDialog;
 
 public class FriendMainFragment extends Fragment {
 
@@ -16,6 +21,7 @@ public class FriendMainFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setRetainInstance(false);
+        setHasOptionsMenu(true);
 	}
 	
 	@Override
@@ -36,4 +42,22 @@ public class FriendMainFragment extends Fragment {
 
 		return view ;
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.friends_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.friends_menu_info:
+                FragmentManager fm = getChildFragmentManager();
+                InfoDialog infoDialog = InfoDialog.newInstance(R.string.friends_info_title, R.string.friends_info_details);
+                infoDialog.show(fm, "friends_info_dialog");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

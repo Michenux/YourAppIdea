@@ -3,8 +3,12 @@ package org.michenux.yourappidea.map;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,6 +26,7 @@ import org.michenux.android.ui.map.MCXSupportMapFragment;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
+import org.michenux.yourappidea.home.InfoDialog;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -38,6 +43,7 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        setHasOptionsMenu(true);
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onCreate");
         }
@@ -135,4 +141,22 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
             mMap.setMyLocationEnabled(true);
         }
      }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.simplemap_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.simplemap_menu_info:
+                FragmentManager fm = getChildFragmentManager();
+                InfoDialog infoDialog = InfoDialog.newInstance(R.string.simplemap_info_title, R.string.simplemap_info_details);
+                infoDialog.show(fm, "simplemap_info_dialog");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
