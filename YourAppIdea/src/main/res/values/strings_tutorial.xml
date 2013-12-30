@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
     <string name="tutorial_sync_url">"http://www.michenux.net/?json=get_recent_posts&amp;count=1"</string>
     <string name="tutorial_notification_title">New android tutorial</string>
@@ -16,6 +16,7 @@
         <p>- SyncAdapter is used to retrieve the new posts.</p>
         <p>- Volley and Gson libraries are used to query the json feed of wordpress.</p>
         <p>- ContentProvider/CursorLoader/LoaderManager are used to load the posts from the database.</p>
+        <p>- ActionBar-PullToRefresh library to refresh the list by swiping down.</p>
         <p>- Crouton library to display errors.</p>
         ]]>
         </string>

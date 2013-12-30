@@ -52,4 +52,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:4.0.30'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abc:+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.0'
+    //compile 'eu.inmite.android.lib:android-styled-dialogs:1.0.1'
+
 }
