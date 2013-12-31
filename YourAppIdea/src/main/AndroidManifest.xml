@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.michenux.yourappidea"
-    android:versionCode="141"
-    android:versionName="1.4.1">
+    android:versionCode="142"
+    android:versionName="1.4.2">
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -110,6 +110,26 @@
             <meta-data android:name="android.content.SyncAdapter"
                 android:resource="@xml/tutorial_syncadapter" />
         </service>
+
+        <receiver android:name="org.michenux.android.battery.PowerConnectionReceiver">
+           <intent-filter>
+               <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+               <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+           </intent-filter>
+        </receiver>
+
+        <receiver android:name="org.michenux.android.battery.BatteryLevelReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW"/>
+                <action android:name="android.intent.action.BATTERY_OKAY"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="org.michenux.android.network.connectivity.ConnectivityChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
 
         <!-- @integer/google_play_services_version  4030500  -->
         <meta-data android:name="com.google.android.gms.version"

@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,6 +27,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 
+import org.michenux.android.network.connectivity.ConnectivityUtils;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
@@ -37,6 +39,7 @@ import java.util.Locale;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
+import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
 public class AroundMeFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, PlaceLocalProvider.PlaceLoaderCallback {
 
@@ -109,9 +112,15 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
         switch (item.getItemId()) {
 
             case R.id.aroundme_menu_info:
-                FragmentManager fm = getChildFragmentManager();
-                InfoDialog infoDialog = InfoDialog.newInstance(R.string.aroundme_info_title, R.string.aroundme_info_details);
-                infoDialog.show(fm, "aroundme_info_dialog");
+                SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
+                        .setMessage(R.string.aroundme_info_details)
+                        .setTitle(R.string.aroundme_info_title)
+                        //.setTag("aroundme_info_dialog")
+                        .show();
+//
+//                FragmentManager fm = getChildFragmentManager();
+//                InfoDialog infoDialog = InfoDialog.newInstance(R.string.aroundme_info_title, R.string.aroundme_info_details);
+//                infoDialog.show(fm, );
                 return true;
 
             case R.id.aroundme_menu_myposition:
@@ -207,12 +216,16 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
         this.mCurrentLocation = location ;
         try {
-            //Todo: test connectivity (connection needed)
-            List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (ConnectivityUtils.isConnected(this.getActivity())) {
+                List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-            if(addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                this.updateCityView(address.getLocality(), address.getCountryName());
+                if(addresses != null && !addresses.isEmpty()) {
+                    Address address = addresses.get(0);
+                    this.updateCityView(address.getLocality(), address.getCountryName());
+                }
+            }
+            else {
+                this.updateCityView("Lat:" + location.getLatitude(), " Long: " + location.getLongitude());
             }
 
             this.mPlaceProvider.onLocationChanged( location );
