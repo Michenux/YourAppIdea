@@ -2,7 +2,7 @@ package org.michenux.yourappidea.aroundme;
 
 import android.location.Location;
 
-import org.michenux.android.geoloc.DistanceHolder;
+import org.michenux.drodrolib.geoloc.DistanceHolder;
 
 public class Place implements DistanceHolder {
 

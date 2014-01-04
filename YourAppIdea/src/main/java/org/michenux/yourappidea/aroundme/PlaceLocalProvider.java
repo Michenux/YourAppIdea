@@ -9,8 +9,8 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 
-import org.michenux.android.db.utils.CursorUtils;
-import org.michenux.android.geoloc.DistanceComparator;
+import org.michenux.drodrolib.db.utils.CursorUtils;
+import org.michenux.drodrolib.geoloc.DistanceComparator;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.YourApplication;
 

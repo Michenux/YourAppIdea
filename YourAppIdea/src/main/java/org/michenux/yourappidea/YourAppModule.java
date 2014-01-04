@@ -1,6 +1,6 @@
 package org.michenux.yourappidea;
 
-import org.michenux.android.MCXModule;
+import org.michenux.drodrolib.MCXModule;
 import org.michenux.yourappidea.aroundme.AroundMeFragment;
 import org.michenux.yourappidea.aroundme.CityContentProvider;
 import org.michenux.yourappidea.aroundme.PlaceContentProvider;

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.michenux.android.db.utils.CursorUtils;
-import org.michenux.android.resources.ResourceUtils;
+import org.michenux.drodrolib.db.utils.CursorUtils;
+import org.michenux.drodrolib.resources.ResourceUtils;
 import org.michenux.yourappidea.R;
 
 public class FriendDetailFragment extends Fragment {
@@ -93,7 +93,8 @@ public class FriendDetailFragment extends Fragment {
 		if (cursor != null) {
 			try {
 				cursor.moveToFirst();
-				this.nameField
+
+                this.nameField
 						.setText(
 							CursorUtils.getString(FriendContentProvider.NAME_COLUMN, cursor));
 				this.jobField
@@ -102,7 +103,7 @@ public class FriendDetailFragment extends Fragment {
 				String faceImg = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, cursor);
 				this.faceField.setImageDrawable(
 					ResourceUtils.getDrawableByName(
-							faceImg, this.getActivity()));
+                            faceImg, this.getActivity()));
 				
 			} finally {
 				cursor.close();

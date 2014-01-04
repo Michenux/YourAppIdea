@@ -3,7 +3,7 @@ package org.michenux.yourappidea.aroundme;
 import android.content.UriMatcher;
 import android.net.Uri;
 
-import org.michenux.android.db.AbstractContentProvider;
+import org.michenux.drodrolib.db.AbstractContentProvider;
 
 public class PlaceContentProvider extends AbstractContentProvider {
 

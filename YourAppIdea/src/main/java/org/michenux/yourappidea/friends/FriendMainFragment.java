@@ -2,7 +2,7 @@ package org.michenux.yourappidea.friends;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,10 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.michenux.android.ui.fragment.MasterDetailFragmentHelper;
-import org.michenux.android.ui.fragment.MasterDetailFragments;
+import org.michenux.drodrolib.ui.fragment.MasterDetailFragmentHelper;
+import org.michenux.drodrolib.ui.fragment.MasterDetailFragments;
 import org.michenux.yourappidea.R;
-import org.michenux.yourappidea.home.InfoDialog;
+
+import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
 public class FriendMainFragment extends Fragment {
 
@@ -53,9 +54,10 @@ public class FriendMainFragment extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.friends_menu_info:
-                FragmentManager fm = getChildFragmentManager();
-                InfoDialog infoDialog = InfoDialog.newInstance(R.string.friends_info_title, R.string.friends_info_details);
-                infoDialog.show(fm, "friends_info_dialog");
+                SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
+                        .setMessage(Html.fromHtml(getString(R.string.friends_info_details)))
+                        .setTitle(R.string.friends_info_title)
+                        .show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

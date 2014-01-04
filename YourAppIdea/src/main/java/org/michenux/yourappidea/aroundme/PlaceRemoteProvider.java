@@ -10,7 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
-import org.michenux.android.network.volley.GsonRequest;
+import org.michenux.drodrolib.network.volley.GsonRequest;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;

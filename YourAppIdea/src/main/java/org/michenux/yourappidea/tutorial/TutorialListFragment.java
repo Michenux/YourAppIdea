@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -25,15 +24,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.michenux.android.db.utils.CursorUtils;
+import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.home.InfoDialog;
 import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
 import javax.inject.Inject;
 
+import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 import uk.co.senab.actionbarpulltorefresh.extras.actionbarcompat.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
@@ -101,9 +100,10 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
         switch (item.getItemId()) {
 
             case R.id.aroundme_menu_info:
-                FragmentManager fm = getChildFragmentManager();
-                InfoDialog infoDialog = InfoDialog.newInstance(R.string.tutorial_info_title, R.string.tutorial_info_details);
-                infoDialog.show(fm, "tutorial_info_dialog");
+                SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
+                        .setMessage(Html.fromHtml(getString(R.string.tutorial_info_details)))
+                        .setTitle(R.string.tutorial_info_title)
+                        .show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

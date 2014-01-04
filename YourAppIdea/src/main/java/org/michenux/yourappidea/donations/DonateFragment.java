@@ -10,7 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import org.michenux.android.ui.animation.SquashAndStretch;
+import org.michenux.drodrolib.ui.animation.SquashAndStretch;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 

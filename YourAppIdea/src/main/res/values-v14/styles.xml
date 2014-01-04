@@ -19,6 +19,8 @@
         <item name="android:actionBarStyle">@style/CustomActionBar</item>
 
         <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
+
+        <item name="sdlDialogStyle">@style/DialogStyleDark.Custom</item>
     </style>
 
     <style name="CustomActionBar" parent="@style/Widget.AppCompat.ActionBar">

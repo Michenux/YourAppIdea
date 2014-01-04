@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.michenux.android.db.utils.CursorUtils;
-import org.michenux.android.resources.ResourceUtils;
-import org.michenux.android.ui.fragment.FragmentHelper;
+import org.michenux.drodrolib.db.utils.CursorUtils;
+import org.michenux.drodrolib.resources.ResourceUtils;
+import org.michenux.drodrolib.ui.fragment.FragmentHelper;
 import org.michenux.yourappidea.R;
 
 /**
@@ -92,7 +92,7 @@ public class FriendListFragment extends ListFragment implements
 
 					String faceName = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, paramCursor);
 					String friendName = CursorUtils.getString(FriendContentProvider.NAME_COLUMN, paramCursor);
-					Drawable face = ResourceUtils.getDrawableByName( faceName, FriendListFragment.this.getActivity());
+					Drawable face = ResourceUtils.getDrawableByName(faceName, FriendListFragment.this.getActivity());
 					face.setBounds( 0, 0, 70, 70 );
 
 					TextView textView = (TextView) paramView;
@@ -174,7 +174,7 @@ public class FriendListFragment extends ListFragment implements
 				.newInstance(detailUri);
 		if (!this.dualPanel) {
 			FragmentHelper.initFragmentWithBackstack(detailFragment,
-					R.id.friendmain_fragment, this.getParentFragment().getChildFragmentManager());
+                    R.id.friendmain_fragment, this.getParentFragment().getChildFragmentManager());
 		} else {
 			FragmentHelper.initFragment(detailFragment,
 					R.id.frienddetail_fragment, this.getParentFragment().getChildFragmentManager());

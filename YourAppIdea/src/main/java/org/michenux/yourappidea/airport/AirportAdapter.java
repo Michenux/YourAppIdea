@@ -62,7 +62,12 @@ public class AirportAdapter extends ArrayAdapter<Flight> {
 		Flight flight = (Flight) getItem(position);
 		viewHolder.flightNameView.setText(flight.getFlight());
 		viewHolder.flightFromView.setText(flight.getName());
-		viewHolder.flightEtaView.setText(this.getContext().getString(R.string.airport_eta, df.format(flight.getEta()) + " " + tf.format(flight.getEta())));
+        if ( flight.getEta() != null ) {
+		    viewHolder.flightEtaView.setText(this.getContext().getString(R.string.airport_eta, df.format(flight.getEta()) + " " + tf.format(flight.getEta())));
+        }
+        else {
+            viewHolder.flightEtaView.setText("");
+        }
 		viewHolder.flightTypeView.setText(flight.getType());
 		viewHolder.flightSpeedView.setText(this.getContext().getString(R.string.airport_speed, Double.toString( Math.round(flight.getSpeed() * 1.852 ))));
 		viewHolder.flightAltView.setText(this.getContext().getString(R.string.airport_altitude, Double.toString( Math.round(flight.getAltitude() / 3.2808))));

@@ -6,8 +6,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.text.TextUtils;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,11 +26,10 @@ import com.google.android.gms.location.LocationRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 
-import org.michenux.android.network.connectivity.ConnectivityUtils;
+import org.michenux.drodrolib.network.connectivity.ConnectivityUtils;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.home.InfoDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,10 +111,9 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
             case R.id.aroundme_menu_info:
                 SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
-                        .setMessage(R.string.aroundme_info_details)
-                        .setTitle(R.string.aroundme_info_title)
-                        //.setTag("aroundme_info_dialog")
-                        .show();
+                        .setMessage(Html.fromHtml(getString(R.string.aroundme_info_details)))
+                                .setTitle(R.string.aroundme_info_title)
+                                .show();
 //
 //                FragmentManager fm = getChildFragmentManager();
 //                InfoDialog infoDialog = InfoDialog.newInstance(R.string.aroundme_info_title, R.string.aroundme_info_details);

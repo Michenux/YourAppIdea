@@ -24,9 +24,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 
-import org.michenux.android.network.volley.GsonRequest;
-import org.michenux.android.wordpress.json.WPJsonPost;
-import org.michenux.android.wordpress.json.WPJsonResponse;
+import org.michenux.drodrolib.network.volley.GsonRequest;
+import org.michenux.drodrolib.wordpress.json.WPJsonPost;
+import org.michenux.drodrolib.wordpress.json.WPJsonResponse;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import org.michenux.android.ui.preferences.PreferenceCompatFragment;
+import org.michenux.drodrolib.ui.preferences.PreferenceCompatFragment;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;

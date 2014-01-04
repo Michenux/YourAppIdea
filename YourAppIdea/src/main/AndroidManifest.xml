@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.michenux.yourappidea"
-    android:versionCode="142"
-    android:versionName="1.4.2">
+    package="org.michenux.yourappidea">
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="10"
         android:targetSdkVersion="19" />
 
     <!-- For network access -->
@@ -111,21 +109,21 @@
                 android:resource="@xml/tutorial_syncadapter" />
         </service>
 
-        <receiver android:name="org.michenux.android.battery.PowerConnectionReceiver">
+        <receiver android:name="org.michenux.yourappidea.receivers.PowerConnectionReceiver">
            <intent-filter>
                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
            </intent-filter>
         </receiver>
 
-        <receiver android:name="org.michenux.android.battery.BatteryLevelReceiver">
+        <receiver android:name="org.michenux.yourappidea.receivers.BatteryLevelReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_LOW"/>
                 <action android:name="android.intent.action.BATTERY_OKAY"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name="org.michenux.android.network.connectivity.ConnectivityChangeReceiver">
+        <receiver android:name="org.michenux.yourappidea.receivers.ConnectivityChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>

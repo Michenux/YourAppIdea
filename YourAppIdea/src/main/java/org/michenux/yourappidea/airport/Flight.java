@@ -29,7 +29,8 @@ public class Flight {
 	private String flight ;
 	
 	private String name ;
-	
+
+    @SerializedName("eta")
 	private Timestamp eta ;
 
 	public String getCallSign() {

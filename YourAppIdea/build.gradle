@@ -10,6 +10,7 @@ apply plugin: 'android'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 android {
@@ -19,18 +20,33 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 19
-        versionCode 141
-        versionName "1.4.1"
+        versionCode 142
+        versionName "1.4.2"
     }
+
+    signingConfigs {
+        release {
+            storeFile file(project.property("yourappidea.keystore"))
+            storePassword project.property("yourappidea.keystore.password")
+            keyAlias project.property("yourappidea.keystore.keyAlias")
+            keyPassword project.property("yourappidea.keystore.keyPassword")
+        }
+    }
+
 
     buildTypes {
         debug {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             //buildConfig "public final static boolean HAS_PROTOTYPE_FEATURE = true;"
             //packageNameSuffix ".debug"
         }
+
+
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -42,16 +58,20 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
-    compile 'com.squareup.dagger:dagger-compiler:1.2.0'
-    compile 'com.squareup.dagger:dagger:1.2.0'
-    compile files('libs/volley-20131211.jar')
-    compile 'com.google.code.gson:gson:2.2.4'
+    compile project(':drodrolib')
+    //compile 'org.michenux.drodrolib:drodrolib:+'
+    //compile 'com.squareup.dagger:dagger-compiler:1.2.0'
+    //compile 'com.squareup.dagger:dagger:1.2.0'
+    //compile files('libs/volley-20131211.jar')
+    //compile 'com.google.code.gson:gson:2.2.4'
+    //compile 'com.google.android.gms:play-services:4.0.30'
     compile('de.keyboardsurfer.android.widget:crouton:1.8.1') {
         exclude group: 'com.google.android', module: 'support-v4'
     }
-    compile 'com.google.android.gms:play-services:4.0.30'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abc:+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.0'
-    //compile 'eu.inmite.android.lib:android-styled-dialogs:1.0.1'
+    compile ('eu.inmite.android.lib:android-styled-dialogs:1.1.2@aar')  {
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
 
 }

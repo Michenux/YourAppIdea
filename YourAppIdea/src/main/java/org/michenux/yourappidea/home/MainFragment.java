@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import org.michenux.android.ui.animation.LiveButton;
-import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
-import org.michenux.android.ui.navdrawer.NavDrawerSelectItemRunnable;
+import org.michenux.drodrolib.ui.animation.LiveButton;
+import org.michenux.drodrolib.ui.navdrawer.AbstractNavDrawerActivity;
+import org.michenux.drodrolib.ui.navdrawer.NavDrawerSelectItemRunnable;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 

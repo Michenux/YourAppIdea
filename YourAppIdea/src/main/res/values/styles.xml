@@ -19,6 +19,7 @@
 
         <item name="ptrHeaderStyle">@style/Widget.Custom.PtrHeader</item>
 
+        <item name="sdlDialogStyle">@style/DialogStyleDark.Custom</item>
     </style>
 
     <!-- Application theme. -->

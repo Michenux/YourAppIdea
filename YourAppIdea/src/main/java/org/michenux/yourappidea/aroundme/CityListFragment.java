@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.michenux.android.db.utils.CursorUtils;
+import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 
 public class CityListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {

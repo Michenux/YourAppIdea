@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import org.michenux.android.ui.navdrawer.AbstractNavDrawerActivity;
-import org.michenux.android.ui.navdrawer.NavDrawerActivityConfiguration;
-import org.michenux.android.ui.navdrawer.NavDrawerAdapter;
-import org.michenux.android.ui.navdrawer.NavDrawerItem;
-import org.michenux.android.ui.navdrawer.NavMenuBuilder;
+import org.michenux.drodrolib.ui.navdrawer.AbstractNavDrawerActivity;
+import org.michenux.drodrolib.ui.navdrawer.NavDrawerActivityConfiguration;
+import org.michenux.drodrolib.ui.navdrawer.NavDrawerAdapter;
+import org.michenux.drodrolib.ui.navdrawer.NavDrawerItem;
+import org.michenux.drodrolib.ui.navdrawer.NavMenuBuilder;
 import org.michenux.yourappidea.NavigationController;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;

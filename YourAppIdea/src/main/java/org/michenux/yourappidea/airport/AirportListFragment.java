@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,17 +22,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
-import org.michenux.android.network.volley.GsonRequest;
+import org.michenux.drodrolib.network.volley.GsonRequest;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.home.InfoDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
+import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
 //http://www.flightradar24.com/AirportInfoService.php?airport=ORY&type=in
 //LFRS
@@ -131,8 +132,11 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 
         case R.id.airport_menu_info:
             FragmentManager fm = getChildFragmentManager();
-            InfoDialog infoDialog = InfoDialog.newInstance(R.string.airport_info_title, R.string.airport_info_details);
-            infoDialog.show(fm, "airport_info_dialog");
+            SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
+                    .setMessage(Html.fromHtml(getString(R.string.airport_info_details)))
+                    .setTitle(R.string.airport_info_title)
+                    .show();
+
             return true;
         }
 

@@ -1,6 +1,8 @@
 /.gradle
 /.idea
 /local.properties
+/drodrolib/build
+/drodrolib/drodrolib.iml
 /YourAppIdea/build
 /YourAppIdea/YourAppIdea.iml
 /YourAppIdeaProject.iml

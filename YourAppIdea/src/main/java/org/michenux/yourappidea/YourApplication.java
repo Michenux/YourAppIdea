@@ -8,9 +8,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-import org.michenux.android.MCXApplication;
-import org.michenux.android.db.sqlite.SQLiteDatabaseFactory;
-import org.michenux.android.network.volley.BitmapCacheHolder;
+import org.michenux.drodrolib.MCXApplication;
+import org.michenux.drodrolib.db.sqlite.SQLiteDatabaseFactory;
+import org.michenux.drodrolib.network.volley.BitmapCacheHolder;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
 import java.util.List;
