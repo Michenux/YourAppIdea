@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="places_contentprovider_authority">org.michenux.yourappidea.debug.places</string>
+    <string name="cities_contentprovider_authority">org.michenux.yourappidea.debug.cities</string>
+
+</resources>
