@@ -4,7 +4,9 @@ import android.content.ContentResolver;
 import android.content.UriMatcher;
 import android.net.Uri;
 
+import org.michenux.drodrolib.content.ContentProviderUtils;
 import org.michenux.drodrolib.db.AbstractContentProvider;
+import org.michenux.yourappidea.BuildConfig;
 
 public class FriendContentProvider extends AbstractContentProvider {
 
@@ -13,7 +15,9 @@ public class FriendContentProvider extends AbstractContentProvider {
     public static final String JOB_COLUMN = "JOB";
     public static final String FACE_COLUMN = "FACE";
 
-	private static final String AUTHORITY = "org.michenux.yourappidea.friends";
+	private static final String AUTHORITY = ContentProviderUtils.buildAuthority(
+            BuildConfig.PACKAGE_NAME, BuildConfig.FLAVOR, "friends");
+
 	private static final String BASE_PATH = "friends";
 
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY

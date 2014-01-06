@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import org.michenux.drodrolib.accounts.AccountUtils;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
@@ -27,8 +28,8 @@ import javax.inject.Singleton;
 @Singleton
 public class TutorialSyncHelper {
 
-    public static final String ACCOUNT_TYPE = "michenux.net";
-    public static final String ACCOUNT = "tutorialaccount";
+    public static final String ACCOUNT_TYPE = AccountUtils.buildAccountName(BuildConfig.FLAVOR, "michenux.net", BuildConfig.DEBUG);
+    public static final String ACCOUNT = "tutorialaccount" ;
 
     public static final long SECONDS_PER_MINUTE = 60L;
     public static final long SYNC_INTERVAL_IN_MINUTES = 1440L;

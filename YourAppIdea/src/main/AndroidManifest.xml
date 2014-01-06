@@ -60,30 +60,30 @@
         <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 
+
         <provider
-                android:name="org.michenux.yourappidea.friends.FriendContentProvider"
-                android:authorities="org.michenux.yourappidea.friends"
+                android:name=".friends.FriendContentProvider"
+                android:authorities="@string/friends_contentprovider_authority"
                 android:exported="false" >
         </provider>
 
         <provider
-            android:name="org.michenux.yourappidea.aroundme.PlaceContentProvider"
-            android:authorities="org.michenux.yourappidea.places"
+            android:name=".aroundme.PlaceContentProvider"
+            android:authorities="@string/places_contentprovider_authority"
             android:exported="false" >
         </provider>
 
         <provider
-            android:name="org.michenux.yourappidea.aroundme.CityContentProvider"
-            android:authorities="org.michenux.yourappidea.cities"
+            android:name=".aroundme.CityContentProvider"
+            android:authorities="@string/cities_contentprovider_authority"
             android:exported="false" >
         </provider>
 
         <provider
             android:name=".tutorial.contentprovider.TutorialContentProvider"
-            android:authorities="org.michenux.yourappidea.provider"
+            android:authorities="@string/tutorials_contentprovider_authority"
             android:exported="false"
-            android:syncable="true"
-            >
+            android:syncable="true">
 
         </provider>
 

@@ -26,13 +26,13 @@ android {
 
     signingConfigs {
         release {
-	    if ( project.hasProperty('yourappidea.keystore')) {
+	        if ( project.hasProperty('yourappidea.keystore')) {
               storeFile file(project.property("yourappidea.keystore"))
               storePassword project.property("yourappidea.keystore.password")
               keyAlias project.property("yourappidea.keystore.keyAlias")
               keyPassword project.property("yourappidea.keystore.keyPassword")
             }
-	}
+	    }
     }
 
 
@@ -40,8 +40,7 @@ android {
         debug {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            //buildConfig "public final static boolean HAS_PROTOTYPE_FEATURE = true;"
-            //packageNameSuffix ".debug"
+            packageNameSuffix ".debug"
         }
 
 

@@ -3,7 +3,9 @@ package org.michenux.yourappidea.tutorial.contentprovider;
 import android.content.UriMatcher;
 import android.net.Uri;
 
+import org.michenux.drodrolib.content.ContentProviderUtils;
 import org.michenux.drodrolib.db.AbstractContentProvider;
+import org.michenux.yourappidea.BuildConfig;
 
 public class TutorialContentProvider extends AbstractContentProvider {
 
@@ -13,7 +15,9 @@ public class TutorialContentProvider extends AbstractContentProvider {
     public static final String URL_COLUMN = "URL";
     public static final String DATECREATION_COLUMN = "DATECREATION";
 
-    public static final String AUTHORITY = "org.michenux.yourappidea.provider";
+    public static final String AUTHORITY = ContentProviderUtils.buildAuthority(
+            BuildConfig.PACKAGE_NAME, BuildConfig.FLAVOR, "tutorials");
+
     private static final String BASE_PATH = "tutorial";
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);

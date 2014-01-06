@@ -3,7 +3,9 @@ package org.michenux.yourappidea.aroundme;
 import android.content.UriMatcher;
 import android.net.Uri;
 
+import org.michenux.drodrolib.content.ContentProviderUtils;
 import org.michenux.drodrolib.db.AbstractContentProvider;
+import org.michenux.yourappidea.BuildConfig;
 
 public class PlaceContentProvider extends AbstractContentProvider {
 
@@ -14,7 +16,9 @@ public class PlaceContentProvider extends AbstractContentProvider {
     public static final String LONGITUDE_COLUMN = "LONGITUDE";
     public static final String LATITUDE_COLUMN = "LATITUDE";
 
-    private static final String AUTHORITY = "org.michenux.yourappidea.places";
+    private static final String AUTHORITY = ContentProviderUtils.buildAuthority(
+            BuildConfig.PACKAGE_NAME, BuildConfig.FLAVOR, "places");
+
     private static final String BASE_PATH = "places";
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="tutorials_contentprovider_authority">org.michenux.yourappidea.tutorials</string>
+    <string name="tutorials_accountType">michenux.net</string>
+
     <string name="tutorial_sync_url">"http://www.michenux.net/?json=get_recent_posts&amp;count=1"</string>
     <string name="tutorial_notification_title">New android tutorial</string>
 

@@ -42,7 +42,7 @@ public class PlaceLocalProvider implements PlaceProvider, LoaderManager.LoaderCa
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
         if (BuildConfig.DEBUG) {
-            Log.d(YourApplication.LOG_TAG, "AroundmeFragment.onCreateLoader()");
+            Log.d(YourApplication.LOG_TAG, "PlaceLocalProvider.onCreateLoader()");
         }
 
         String[] projection = {PlaceContentProvider.NAME_COLUMN, PlaceContentProvider.COUNTRY_COLUMN,
@@ -57,13 +57,15 @@ public class PlaceLocalProvider implements PlaceProvider, LoaderManager.LoaderCa
         sort.append(" - ");
         sort.append(this.mCurrentLocation.getLongitude());
         sort.append(") LIMIT 20 ");
+
+        Log.d(YourApplication.LOG_TAG, "TEST: " + PlaceContentProvider.CONTENT_URI.toString());
         return new CursorLoader(this.mFragment.getActivity(), PlaceContentProvider.CONTENT_URI, projection, null, null, sort.toString());
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         if (BuildConfig.DEBUG) {
-            Log.d(YourApplication.LOG_TAG, "AroundmeFragment.onLoadFinished()");
+            Log.d(YourApplication.LOG_TAG, "PlaceLocalProvider.onLoadFinished()");
         }
 
         List<Place> places = new ArrayList<>();
