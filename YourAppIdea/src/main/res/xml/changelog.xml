@@ -3,12 +3,13 @@
     <!--
     Future:
         General:
-            - Theme for dialog
             - Theme Holo.light
             - Network/Batterie best pratices
             - Proguard
         Home
             - Find another layout for home screen
+		Changelog
+			- use library instead
         Tutorials
             - offline mode
         Airport
