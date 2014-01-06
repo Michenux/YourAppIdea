@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tutorials_contentprovider_authority">org.michenux.yourappidea.debug.tutorials</string>
+    <string name="tutorials_accountType">michenux.net.debug</string>
+
+</resources>
