@@ -10,10 +10,15 @@ import org.michenux.yourappidea.BuildConfig;
 public class TutorialContentProvider extends AbstractContentProvider {
 
     public static final String TABLE_NAME = "T_TUTORIAL" ;
+    public static final String POSTID_COLUMN = "POSTID" ;
     public static final String TITLE_COLUMN = "TITLE";
     public static final String DESCRIPTION_COLUMN = "DESCRIPTION";
     public static final String URL_COLUMN = "URL";
+    public static final String THUMBNAIL_COLMUN = "THUMBNAIL";
+    public static final String AUTHOR_COLUMN = "AUTHOR";
+    public static final String CONTENT_COLUMN = "CONTENT";
     public static final String DATECREATION_COLUMN = "DATECREATION";
+    public static final String DATEMODIFICATION_COLUMN = "DATEMODIFICATION";
 
     public static final String AUTHORITY = ContentProviderUtils.buildAuthority(
             BuildConfig.PACKAGE_NAME, BuildConfig.FLAVOR, "tutorials");

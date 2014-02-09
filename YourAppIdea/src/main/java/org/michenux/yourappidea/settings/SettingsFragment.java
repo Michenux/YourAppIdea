@@ -36,7 +36,7 @@ public class SettingsFragment extends PreferenceCompatFragment implements Shared
                 if (BuildConfig.DEBUG) {
                     Log.d(YourApplication.LOG_TAG, "settings notificationPref changed: addPeriodicSync()");
                 }
-                mTutorialSyncHelper.addPeriodicSync();
+                mTutorialSyncHelper.enablePeriodicSync(this.getActivity());
             }
             else {
                 if (BuildConfig.DEBUG) {

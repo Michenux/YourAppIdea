@@ -6,7 +6,7 @@
             - Theme Holo.light
             - Network/Batterie best pratices
             - Proguard
-            - Launch icon for debug version
+            - https://github.com/gabrielemariotti/changeloglib
         Home
             - Find another layout for home screen
 		Changelog
@@ -21,6 +21,9 @@
             - integrate a line: my position
     -->
     <release version="1.4.2" versioncode="142">
+        <change>Use library android-style-dialog</change>
+        <change>Update launch icon</change>
+        <change>Smart interval for sync adapter</change>
     </release>
     <release version="1.4.1" versioncode="141">
         <change>Around me screen: local and remote provider</change>

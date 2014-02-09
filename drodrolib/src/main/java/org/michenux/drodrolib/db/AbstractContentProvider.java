@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 public abstract class AbstractContentProvider extends ContentProvider {
 
-    public static final String ID_COLUMN = "_ID";
+    public static final String ID_COLUMN = "_id";
 
     protected static final int LIST = 10;
     protected static final int ITEM_ID = 20;
@@ -49,7 +49,6 @@ public abstract class AbstractContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-
         SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
 
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();

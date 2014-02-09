@@ -4,13 +4,13 @@ import android.text.TextUtils;
 
 public class AccountUtils {
 
-    public static String buildAccountName(String flavor, String accountName, boolean debug) {
+    public static String buildAccountTypeName(String flavor, String accountTypeName, boolean debug) {
         StringBuilder authority = new StringBuilder();
         if ( !TextUtils.isEmpty(flavor)) {
             authority.append(flavor);
             authority.append('.');
         }
-        authority.append(accountName);
+        authority.append(accountTypeName);
         if (debug) {
             authority.append(".debug");
         }

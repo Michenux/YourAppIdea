@@ -2,6 +2,8 @@ package org.michenux.drodrolib.ui.navdrawer;
 
 import android.widget.BaseAdapter;
 
+import org.michenux.drodrolib.R;
+
 public class NavDrawerActivityConfiguration {
 
 	private int mainLayout;
@@ -102,7 +104,9 @@ public class NavDrawerActivityConfiguration {
         private NavDrawerActivityConfiguration mConf = new NavDrawerActivityConfiguration();
 
         public Builder() {
-
+            drawerOpenDesc(R.string.drawer_open);
+            drawerCloseDesc(R.string.drawer_close);
+            drawerShadow(R.drawable.drawer_shadow);
         }
 
         public Builder mainLayout(int mainLayout) {

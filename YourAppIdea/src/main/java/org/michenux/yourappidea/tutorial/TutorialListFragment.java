@@ -1,7 +1,10 @@
 package org.michenux.yourappidea.tutorial;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SyncStatusObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -10,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -28,6 +32,7 @@ import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
+import org.michenux.yourappidea.tutorial.sync.TutorialSyncAdapter;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
 import javax.inject.Inject;
@@ -39,7 +44,9 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 
 public class TutorialListFragment extends Fragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
-        OnRefreshListener, SyncStatusObserver {
+        OnRefreshListener {
+
+    private boolean mHasSync = false;
 
     private SimpleCursorAdapter mAdapter;
 
@@ -48,10 +55,26 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
 
     private PullToRefreshLayout mPullToRefreshLayout;
 
-    private Object mSyncObserverHandle;
-
     @Inject
     TutorialSyncHelper mTutorialSyncHelper;
+
+
+    private BroadcastReceiver onFinishSyncReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateRefresh(false);
+            mHasSync = true;
+        }
+    };
+
+    private BroadcastReceiver onStartSyncReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateRefresh(true);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,7 +104,7 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
                 .theseChildrenArePullable(R.id.tutorial_listview)
                 .listener(this)
                 .setup(mPullToRefreshLayout);
-        if (mTutorialSyncHelper.isActiveOrPending()) {
+        if ( ((YourApplication) getActivity().getApplication()).isSyncAdapterRunning()) {
             Log.d(YourApplication.LOG_TAG, "onViewCreated: synchronizing");
             updateRefresh(true);
         }
@@ -112,17 +135,21 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onResume() {
         super.onResume();
-        final int mask = ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE ;
-        mSyncObserverHandle = ContentResolver.addStatusChangeListener(mask, this);
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(onFinishSyncReceiver, new IntentFilter(TutorialSyncAdapter.SYNC_FINISHED));
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(onStartSyncReceiver, new IntentFilter(TutorialSyncAdapter.SYNC_STARTED));
+
+        if ( !mHasSync ) {
+            mTutorialSyncHelper.performSync();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if ( mSyncObserverHandle != null) {
-            ContentResolver.removeStatusChangeListener(mSyncObserverHandle);
-            mSyncObserverHandle = null;
-        }
+
+        LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(onFinishSyncReceiver);
+        LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(onStartSyncReceiver);
+
     }
 
     @Override
@@ -148,6 +175,14 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
                     String title = CursorUtils.getString(TutorialContentProvider.TITLE_COLUMN, cursor);
                     TextView textView = (TextView) view;
                     textView.setText(Html.fromHtml(title));
+
+                    return true;
+                }
+                else if (view.getId() == R.id.tutorial_desc) {
+
+                    String desc = CursorUtils.getString(TutorialContentProvider.DESCRIPTION_COLUMN, cursor);
+                    TextView textView = (TextView) view;
+                    textView.setText(Html.fromHtml(desc));
 
                     return true;
                 }
@@ -192,27 +227,11 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //setListShownNoAnimation(true);
     }
 
     @Override
     public void onRefreshStarted(View view) {
         mTutorialSyncHelper.performSync();
-    }
-
-    @Override
-    public void onStatusChanged(int which) {
-        if (!mTutorialSyncHelper.isActiveOrPending()) {
-            Log.d(YourApplication.LOG_TAG, "onStatusChanged: Sync finished !");
-
-            // Notify PullToRefreshLayout that the refresh has finished
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    updateRefresh(false);
-                }
-            });
-        }
     }
 
     private void updateRefresh(final boolean isSyncing) {

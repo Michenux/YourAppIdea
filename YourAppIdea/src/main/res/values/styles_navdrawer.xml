@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NavDrawerSectionStyle">
+        <item name="android:background">@color/purple_dark</item>
+    </style>
+
+    <style name="NavDrawerSectionStyle.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="NavDrawerItemStyle">
+        <item name="android:background">?activatedBackgroundIndicator</item>
+        <item name="android:textAppearance">?textAppearanceMedium</item>
+    </style>
+
+    <style name="NavDrawerItemStyle.TextView">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

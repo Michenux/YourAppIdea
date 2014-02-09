@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import org.michenux.drodrolib.info.AppUsageUtils;
 import org.michenux.drodrolib.ui.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.drodrolib.ui.navdrawer.NavDrawerActivityConfiguration;
 import org.michenux.drodrolib.ui.navdrawer.NavDrawerAdapter;
@@ -35,6 +36,8 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((YourApplication) getApplication()).inject(this);
+
+        AppUsageUtils.updateLastUsedTimestamp(this);
 
         if (savedInstanceState == null) {
             this.navController.goHomeFragment(this);
@@ -74,9 +77,6 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 .drawerLayoutId(R.id.drawer_layout)
                 .leftDrawerId(R.id.left_drawer)
                 .menu(menu)
-                .drawerShadow(R.drawable.drawer_shadow)
-                .drawerOpenDesc(R.string.drawer_open)
-                .drawerCloseDesc(R.string.drawer_close)
                 .adapter(new NavDrawerAdapter(this, R.layout.navdrawer_item, menu))
                 .drawerIcon(R.drawable.ic_drawer)
                 .build();

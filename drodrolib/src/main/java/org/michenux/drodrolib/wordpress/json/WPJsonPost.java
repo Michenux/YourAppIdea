@@ -2,6 +2,8 @@ package org.michenux.drodrolib.wordpress.json;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class WPJsonPost {
     private int id ;
     private String post;
@@ -11,9 +13,17 @@ public class WPJsonPost {
     private String title;
     @SerializedName("title_plain")
     private String titlePlain;
+    private String excerpt;
     private String content;
     private String date;
     private String modified;
+    private WPAuthor author;
+    private List<WPAttachment> attachments;
+    private String thumbnail;
+    @SerializedName("thumbnail_size")
+    private String thumbnailSize;
+    @SerializedName("thumbnail_images")
+    private WPThumbnailImages thumbnailImages;
     @SerializedName("custom_fields")
     private WPCustomFields customFields;
 
@@ -101,7 +111,55 @@ public class WPJsonPost {
         return customFields;
     }
 
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getThumbnailSize() {
+        return thumbnailSize;
+    }
+
+    public void setThumbnailSize(String thumbnailSize) {
+        this.thumbnailSize = thumbnailSize;
+    }
+
     public void setCustomFields(WPCustomFields customFields) {
         this.customFields = customFields;
+    }
+
+    public List<WPAttachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<WPAttachment> attachments) {
+        this.attachments = attachments;
+    }
+
+    public WPThumbnailImages getThumbnailImages() {
+        return thumbnailImages;
+    }
+
+    public void setThumbnailImages(WPThumbnailImages thumbnailImages) {
+        this.thumbnailImages = thumbnailImages;
+    }
+
+    public WPAuthor getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(WPAuthor author) {
+        this.author = author;
+    }
+
+    public String getExcerpt() {
+        return excerpt;
+    }
+
+    public void setExcerpt(String excerpt) {
+        this.excerpt = excerpt;
     }
 }

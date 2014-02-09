@@ -23,6 +23,8 @@ public class YourApplication extends MCXApplication {
 
     public static final String LOG_TAG = "YAI";
 
+    private boolean syncAdapterRunning = false;
+
     @Inject
     TutorialSyncHelper tutorialSyncHelper;
 
@@ -92,5 +94,13 @@ public class YourApplication extends MCXApplication {
         }
         BitmapCacheHolder bitmapCacheHolder = objectGraph.get(BitmapCacheHolder.class);
         bitmapCacheHolder.init(this, 50000000);
+    }
+
+    public boolean isSyncAdapterRunning() {
+        return syncAdapterRunning;
+    }
+
+    public void setSyncAdapterRunning(boolean syncAdapterRunning) {
+        this.syncAdapterRunning = syncAdapterRunning;
     }
 }
