@@ -3,6 +3,9 @@
 
     <string name="app_name">Your App Idea</string>
 
+    <!-- Facebook -->
+    <string name="app_id">1445798595651770</string>
+
     <string name="preferences_label">Preferences</string>
 
     <string name="menuitem_refresh">Refresh</string>

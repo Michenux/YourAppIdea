@@ -5,4 +5,6 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="facebook_message_welcome">Hello\n%s</string>
 </resources>

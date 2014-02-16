@@ -20,6 +20,8 @@
             - search activity, filter, etc..
             - integrate a line: my position
     -->
+    <release version="1.4.3" versioncode="143">
+    </release>
     <release version="1.4.2" versioncode="142">
         <change>Use library android-style-dialog</change>
         <change>Update launch icon</change>

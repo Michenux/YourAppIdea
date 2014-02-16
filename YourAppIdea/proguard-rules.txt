@@ -35,3 +35,7 @@
 # Guava
 -keep class com.google.common.**
 -dontwarn com.google.common.collect.MinMaxPriorityQueue
+
+# facebook
+-keep class com.facebook.** { *; }
+-keepattributes Signature

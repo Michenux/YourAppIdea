@@ -25,6 +25,11 @@ public class NavMenuBuilder {
         return this;
     }
 
+    public NavMenuBuilder addCustomItem( NavDrawerCustomItem customItem ) {
+        mMenu.add(customItem);
+        return this;
+    }
+
     public NavDrawerItem[] build() {
         return mMenu.toArray(new NavDrawerItem[mMenu.size()]);
     }

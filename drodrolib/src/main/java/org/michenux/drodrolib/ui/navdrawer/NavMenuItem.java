@@ -2,7 +2,7 @@ package org.michenux.drodrolib.ui.navdrawer;
 
 public class NavMenuItem implements NavDrawerItem {
 
-	public static final int ITEM_TYPE = 1 ;
+	public static final int ITEM_TYPE = 1;
 	
 	private int id ;
 	

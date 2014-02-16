@@ -1,18 +1,26 @@
 package org.michenux.yourappidea.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
+import com.facebook.UiLifecycleHelper;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import org.michenux.yourappidea.facebook.FbLoginFlowHelper;
+import org.michenux.yourappidea.facebook.NavMenuFbProfile;
 import org.michenux.drodrolib.info.AppUsageUtils;
+import org.michenux.drodrolib.security.SecurityUtils;
+import org.michenux.drodrolib.security.UserHelper;
 import org.michenux.drodrolib.ui.navdrawer.AbstractNavDrawerActivity;
 import org.michenux.drodrolib.ui.navdrawer.NavDrawerActivityConfiguration;
 import org.michenux.drodrolib.ui.navdrawer.NavDrawerAdapter;
 import org.michenux.drodrolib.ui.navdrawer.NavDrawerItem;
 import org.michenux.drodrolib.ui.navdrawer.NavMenuBuilder;
+import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.NavigationController;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
@@ -25,17 +33,28 @@ import org.michenux.yourappidea.tutorial.TutorialListFragment;
 
 import javax.inject.Inject;
 
-public class YourAppMainActivity extends AbstractNavDrawerActivity {
+public class YourAppMainActivity extends AbstractNavDrawerActivity implements FbLoginFlowHelper.FacebookStatusCallback {
 
     @Inject
     NavigationController navController;
 
+    @Inject
+    UserHelper mUserHelper;
+
     private AdView mAdView ;
+
+    private UiLifecycleHelper mUiHelper;
+
+    private FbLoginFlowHelper mFbLoginFlowHelper ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((YourApplication) getApplication()).inject(this);
+
+        // For debug
+        if ( BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "HashKey: " + SecurityUtils.logHashKey(this));
+        }
 
         AppUsageUtils.updateLastUsedTimestamp(this);
 
@@ -52,6 +71,11 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 .addTestDevice("3C4438D5DE2E7086B63C92FC5846F662") //LG Nexus 5
                 .build();
         mAdView.loadAd(adRequest);
+
+        mFbLoginFlowHelper = new FbLoginFlowHelper(mUserHelper, this);
+        mFbLoginFlowHelper.setStatusCallback(this);
+        mUiHelper = new UiLifecycleHelper(this, mFbLoginFlowHelper);
+        mUiHelper.onCreate(savedInstanceState);
     }
 
     @Override
@@ -64,6 +88,8 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
                 .addSectionItem(102, R.string.navdrawer_airport, R.drawable.navdrawer_airport, true, true)
                 .addSectionItem(103, R.string.navdrawer_simplemap, R.drawable.navdrawer_map, true, true)
                 .addSectionItem(105, R.string.navdrawer_aroundme, R.drawable.navdrawer_aroundme, true, true)
+                .addSection(250, R.string.navdrawer_profile)
+                .addCustomItem(NavMenuFbProfile.createFbProfileMenuItem(240, mUserHelper))
                 .addSection(200, R.string.navdrawer_general)
                 .addSectionItem(201, R.string.navdrawer_settings, R.drawable.navdrawer_settings, true, true)
                 .addSectionItem(202, R.string.navdrawer_rating, R.drawable.navdrawer_rating, false, false)
@@ -158,20 +184,46 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mUiHelper.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         mAdView.pause();
+        mUiHelper.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mAdView.resume();
+        mFbLoginFlowHelper.onResume();
+        mUiHelper.onResume();
     }
 
     @Override
     public void onDestroy() {
-        mAdView.destroy();
         super.onDestroy();
+        mAdView.destroy();
+        mUiHelper.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mUiHelper.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onFacebookSessionOpened() {
+        getNavConf().getBaseAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFacebookSessionClose() {
+        getNavConf().getBaseAdapter().notifyDataSetChanged();
     }
 }

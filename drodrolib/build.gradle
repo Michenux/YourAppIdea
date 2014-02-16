@@ -39,5 +39,6 @@ dependencies {
     compile 'com.squareup.dagger:dagger:1.2.0'
     compile 'com.google.code.gson:gson:2.2.4'
     compile files('libs/volley-20131211.jar')
-    compile 'com.google.android.gms:play-services:4.0.30'
+    compile 'com.google.android.gms:play-services:4.2.42'
+    compile project(':libraries:facebook')
 }

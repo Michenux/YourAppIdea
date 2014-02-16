@@ -1,6 +1,7 @@
 package org.michenux.yourappidea;
 
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -11,6 +12,7 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import org.michenux.drodrolib.MCXApplication;
 import org.michenux.drodrolib.db.sqlite.SQLiteDatabaseFactory;
 import org.michenux.drodrolib.network.volley.BitmapCacheHolder;
+import org.michenux.drodrolib.security.SecurityUtils;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
 import java.util.List;

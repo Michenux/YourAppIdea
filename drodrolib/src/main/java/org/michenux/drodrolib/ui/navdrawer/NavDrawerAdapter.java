@@ -1,6 +1,8 @@
 package org.michenux.drodrolib.ui.navdrawer;
 
 import android.content.Context;
+import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.michenux.drodrolib.MCXApplication;
 import org.michenux.drodrolib.R;
 
 public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {
@@ -23,12 +26,21 @@ public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = null ;
 		NavDrawerItem menuItem = this.getItem(position);
-		if ( menuItem.getType() == NavMenuItem.ITEM_TYPE ) {
-			view = getItemView(convertView, parent, menuItem );
-		}
-		else {
-			view = getSectionView(convertView, parent, menuItem);
-		}
+
+        switch (menuItem.getType()) {
+            case NavMenuItem.ITEM_TYPE:
+                view = getItemView(convertView, parent, menuItem );
+                break;
+            case NavMenuSection.SECTION_TYPE:
+                view = getSectionView(convertView, parent, menuItem);
+                break;
+        }
+
+        if ( menuItem instanceof NavDrawerCustomItem ) {
+            NavDrawerCustomItem customItem = (NavDrawerCustomItem) menuItem;
+            view = customItem.getCustomView(convertView, parent, customItem, inflater);
+        }
+
 		return view ;
 	}
 	
@@ -88,7 +100,14 @@ public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {
 	
 	@Override
 	public int getViewTypeCount() {
-	    return 2;
+        SparseIntArray types = new SparseIntArray();
+        for( int i = 0 ; i < this.getCount(); i++ ) {
+            int itemType = getItemViewType(i);
+            if ( types.get(itemType, -1) == -1 ) {
+                types.put(itemType, itemType);
+            }
+        }
+	    return types.size();
 	}
 	
 	@Override

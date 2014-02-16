@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.michenux.drodrolib.MCXApplication;
+
 public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
 
 	private DrawerLayout mDrawerLayout;
@@ -35,9 +37,10 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        ((MCXApplication) getApplication()).inject(this);
+
 		navConf = getNavDrawerConfiguration();
-		
-        setContentView(navConf.getMainLayout()); 
+        setContentView(navConf.getMainLayout());
 
         if ( savedInstanceState == null ) {
             mTitle = mDrawerTitle = getTitle();
@@ -186,5 +189,9 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
         outState.putCharSequence("title", this.mTitle);
         outState.putCharSequence("drawerTitle", this.mDrawerTitle);
         outState.putInt("lastItemChecked", this.lastItemChecked);
+    }
+
+    public NavDrawerActivityConfiguration getNavConf() {
+        return navConf;
     }
 }

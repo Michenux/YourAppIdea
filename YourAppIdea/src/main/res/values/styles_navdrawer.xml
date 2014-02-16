@@ -23,4 +23,22 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+
+    <style name="NavDrawerFacebookStyle">
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <style name="NavDrawerFacebookProfileStyle">
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+
+    <style name="NavDrawerFacebookProfileTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

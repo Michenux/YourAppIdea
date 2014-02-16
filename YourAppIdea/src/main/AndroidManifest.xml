@@ -59,6 +59,7 @@
         <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 
+        <activity android:name="com.facebook.LoginActivity"/>
 
         <provider
                 android:name=".friends.FriendContentProvider"
@@ -128,13 +129,18 @@
             </intent-filter>
         </receiver>
 
-        <!-- @integer/google_play_services_version  4030500  -->
+        <!-- @integer/google_play_services_version  4242000  -->
         <meta-data android:name="com.google.android.gms.version"
-            android:value="4030500" />
+            android:value="4242000" />
 
 		<meta-data
 			android:name="com.google.android.maps.v2.API_KEY"
 			android:value="AIzaSyDNPreInss5-Yua-nkAHq9qvy84Yqc1wnY"/>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id"/>
+
     </application>
 
 </manifest>

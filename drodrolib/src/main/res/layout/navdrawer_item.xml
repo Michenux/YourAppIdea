@@ -6,8 +6,7 @@
     android:paddingRight="10dp"
     android:minHeight="?listPreferredItemHeightSmall"
     android:orientation="horizontal"
-    style="@style/NavDrawerItemStyle"
-    >
+    style="@style/NavDrawerItemStyle">
 
     <ImageView
         android:id="@+id/navmenuitem_icon"
