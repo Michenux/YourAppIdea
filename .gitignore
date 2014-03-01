@@ -3,9 +3,10 @@
 /gradle
 /local.properties
 /drodrolib/build
-/drodrolib/drodrolib.iml
+/drodrolib/*.iml
 /YourAppIdea/build
-/YourAppIdea/YourAppIdea.iml
-/YourAppIdea/YourAppIdea-YourAppIdea.iml
-/YourAppIdea.iml
-/YourAppIdeaProject.iml
+/YourAppIdea/*.iml
+/libraries/facebook/build
+/libraries/facebook/*.iml
+/*.iml
+.DS_Store

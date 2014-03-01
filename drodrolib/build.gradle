@@ -1,16 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
-    }
-}
 apply plugin: 'android-library'
-
-repositories {
-    mavenCentral()
-}
 
 android {
     compileSdkVersion 19
@@ -35,10 +23,9 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
-    compile 'com.squareup.dagger:dagger-compiler:1.2.0'
-    compile 'com.squareup.dagger:dagger:1.2.0'
+    compile 'com.google.android.gms:play-services:4.2.42'	
+    compile 'com.squareup.dagger:dagger-compiler:1.2.1'
+    compile 'com.squareup.dagger:dagger:1.2.1'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile files('libs/volley-20131211.jar')
-    compile 'com.google.android.gms:play-services:4.2.42'
-    compile project(':libraries:facebook')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
