@@ -32,6 +32,19 @@
     <!-- Google Maps v2 require OpenGL v2 -->
     <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
 
+    <!-- To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
+     option is required to comply with the Google+ Sign-In developer policies -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <!-- To retrieve the account name (email) as part of sign-in: -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <!--
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    -->
+
     <application
         android:name="org.michenux.yourappidea.YourApplication"
         android:allowBackup="true"
@@ -52,6 +65,13 @@
         <activity
             android:name=".aroundme.CityActivity"
             android:label="@string/cityactivity_title"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <activity
+            android:name=".home.LoginActivity"
+            android:label="@string/loginactivity_title"
             android:logo="@drawable/ic_launcher"
             android:theme="@style/AppTheme">
         </activity>
@@ -140,6 +160,8 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id"/>
+
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
     </application>
 

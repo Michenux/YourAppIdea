@@ -15,18 +15,22 @@ public class NavMenuBuilder {
     }
 
     public NavMenuBuilder addSectionItem(  int id, int label, int icon, boolean updateActionBarTitle, boolean checkable ) {
-        NavMenuItem item = new NavMenuItem();
-        item.setId(id);
-        item.setLabel(label);
-        item.setIcon(icon);
-        item.setUpdateActionBarTitle(updateActionBarTitle);
-        item.setCheckable(checkable);
-        mMenu.add(item);
+        mMenu.add(NavMenuItem.createMenuItem(id, label, icon, updateActionBarTitle, checkable));
         return this;
     }
 
-    public NavMenuBuilder addCustomItem( NavDrawerCustomItem customItem ) {
+    public NavMenuBuilder addSectionItemAtIndex(  int id, int label, int icon, boolean updateActionBarTitle, boolean checkable, int index ) {
+        mMenu.add(index, NavMenuItem.createMenuItem(id, label, icon, updateActionBarTitle, checkable));
+        return this;
+    }
+
+    public NavMenuBuilder addDrawerItem( NavDrawerItem customItem ) {
         mMenu.add(customItem);
+        return this;
+    }
+
+    public NavMenuBuilder addDrawerItemAtIndex( NavDrawerItem customItem, int index ) {
+        mMenu.add(index, customItem);
         return this;
     }
 

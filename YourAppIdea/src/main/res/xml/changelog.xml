@@ -7,6 +7,8 @@
             - Network/Batterie best pratices
             - Proguard
             - https://github.com/gabrielemariotti/changeloglib
+        Security:
+            - Twitter ?
         Home
             - Find another layout for home screen
 		Changelog
@@ -20,7 +22,8 @@
             - search activity, filter, etc..
             - integrate a line: my position
     -->
-    <release version="1.4.3" versioncode="143">
+    <release version="1.5.0" versioncode="150">
+        <change>Add login via Facebook or Google+</change>
     </release>
     <release version="1.4.2" versioncode="142">
         <change>Use library android-style-dialog</change>

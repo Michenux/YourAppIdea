@@ -4,7 +4,13 @@ public class User {
 
     private String userId;
 
+    private String provider;
+
+    private String providerDisplayName;
+
     private String userName ;
+
+    private String displayName;
 
     private String firstName;
 
@@ -40,5 +46,29 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getProviderDisplayName() {
+        return providerDisplayName;
+    }
+
+    public void setProviderDisplayName(String providerDisplayName) {
+        this.providerDisplayName = providerDisplayName;
     }
 }

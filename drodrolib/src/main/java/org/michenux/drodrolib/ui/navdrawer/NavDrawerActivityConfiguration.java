@@ -11,11 +11,36 @@ public class NavDrawerActivityConfiguration {
 	private int drawerLayoutId;
 	private int leftDrawerId;
 	private int[] actionMenuItemsToHideWhenDrawerOpen;
-	private NavDrawerItem[] navItems;
+//	private NavDrawerItem[] navItems;
 	private int drawerOpenDesc;
 	private int drawerCloseDesc;
     private int drawerIcon ;
-    private BaseAdapter baseAdapter;
+    private NavDrawerAdapter mAdapter;
+
+    public boolean hasMenuItemWithId( long id ) {
+        NavDrawerAdapter adapter = (NavDrawerAdapter) getAdapter();
+        for( int i = 0 ; i < adapter.getCount(); i++) {
+            if ( id == adapter.getItem(i).getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeMenuItemWithId( long id ) {
+        NavDrawerAdapter adapter = (NavDrawerAdapter) getAdapter();
+        for( int i = 0 ; i < adapter.getCount(); i++) {
+            if ( id == adapter.getItem(i).getId()) {
+                adapter.remove(adapter.getItem(i));
+                break;
+            }
+        }
+    }
+
+    public void addMenuItemAtIndex( NavDrawerItem item, int index ) {
+        NavDrawerAdapter adapter = (NavDrawerAdapter) getAdapter();
+        adapter.insert(item, index);
+    }
 
 	public int getMainLayout() {
 		return mainLayout;
@@ -58,13 +83,13 @@ public class NavDrawerActivityConfiguration {
 		this.actionMenuItemsToHideWhenDrawerOpen = actionMenuItemsToHideWhenDrawerOpen;
 	}
 
-	public NavDrawerItem[] getNavItems() {
-		return navItems;
-	}
+//	public NavDrawerItem[] getNavItems() {
+//		return navItems;
+//	}
 
-	public void setNavItems(NavDrawerItem[] navItems) {
-		this.navItems = navItems;
-	}
+//	public void setNavItems(NavDrawerItem[] navItems) {
+//		this.navItems = navItems;
+//	}
 
 	public int getDrawerOpenDesc() {
 		return drawerOpenDesc;
@@ -82,12 +107,12 @@ public class NavDrawerActivityConfiguration {
 		this.drawerCloseDesc = drawerCloseDesc;
 	}
 
-	public BaseAdapter getBaseAdapter() {
-		return baseAdapter;
+	public NavDrawerAdapter getAdapter() {
+		return mAdapter;
 	}
 
-	public void setBaseAdapter(BaseAdapter baseAdapter) {
-		this.baseAdapter = baseAdapter;
+	public void setAdapter(NavDrawerAdapter adapter) {
+		this.mAdapter = adapter;
 	}
 
     public int getDrawerIcon() {
@@ -128,10 +153,10 @@ public class NavDrawerActivityConfiguration {
             return this;
         }
 
-        public Builder menu(NavDrawerItem menuitems[]) {
-            mConf.setNavItems(menuitems);
-            return this;
-        }
+//        public Builder menu(NavDrawerItem menuitems[]) {
+//            mConf.setNavItems(menuitems);
+//            return this;
+//        }
 
         public Builder drawerShadow(int drawerShadowId) {
             mConf.setDrawerShadow(drawerShadowId);
@@ -148,8 +173,8 @@ public class NavDrawerActivityConfiguration {
             return this;
         }
 
-        public Builder adapter( BaseAdapter adapter) {
-            mConf.setBaseAdapter(adapter);
+        public Builder adapter( NavDrawerAdapter adapter) {
+            mConf.setAdapter(adapter);
             return this;
         }
 

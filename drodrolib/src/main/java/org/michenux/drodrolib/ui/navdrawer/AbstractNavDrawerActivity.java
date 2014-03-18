@@ -54,7 +54,7 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
         
         mDrawerLayout = (DrawerLayout) findViewById(navConf.getDrawerLayoutId());
         mDrawerList = (ListView) findViewById(navConf.getLeftDrawerId());
-        mDrawerList.setAdapter(navConf.getBaseAdapter());
+        mDrawerList.setAdapter(navConf.getAdapter());
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         
 		this.initDrawerShadow();
@@ -149,7 +149,7 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
     }
     
     public void selectItem(int position) {
-    	NavDrawerItem selectedItem = navConf.getNavItems()[position];
+    	NavDrawerItem selectedItem = navConf.getAdapter().getItem(position);
 
     	this.onNavItemSelected(selectedItem.getId());
 
@@ -193,5 +193,15 @@ public abstract class AbstractNavDrawerActivity extends ActionBarActivity {
 
     public NavDrawerActivityConfiguration getNavConf() {
         return navConf;
+    }
+
+    public void removeMenuItemWithId( long id ) {
+        NavDrawerAdapter adapter = (NavDrawerAdapter) this.getNavConf().getAdapter();
+        for( int i = 0 ; i < adapter.getCount(); i++) {
+            if ( id == adapter.getItemId(i)) {
+                adapter.remove(adapter.getItem(i));
+                break;
+            }
+        }
     }
 }

@@ -11,6 +11,8 @@ import org.michenux.drodrolib.ui.changelog.EulaChangeLogChainHelper;
 import org.michenux.drodrolib.ui.eula.EulaHelper;
 import org.michenux.drodrolib.ui.fragment.dialog.ConfirmDialog;
 import org.michenux.drodrolib.ui.navdrawer.AbstractNavDrawerActivity;
+import org.michenux.yourappidea.aroundme.CityActivity;
+import org.michenux.yourappidea.home.LoginActivity;
 import org.michenux.yourappidea.home.MainFragment;
 import org.michenux.yourappidea.settings.SettingsFragment;
 
@@ -82,5 +84,12 @@ public class NavigationController {
     public void showSettings(FragmentActivity activity) {
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new SettingsFragment(), null).commit();
+    }
+
+    public void showLogin(FragmentActivity activity) {
+        Intent oIntent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(oIntent);
+        // no animation
+        activity.overridePendingTransition(0,0);
     }
 }

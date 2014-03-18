@@ -10,6 +10,7 @@
     <string name="navdrawer_tutorial">Tutorials</string>
 
     <string name="navdrawer_profile">PROFILE</string>
+    <string name="navdrawer_logout">Logout</string>
 
     <string name="navdrawer_general">GENERAL</string>
     <string name="navdrawer_settings">Settings</string>

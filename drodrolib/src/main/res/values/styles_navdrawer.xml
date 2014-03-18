@@ -13,9 +13,27 @@
     </style>
 
     <style name="NavDrawerItemStyle">
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">48dp</item>
     </style>
 
     <style name="NavDrawerItemStyle.TextView">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="NavDrawerLoginStyle">
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="NavDrawerLoginStyle.TextView">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="NavDrawerLoginStyle.ProviderTextView">
+        <item name="android:paddingRight">10dp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

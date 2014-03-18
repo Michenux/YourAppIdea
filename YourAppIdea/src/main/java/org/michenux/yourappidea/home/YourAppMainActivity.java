@@ -6,12 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
-import com.facebook.UiLifecycleHelper;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import org.michenux.yourappidea.facebook.FbLoginFlowHelper;
-import org.michenux.yourappidea.facebook.NavMenuFbProfile;
+import org.michenux.drodrolib.gms.gplus.GoogleApiClientDelegate;
+import org.michenux.drodrolib.security.NavDrawerUserLoginItem;
+import org.michenux.drodrolib.security.UserSessionCallback;
+import org.michenux.drodrolib.ui.navdrawer.NavMenuItem;
+import org.michenux.yourappidea.facebook.FbLoginDelegate;
 import org.michenux.drodrolib.info.AppUsageUtils;
 import org.michenux.drodrolib.security.SecurityUtils;
 import org.michenux.drodrolib.security.UserHelper;
@@ -33,7 +35,7 @@ import org.michenux.yourappidea.tutorial.TutorialListFragment;
 
 import javax.inject.Inject;
 
-public class YourAppMainActivity extends AbstractNavDrawerActivity implements FbLoginFlowHelper.FacebookStatusCallback {
+public class YourAppMainActivity extends AbstractNavDrawerActivity implements UserSessionCallback {
 
     @Inject
     NavigationController navController;
@@ -43,9 +45,11 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity implements Fb
 
     private AdView mAdView ;
 
-    private UiLifecycleHelper mUiHelper;
+    private FbLoginDelegate mFbLoginDelegate;
 
-    private FbLoginFlowHelper mFbLoginFlowHelper ;
+    private GoogleApiClientDelegate mGoogleApiClientDlg;
+
+    private NavDrawerItem logoutDrawerItem = NavMenuItem.createMenuItem(270, R.string.navdrawer_logout, R.drawable.navdrawer_logout, false, false);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,38 +76,47 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity implements Fb
                 .build();
         mAdView.loadAd(adRequest);
 
-        mFbLoginFlowHelper = new FbLoginFlowHelper(mUserHelper, this);
-        mFbLoginFlowHelper.setStatusCallback(this);
-        mUiHelper = new UiLifecycleHelper(this, mFbLoginFlowHelper);
-        mUiHelper.onCreate(savedInstanceState);
+        mFbLoginDelegate = new FbLoginDelegate(mUserHelper, this, savedInstanceState);
+        mFbLoginDelegate.setUserSessionCallback(this);
+
+        mGoogleApiClientDlg = new GoogleApiClientDelegate(this, mUserHelper, savedInstanceState);
+        mGoogleApiClientDlg.setUserSessionCallback(this);
     }
 
     @Override
     protected NavDrawerActivityConfiguration getNavDrawerConfiguration() {
 
-        NavDrawerItem[] menu = new NavMenuBuilder()
+        NavMenuBuilder navBuilder = new NavMenuBuilder()
                 .addSection(100, R.string.navdrawer_demos)
                 .addSectionItem(104, R.string.navdrawer_tutorial, R.drawable.navdrawer_tutorial, true, true)
-                .addSectionItem(101, R.string.navdrawer_listdetail,  R.drawable.navdrawer_friends, true, true)
+                .addSectionItem(101, R.string.navdrawer_listdetail, R.drawable.navdrawer_friends, true, true)
                 .addSectionItem(102, R.string.navdrawer_airport, R.drawable.navdrawer_airport, true, true)
                 .addSectionItem(103, R.string.navdrawer_simplemap, R.drawable.navdrawer_map, true, true)
                 .addSectionItem(105, R.string.navdrawer_aroundme, R.drawable.navdrawer_aroundme, true, true)
                 .addSection(250, R.string.navdrawer_profile)
-                .addCustomItem(NavMenuFbProfile.createFbProfileMenuItem(240, mUserHelper))
+                .addDrawerItem(NavDrawerUserLoginItem.createMenuItem(260, R.drawable.navdrawer_user, mUserHelper))
                 .addSection(200, R.string.navdrawer_general)
                 .addSectionItem(201, R.string.navdrawer_settings, R.drawable.navdrawer_settings, true, true)
                 .addSectionItem(202, R.string.navdrawer_rating, R.drawable.navdrawer_rating, false, false)
                 .addSectionItem(203, R.string.navdrawer_donations, R.drawable.navdrawer_donations, true, true)
                 .addSectionItem(204, R.string.navdrawer_changelog, R.drawable.navdrawer_changelog, false, false)
-                .addSectionItem(205, R.string.navdrawer_eula, R.drawable.navdrawer_eula, false, false)
-                .build();
+                .addSectionItem(205, R.string.navdrawer_eula, R.drawable.navdrawer_eula, false, false);
+
+        if ( this.mUserHelper.getCurrentUser() != null ) {
+            navBuilder.addDrawerItemAtIndex(logoutDrawerItem, 8);
+        }
+
+        NavDrawerItem[] menu = navBuilder.build();
+
+        NavDrawerAdapter adapter = new NavDrawerAdapter(this, R.layout.navdrawer_item);
+        adapter.setData(menu);
 
         NavDrawerActivityConfiguration navDrawerActivityConfiguration = new NavDrawerActivityConfiguration.Builder()
                 .mainLayout(R.layout.main)
                 .drawerLayoutId(R.id.drawer_layout)
                 .leftDrawerId(R.id.left_drawer)
-                .menu(menu)
-                .adapter(new NavDrawerAdapter(this, R.layout.navdrawer_item, menu))
+//                .menu(menu)
+                .adapter(adapter)
                 .drawerIcon(R.drawable.ic_drawer)
                 .build();
 
@@ -158,6 +171,25 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity implements Fb
             case 206:
                 this.navController.showExitDialog(this);
                 break;
+
+            case 260:
+                if ( mUserHelper.getCurrentUser() == null ) {
+                    this.navController.showLogin(this);
+                }
+                break;
+            case 270:
+                if ( mUserHelper.getCurrentUser() != null ) {
+                    switch (mUserHelper.getCurrentUser().getProvider()) {
+                        case FbLoginDelegate.PROVIDER_NAME:
+                            mFbLoginDelegate.logout();
+                            break;
+                        case GoogleApiClientDelegate.PROVIDER_NAME:
+                            this.mGoogleApiClientDlg.signOut();
+                            break;
+                    }
+                }
+
+                break;
         }
     }
 
@@ -186,44 +218,62 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity implements Fb
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mUiHelper.onActivityResult(requestCode, resultCode, data);
+        mFbLoginDelegate.onActivityResult(requestCode, resultCode, data);
+        mGoogleApiClientDlg.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClientDlg.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClientDlg.onStop();
+        mFbLoginDelegate.onStop();
+        super.onStop();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mAdView.pause();
-        mUiHelper.onPause();
+        mFbLoginDelegate.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mAdView.resume();
-        mFbLoginFlowHelper.onResume();
-        mUiHelper.onResume();
+        mFbLoginDelegate.onResume();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mAdView.destroy();
-        mUiHelper.onDestroy();
+        super.onDestroy();
+        mFbLoginDelegate.onDestroy();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mUiHelper.onSaveInstanceState(outState);
+        mFbLoginDelegate.onSaveInstanceState(outState);
+        mGoogleApiClientDlg.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onFacebookSessionOpened() {
-        getNavConf().getBaseAdapter().notifyDataSetChanged();
+    public void onLogin() {
+        if ( !getNavConf().hasMenuItemWithId(logoutDrawerItem.getId())) {
+            getNavConf().addMenuItemAtIndex(logoutDrawerItem, 8);
+            getNavConf().getAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override
-    public void onFacebookSessionClose() {
-        getNavConf().getBaseAdapter().notifyDataSetChanged();
+    public void onLogout() {
+        getNavConf().removeMenuItemWithId(logoutDrawerItem.getId());
+        getNavConf().getAdapter().notifyDataSetChanged();
     }
 }

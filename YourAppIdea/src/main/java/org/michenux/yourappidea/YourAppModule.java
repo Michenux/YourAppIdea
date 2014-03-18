@@ -5,7 +5,9 @@ import org.michenux.yourappidea.aroundme.AroundMeFragment;
 import org.michenux.yourappidea.aroundme.CityContentProvider;
 import org.michenux.yourappidea.aroundme.PlaceContentProvider;
 import org.michenux.yourappidea.donations.DonateFragment;
+import org.michenux.yourappidea.facebook.FbLoginFragment;
 import org.michenux.yourappidea.friends.FriendContentProvider;
+import org.michenux.yourappidea.home.LoginActivity;
 import org.michenux.yourappidea.home.MainFragment;
 import org.michenux.yourappidea.home.YourAppMainActivity;
 import org.michenux.yourappidea.settings.SettingsFragment;
@@ -20,6 +22,7 @@ import dagger.Module;
             YourApplication.class,
 
             YourAppMainActivity.class,
+            LoginActivity.class,
 
     		FriendContentProvider.class,
             TutorialContentProvider.class,
@@ -31,6 +34,7 @@ import dagger.Module;
             SettingsFragment.class,
             TutorialListFragment.class,
             AroundMeFragment.class,
+            FbLoginFragment.class,
 
             TutorialSyncAdapter.class
 	    },
