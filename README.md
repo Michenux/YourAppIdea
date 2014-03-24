@@ -2,7 +2,9 @@
 
 Project template for android and demo app for tutorials on [michenux.net](http://www.michenux.net)
 
-You can try the application [here](https://play.google.com/store/apps/details?id=org.michenux.yourappidea)
+The demo application is available on Google Play:
+
+ [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=org.michenux.yourappidea)
 
 ## Requirements
 
