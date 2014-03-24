@@ -1,18 +1,15 @@
-YourAppIdea
-===========
+# YourAppIdea
 
 Project template for android and demo app for tutorials on [michenux.net](http://www.michenux.net)
 
 You can try the application [here](https://play.google.com/store/apps/details?id=org.michenux.yourappidea)
 
-Requirements
-============
+## Requirements
 
 * Android SDK 19 (with extras/Google Repository)
 * Android Studio
 
-What you can find inside
-========================
+## What you can find inside
 
 **Implemented UI Patterns**
 
@@ -75,3 +72,19 @@ What you can find inside
 * Eula (End User Licence Agreement) : accept/refuse Eula on first time or just display.
 * Quit Dialog (not enabled by default cause anti-pattern)
 
+## Credits
+
+Author: Laurent Michenaud (lmichenaud@gmail.com)
+
+<a href="https://plus.google.com/+LaurentMichenaud/posts">
+  <img alt="Follow me on Google+"
+       src="http://www.michenux.net/images/g+64.png" />
+</a>
+<a href="https://twitter.com/Michenux">
+  <img alt="Follow me on Twitter"
+       src="http://www.michenux.net/images/twitter64.png" />
+</a>
+<a href="http://www.linkedin.com/pub/laurent-michenaud/5/148/b32">
+  <img alt="Follow me on LinkedIn"
+       src="http://www.michenux.net/images/linkedin.png" />
+</a>
