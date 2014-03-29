@@ -2,7 +2,7 @@ apply plugin: 'android-library'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.2"
+    buildToolsVersion "19.0.3"
 
     defaultConfig {
         minSdkVersion 10
@@ -30,7 +30,7 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
-    compile 'com.google.android.gms:play-services:4.2.42'	
+    compile 'com.google.android.gms:play-services:4.3.23'
     compile 'com.squareup.dagger:dagger-compiler:1.2.1'
     compile 'com.squareup.dagger:dagger:1.2.1'
     compile 'com.google.code.gson:gson:2.2.4'

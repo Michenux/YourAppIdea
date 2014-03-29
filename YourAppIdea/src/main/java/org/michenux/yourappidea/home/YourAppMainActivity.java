@@ -115,7 +115,6 @@ public class YourAppMainActivity extends AbstractNavDrawerActivity implements Us
                 .mainLayout(R.layout.main)
                 .drawerLayoutId(R.id.drawer_layout)
                 .leftDrawerId(R.id.left_drawer)
-//                .menu(menu)
                 .adapter(adapter)
                 .drawerIcon(R.drawable.ic_drawer)
                 .build();

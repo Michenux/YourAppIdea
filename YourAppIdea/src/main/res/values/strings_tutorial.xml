@@ -19,7 +19,7 @@
         <p>- SyncAdapter is used to retrieve the new posts.</p>
         <p>- Volley and Gson libraries are used to query the json feed of wordpress.</p>
         <p>- ContentProvider/CursorLoader/LoaderManager are used to load the posts from the database.</p>
-        <p>- ActionBar-PullToRefresh library to refresh the list by swiping down.</p>
+        <p>- SwipeRefreshLayout (android support) to refresh the list by swiping down.</p>
         <p>- Crouton library to display errors.</p>
         ]]>
         </string>

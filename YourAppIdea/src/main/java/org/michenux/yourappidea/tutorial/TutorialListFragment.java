@@ -15,6 +15,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -38,13 +39,9 @@ import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 import javax.inject.Inject;
 
 import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
-import uk.co.senab.actionbarpulltorefresh.extras.actionbarcompat.PullToRefreshLayout;
-import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
-import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
-
 
 public class TutorialListFragment extends Fragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
-        OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener {
 
     private boolean mHasSync = false;
 
@@ -53,7 +50,7 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
     private String[] mAdapterFromColumns = new String[] {TutorialContentProvider.TITLE_COLUMN, TutorialContentProvider.DESCRIPTION_COLUMN, TutorialContentProvider.DATECREATION_COLUMN};
     private int[] mAdapterToViews = new int[] { R.id.tutorial_title, R.id.tutorial_desc, R.id.tutorial_date};
 
-    private PullToRefreshLayout mPullToRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshWidget;
 
     @Inject
     TutorialSyncHelper mTutorialSyncHelper;
@@ -87,9 +84,13 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tutorial_list, container, false);
+        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.tutorial_swiperefreshlayout);
+        mSwipeRefreshWidget.setColorScheme(R.color.color1, R.color.color2, R.color.color3,
+                R.color.color4);
         ListView listView = (ListView) view.findViewById(R.id.tutorial_listview);
         listView.setOnItemClickListener(this);
         fillData(listView);
+        mSwipeRefreshWidget.setOnRefreshListener(this);
         return view;
     }
 
@@ -98,12 +99,6 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
         super.onViewCreated(view, savedInstanceState);
 
         ViewGroup viewGroup = (ViewGroup) view;
-        mPullToRefreshLayout = new PullToRefreshLayout(viewGroup.getContext());
-        ActionBarPullToRefresh.from(getActivity())
-                .insertLayoutInto(viewGroup)
-                .theseChildrenArePullable(R.id.tutorial_listview)
-                .listener(this)
-                .setup(mPullToRefreshLayout);
         if ( ((YourApplication) getActivity().getApplication()).isSyncAdapterRunning()) {
             Log.d(YourApplication.LOG_TAG, "onViewCreated: synchronizing");
             updateRefresh(true);
@@ -230,18 +225,18 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
     }
 
     @Override
-    public void onRefreshStarted(View view) {
+    public void onRefresh() {
         mTutorialSyncHelper.performSync();
     }
 
     private void updateRefresh(final boolean isSyncing) {
         if ( !isSyncing) {
             Log.d(YourApplication.LOG_TAG, "show as not refreshing");
-            mPullToRefreshLayout.setRefreshComplete();
+            mSwipeRefreshWidget.setRefreshing(false);
         }
         else {
             Log.d(YourApplication.LOG_TAG, "show as refreshing");
-            mPullToRefreshLayout.setRefreshing(true);
+            mSwipeRefreshWidget.setRefreshing(true);
         }
     }
 }

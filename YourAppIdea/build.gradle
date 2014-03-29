@@ -2,13 +2,13 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.2'
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 19
-        versionCode 150
-        versionName "1.5.0"
+        versionCode 151
+        versionName "1.5.1"
     }
 
     compileOptions {
@@ -46,8 +46,7 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:+'
-    compile 'de.keyboardsurfer.android.widget:crouton:1.8.3'
-    compile 'com.github.chrisbanes.actionbarpulltorefresh:extra-abc:+'
+    compile 'de.keyboardsurfer.android.widget:crouton:1.8.4'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
     compile 'eu.inmite.android.lib:android-styled-dialogs:1.1.2@aar'
     compile project(':drodrolib')
