@@ -20,7 +20,7 @@ The demo application is available on Google Play:
 * Spinner in ActionBar
 * Refresh button in Action Bar
 * Contextual toasts with Crouton library
-* Pull To Refresh with library ActionBar-PullToRefresh
+* Pull To Refresh
 
 
 **Improove UX**
