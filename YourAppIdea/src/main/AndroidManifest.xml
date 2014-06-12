@@ -149,10 +149,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- @integer/google_play_services_version  4242000  -->
-        <meta-data android:name="com.google.android.gms.version"
-            android:value="4242000" />
-
 		<meta-data
 			android:name="com.google.android.maps.v2.API_KEY"
 			android:value="AIzaSyDNPreInss5-Yua-nkAHq9qvy84Yqc1wnY"/>
