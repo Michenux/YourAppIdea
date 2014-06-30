@@ -1,5 +1,7 @@
 # YourAppIdea
 
+[![Build Status](https://travis-ci.org/Michenux/YourAppIdea.svg?branch=master)](https://travis-ci.org/Michenux/YourAppIdea)
+
 Project template for android and demo app for tutorials on [michenux.net](http://www.michenux.net)
 
 The demo application is available on Google Play:
