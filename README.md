@@ -10,8 +10,8 @@ The demo application is available on Google Play:
 
 ## Requirements
 
-* Android SDK 19 (with extras/Google Repository)
-* Android Studio
+* Android SDK 20 (with extras/Google Repository)
+* Android Studio 0.8.2
 
 ## What you can find inside
 
