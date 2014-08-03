@@ -1,1 +1,1 @@
-include ':YourAppIdea', ':drodrolib', ':libraries:facebook'
+include ':YourAppIdea', ':drodrolib'

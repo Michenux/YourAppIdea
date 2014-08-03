@@ -49,6 +49,6 @@ dependencies {
     compile 'de.keyboardsurfer.android.widget:crouton:1.8.4@aar'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
     compile 'eu.inmite.android.lib:android-styled-dialogs:1.1.2@aar'
+    compile 'fr.avianey:facebook-android-api:3.16.0@aar'
     compile project(':drodrolib')
-	compile project(':libraries:facebook')
 }
