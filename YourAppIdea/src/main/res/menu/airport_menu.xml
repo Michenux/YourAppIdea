@@ -3,6 +3,7 @@
 
     <item
         android:id="@+id/airport_menuMode"
+        android:title="Mode"
         yourapp:showAsAction="always"
         yourapp:actionLayout="@layout/airport_mode"/>
     
