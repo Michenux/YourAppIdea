@@ -171,7 +171,7 @@ public class GoogleApiClientDelegate implements GoogleApiClient.ConnectionCallba
 
     private void showErrorDialog(int errorCode, FragmentActivity activity) {
         // Create a fragment for the error dialog
-        ErrorDialogFragment dialogFragment = new ErrorDialogFragment(this);
+        ErrorDialogFragment dialogFragment = ErrorDialogFragment.newInstance(this);
         // Pass the error that should be displayed
         Bundle args = new Bundle();
         args.putInt(DIALOG_ERROR, errorCode);
@@ -184,8 +184,17 @@ public class GoogleApiClientDelegate implements GoogleApiClient.ConnectionCallba
 
         private GoogleApiClientDelegate mGoogleApiDelegate;
 
-        public ErrorDialogFragment( GoogleApiClientDelegate apiClientDelegate ) {
-            this.mGoogleApiDelegate = apiClientDelegate;
+        public ErrorDialogFragment() {
+        }
+
+        public static ErrorDialogFragment newInstance(GoogleApiClientDelegate apiClientDelegate) {
+            ErrorDialogFragment fragment = new ErrorDialogFragment();
+            fragment.setGoogleApiDelegate(apiClientDelegate);
+            return fragment;
+        }
+
+        public void setGoogleApiDelegate(GoogleApiClientDelegate delegate) {
+            mGoogleApiDelegate = delegate;
         }
 
         @Override
@@ -198,7 +207,9 @@ public class GoogleApiClientDelegate implements GoogleApiClient.ConnectionCallba
 
         @Override
         public void onDismiss(DialogInterface dialog) {
-            mGoogleApiDelegate.onDialogDismissed();
+            if (mGoogleApiDelegate != null) {
+                mGoogleApiDelegate.onDialogDismissed();
+            }
         }
     }
 
