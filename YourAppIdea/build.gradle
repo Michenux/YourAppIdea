@@ -18,15 +18,14 @@ android {
 
     signingConfigs {
         release {
-	        if ( project.hasProperty('yourappidea.keystore')) {
-              storeFile file(project.property("yourappidea.keystore"))
-              storePassword project.property("yourappidea.keystore.password")
-              keyAlias project.property("yourappidea.keystore.keyAlias")
-              keyPassword project.property("yourappidea.keystore.keyPassword")
+            if (project.hasProperty('yourappidea.keystore')) {
+                storeFile file(project.property("yourappidea.keystore"))
+                storePassword project.property("yourappidea.keystore.password")
+                keyAlias project.property("yourappidea.keystore.keyAlias")
+                keyPassword project.property("yourappidea.keystore.keyPassword")
             }
-	    }
+        }
     }
-
 
     buildTypes {
         debug {
@@ -34,7 +33,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             applicationIdSuffix ".debug"
         }
-
 
         release {
             runProguard false
