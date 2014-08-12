@@ -34,5 +34,6 @@ dependencies {
     compile 'com.squareup.dagger:dagger-compiler:1.2.1'
     compile 'com.squareup.dagger:dagger:1.2.1'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.mcxiaoke.volley:library:1.0.6@aar'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
