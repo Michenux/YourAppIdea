@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 20
-    buildToolsVersion '20.0.0'
+    buildToolsVersion '21.1.1'
 
     defaultConfig {
         minSdkVersion 10
@@ -29,13 +29,13 @@ android {
 
     buildTypes {
         debug {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             applicationIdSuffix ".debug"
         }
 
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             if (project.hasProperty('yourappidea.keystore')) {
                 signingConfig signingConfigs.release
@@ -46,9 +46,9 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:20.0.0'
-    compile 'de.keyboardsurfer.android.widget:crouton:1.8.4@aar'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
-    compile 'eu.inmite.android.lib:android-styled-dialogs:1.1.2@aar'
-    compile 'fr.avianey:facebook-android-api:3.16.0@aar'
+    compile 'de.keyboardsurfer.android.widget:crouton:1.8.5@aar'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'eu.inmite.android.lib:android-styled-dialogs:1.2.0@aar'
+    compile 'fr.avianey:facebook-android-api:3.18.0@aar'
     compile project(':drodrolib')
 }
