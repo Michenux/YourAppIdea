@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="color1">@color/purple_dark</color>
-    <color name="color2">@color/purple_light</color>
-    <color name="color3">@color/purple_middle</color>
-    <color name="color4">@color/purple_light_more</color>
-</resources>
