@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/purple_middle</item>
+        <item name="colorPrimaryDark">@color/purple_dark</item>
+        <item name="colorAccent">@color/purple_middle</item>
+        <item name="colorControlHighlight">@color/purple_middle_transparent</item>
+        <item name="android:colorButtonNormal">@color/purple_middle</item>
+        <item name="android:statusBarColor">@color/purple_dark</item>
+
+        <!--
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        -->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="drawerStyle">@style/NavDrawerStyle</item>
+    </style>
+</resources>
