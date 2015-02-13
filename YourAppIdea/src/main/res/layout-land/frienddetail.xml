@@ -1,43 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#444444"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:clickable="true">
 
-    <TextView android:text="@string/friend_name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         android:textSize="16dp"/>
-    
-    <TextView
-        android:id="@+id/friend_name_value"
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/friend_cardview"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dp">
-    </TextView>
-    
-    <TextView android:text="@string/friend_job_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"/>
-    
-    <TextView
-        android:id="@+id/friend_job_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16dp">
-    </TextView>
-    
-    <ImageView android:id="@+id/friend_face_value" 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"/>
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardElevation="30dp">
 
-    <!--
-                 android:hint="@string/friend_edit_summary"
-            android:imeOptions="actionNext"
-    -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <ImageView android:id="@+id/friend_face_value"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                tools:src="@drawable/face01"/>
+
+            <TextView
+                tools:text="Technical Lead"
+                android:id="@+id/friend_job_value"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_above="@id/friend_face_value"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <TextView
+                android:id="@+id/friend_name_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/friend_face_value"
+                android:layout_centerVertical="true"
+                android:gravity="center_horizontal"
+                tools:text="Laurent Michenaud"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -4,21 +4,21 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    style="@style/NavDrawerItemStyle">
+    android:paddingLeft="5dp"
+    style="@style/NavDrawerLabelWithIconStyle">
 
     <ImageView
         android:id="@+id/navmenuitem_icon"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
 		android:layout_centerVertical="true"
-		android:paddingLeft="15dp"/>
+        style="@style/NavDrawerLabelWithIconStyle.Icon"/>
 
     <TextView
         android:id="@+id/navmenuitem_label"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        style="@style/NavDrawerItemStyle.TextView"/>
+        style="@style/NavDrawerLabelWithIconStyle.TextView"/>
 
 </LinearLayout>
 

@@ -1,11 +1,9 @@
 package org.michenux.yourappidea.tutorial;
 
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SyncStatusObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,10 +12,9 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,30 +22,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import org.lucasr.twowayview.ItemClickSupport;
+import org.lucasr.twowayview.widget.TwoWayView;
 import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
+import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncAdapter;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
 import javax.inject.Inject;
 
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
-
-public class TutorialListFragment extends Fragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>,
-        SwipeRefreshLayout.OnRefreshListener {
+public class TutorialListFragment extends Fragment
+        implements LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener {
 
     private boolean mHasSync = false;
 
-    private SimpleCursorAdapter mAdapter;
-
-    private String[] mAdapterFromColumns = new String[] {TutorialContentProvider.TITLE_COLUMN, TutorialContentProvider.DESCRIPTION_COLUMN, TutorialContentProvider.DATECREATION_COLUMN};
-    private int[] mAdapterToViews = new int[] { R.id.tutorial_title, R.id.tutorial_desc, R.id.tutorial_date};
+    private TutorialRecyclerAdapter mAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshWidget;
 
@@ -85,11 +78,13 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tutorial_list, container, false);
         mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.tutorial_swiperefreshlayout);
-        mSwipeRefreshWidget.setColorScheme(R.color.color1, R.color.color2, R.color.color3,
-                R.color.color4);
-        ListView listView = (ListView) view.findViewById(R.id.tutorial_listview);
-        listView.setOnItemClickListener(this);
-        fillData(listView);
+        mSwipeRefreshWidget.setColorSchemeResources(R.color.refresh_progress_1, R.color.refresh_progress_2, R.color.refresh_progress_3);
+        TwoWayView recyclerView = (TwoWayView) view.findViewById(R.id.tutorial_listview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLongClickable(false);
+        final ItemClickSupport itemClick = ItemClickSupport.addTo(recyclerView);
+        itemClick.setOnItemClickListener(this);
+        fillData(recyclerView);
         mSwipeRefreshWidget.setOnRefreshListener(this);
         return view;
     }
@@ -118,10 +113,12 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
         switch (item.getItemId()) {
 
             case R.id.aroundme_menu_info:
-                SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
-                        .setMessage(Html.fromHtml(getString(R.string.tutorial_info_details)))
-                        .setTitle(R.string.tutorial_info_title)
+                new MaterialDialog.Builder(this.getActivity())
+                        .title(R.string.tutorial_info_title)
+                        .items(R.array.tutorial_info_details)
+                        .positiveText(R.string.close)
                         .show();
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -147,57 +144,20 @@ public class TutorialListFragment extends Fragment implements AdapterView.OnItem
 
     }
 
+    private void fillData( TwoWayView recyclerView) {
+
+        this.getLoaderManager().initLoader(0, null, this);
+
+        this.mAdapter = new TutorialRecyclerAdapter(null);
+        recyclerView.setAdapter(this.mAdapter);
+    }
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mAdapter.getCursor().moveToPosition(position);
+    public void onItemClick(RecyclerView recyclerView, View view, int row, long column) {
+        mAdapter.getCursor().moveToPosition(row);
         String uri = CursorUtils.getString(TutorialContentProvider.URL_COLUMN, mAdapter.getCursor());
         Intent viewTutoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         this.startActivity(viewTutoIntent);
-    }
-
-    private void fillData( ListView listView) {
-
-        this.getLoaderManager().initLoader(0, null, this);
-        this.mAdapter = new SimpleCursorAdapter(this.getActivity(),
-                R.layout.tutorial_listitem, null, mAdapterFromColumns, mAdapterToViews, 0);
-
-        this.mAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-            public boolean setViewValue(View view, Cursor cursor,
-                                        int columnIndex) {
-
-                if (view.getId() == R.id.tutorial_title) {
-
-                    String title = CursorUtils.getString(TutorialContentProvider.TITLE_COLUMN, cursor);
-                    TextView textView = (TextView) view;
-                    textView.setText(Html.fromHtml(title));
-
-                    return true;
-                }
-                else if (view.getId() == R.id.tutorial_desc) {
-
-                    String desc = CursorUtils.getString(TutorialContentProvider.DESCRIPTION_COLUMN, cursor);
-                    TextView textView = (TextView) view;
-                    textView.setText(Html.fromHtml(desc));
-
-                    return true;
-                }
-                else if ( view.getId() == R.id.tutorial_date ) {
-
-                    long date = CursorUtils.getLong(TutorialContentProvider.DATECREATION_COLUMN, cursor) * 1000;
-                    TextView textView = (TextView) view;
-                    int flags = 0;
-                    flags |= DateUtils.FORMAT_SHOW_DATE;
-                    flags |= DateUtils.FORMAT_ABBREV_MONTH;
-                    flags |= DateUtils.FORMAT_SHOW_YEAR;
-
-                    textView.setText(DateUtils.formatDateTime(getActivity(), date, flags));
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        listView.setAdapter(this.mAdapter);
     }
 
     @Override

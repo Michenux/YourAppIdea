@@ -21,6 +21,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.RequestFuture;
@@ -37,7 +38,7 @@ import org.michenux.drodrolib.wordpress.json.WPJsonResponse;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
+import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -177,6 +178,10 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
                     Request.Method.GET,
                     "http://www.michenux.net/?json=get_category_posts&slug=android&custom_fields=android_desc&categories=android&count=9999",
                     WPJsonResponse.class, null, future, future);
+            jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    5000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             //&include=id,title,custom_fields,url,date,modified,excerpt,author,thumbnail_images,content
             requestQueue.add(jsObjRequest);
             WPJsonResponse response = future.get(); // blocking
@@ -206,7 +211,7 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
                 updateDatabase(response.getPosts(), provider);
 
                 if (ConnectivityUtils.isConnectedWifi(this.getContext()) && BatteryUtils.isChargingOrFull(this.getContext())) {
-                    //TODO: load image
+                    //load image
                 }
 
             }  else  if ( BuildConfig.DEBUG) {

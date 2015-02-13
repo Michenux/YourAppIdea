@@ -36,6 +36,7 @@ public class FbLoginFragment extends Fragment implements UserSessionCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_facebook, container, false);
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.navmenufacebook_loginbutton);
+        loginButton.setReadPermissions("basic_info", "email");
         loginButton.setFragment(this);
 
         // Hide facebook login button if facebook app not installed

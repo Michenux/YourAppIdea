@@ -8,20 +8,18 @@
     <string name="tutorial_notification_title">New android tutorial</string>
 
     <string name="tutorial_info_title">Info</string>
-    <string name="tutorial_info_details"><![CDATA[
-        <p><b>Features:</b></p>
-        <p>- Retrieve posts from a wordpress website.</p>
-        <p>- Check every day for new posts and notify the user.</p>
-        <p>- Works in offline mode : posts stored in local database.</p>
-        <p>- Swipe down to refresh the list.</p>
+    <string-array name="tutorial_info_details">
+        <item>- Retrieve posts from a wordpress website.</item>
+        <item>- Check every day for new posts and notify the user.</item>
+        <item>- Works in offline mode : posts stored in local database.</item>
+        <item>- Pull down to refresh the list.</item>
 
-        <p><b>API and libraries:</b></p>
-        <p>- SyncAdapter is used to retrieve the new posts.</p>
-        <p>- Volley and Gson libraries are used to query the json feed of wordpress.</p>
-        <p>- ContentProvider/CursorLoader/LoaderManager are used to load the posts from the database.</p>
-        <p>- SwipeRefreshLayout (android support) to refresh the list by swiping down.</p>
-        <p>- Crouton library to display errors.</p>
-        ]]>
-        </string>
+        <item>- RecyclerView with twowayview library.</item>
+        <item>- SyncAdapter is used to retrieve the new posts.</item>
+        <item>- Volley and Gson libraries are used to query the json feed of wordpress.</item>
+        <item>- ContentProvider/CursorLoader/LoaderManager are used to load the posts from the database.</item>
+        <item>- SwipeRefreshLayout (android support) to refresh the list by swiping down.</item>
+        <item>- Crouton library to display errors.</item>
+    </string-array>
 
 </resources>

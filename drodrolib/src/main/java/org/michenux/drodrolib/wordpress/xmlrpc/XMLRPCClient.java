@@ -275,7 +275,6 @@ public class XMLRPCClient {
          * Cancel this call. This will abort the network communication.
          */
         public void cancel() {
-            // TODO this doesn't work
             // Set the flag, that this thread has been canceled
             canceled = true;
             // Disconnect the connection to the server

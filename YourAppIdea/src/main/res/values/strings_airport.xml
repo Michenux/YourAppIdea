@@ -13,16 +13,12 @@
     </string-array>
 
     <string name="airport_info_title">Info</string>
-    <string name="airport_info_details"><![CDATA[
-        <p><b>Features:</b></p>
-        <p>- Retrieve flight information of Orly Airport (Paris/France).</p>
-        <p>- Use the spinner in action bar to choose between incoming and outgoing flights.</p>
-        <p>- Use the refresh button to refresh the list.</p>
-
-        <p><b>API and libraries:</b></p>
-        <p>- Volley and Gson libraries are used to query the remote web service.</p>
-        <p>- Crouton library to display errors.</p>
-        ]]>
-        </string>
+    <string-array name="airport_info_details">
+        <item>- Retrieve flight information of Orly Airport (Paris/France).</item>
+        <item>- Use the spinner in action bar to choose between incoming and outgoing flights.</item>
+        <item>- SwipeRefreshLayout (android support) to refresh the list by swiping down.</item>
+        <item>- Volley and Gson libraries are used to query the remote web service.</item>
+        <item>- Crouton library to display errors.</item>
+    </string-array>
 
 </resources>

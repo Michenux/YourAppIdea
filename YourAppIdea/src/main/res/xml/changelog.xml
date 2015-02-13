@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
     <!--
+    For 2.1.0 :
+        - RippleEffect sur le navigationdrawer
+        - Float action button
+        - Bug: ensure visible sur la friend list
+        - Selected item on friend list
+
+    For 2.2.0 :
+        - Picture of social networks
+        - https://github.com/gabrielemariotti/changeloglib
+
     Future:
         General:
-            - Theme Holo.light
             - Network/Batterie best pratices
             - Proguard
-            - https://github.com/gabrielemariotti/changeloglib
         Security:
             - Twitter ?
-        Home
-            - Find another layout for home screen
-		Changelog
-			- use library instead
-        Tutorials
-            - offline mode
         Airport
             - fix speed/altitude
-        About me screen
         CityActivity
             - search activity, filter, etc..
             - integrate a line: my position
     -->
+    <release version="2.0.0" versioncode="200">
+        <change>Material theme</change>
+        <change>Replace ListView with RecyclerView (using twowaysview library)</change>
+        <change>Use of toolbar</change>
+        <change>Navigation drawer: over toolbar</change>
+        <change>Navigation drawer: header with login to social networks</change>
+        <change>Use RippleEffect library</change>
+    </release>
     <release version="1.5.1" versioncode="151">
         <change>Use SwipeRefreshLayout from android support and remove actionbarpulltorefresh library</change>
     </release>

@@ -1,1 +1,1 @@
-include ':YourAppIdea', ':drodrolib'
+include ':drodrolib', ':YourAppIdea'

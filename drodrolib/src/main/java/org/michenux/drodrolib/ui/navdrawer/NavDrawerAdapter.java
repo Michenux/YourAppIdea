@@ -1,67 +1,116 @@
 package org.michenux.drodrolib.ui.navdrawer;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.os.Build;
-import android.util.SparseIntArray;
+import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {
+public class NavDrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-	private LayoutInflater inflater;
+    private OnDrawerItemClickListener mClickListener;
 
-	public NavDrawerAdapter(Context context, int textViewResourceId ) {
-		super(context, textViewResourceId);
-		this.inflater = LayoutInflater.from(context);
+    private List<NavDrawerItem> items = new ArrayList<>();
+
+    private SparseArray mViewHolderCreators = new SparseArray();
+
+    private NavDrawerSimpleSelector mSelectedItem;
+
+	public NavDrawerAdapter(OnDrawerItemClickListener itemClickListener ) {
+		super();
+        this.mClickListener = itemClickListener;
 	}
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = null ;
-		NavDrawerItem menuItem = this.getItem(position);
-        view = menuItem.getView(convertView, parent, menuItem, inflater);
-		return view ;
-	}
+    public void registerViewTypeCreator( NavDrawerViewTypeCreator viewTypeCreator ) {
+        mViewHolderCreators.put(viewTypeCreator.getType(), viewTypeCreator);
+    }
 
-	@Override
-	public int getViewTypeCount() {
-        SparseIntArray types = new SparseIntArray();
-        for( int i = 0 ; i < this.getCount(); i++ ) {
-            int itemType = getItemViewType(i);
-            if ( types.get(itemType, -1) == -1 ) {
-                types.put(itemType, itemType);
-            }
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        NavDrawerViewTypeCreator viewTypeCreator = (NavDrawerViewTypeCreator) this.mViewHolderCreators.get(viewType);
+        if ( viewTypeCreator == null ) {
+            throw new IllegalStateException("A view type has not been registered on the adapter of the navigation drawer");
         }
-	    return types.size();
-	}
-	
-	@Override
+        final RecyclerView.ViewHolder holder = viewTypeCreator.createViewHolder(parent, LayoutInflater.from(parent.getContext()));
+        return holder;
+    }
+
+    public NavDrawerItem getItem(int position) {
+        return this.items.get(position);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+        NavDrawerItem menuItem = this.getItem(position);
+        menuItem.onBindViewHolder(viewHolder, position);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickListener.drawerItemClicked(position, v);
+            }
+        });
+
+        if ( menuItem.isCheckable() && position == mSelectedItem.getSelectedItem()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                viewHolder.itemView.setActivated(true);
+            }
+            viewHolder.itemView.setSelected(true);
+        }
+        else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                viewHolder.itemView.setActivated(false);
+            }
+            viewHolder.itemView.setSelected(false);
+        }
+    }
+
+    @Override
 	public int getItemViewType(int position) {
 	    return this.getItem(position).getType();
 	}
 
+    @Override
+    public int getItemCount() {
+        return this.items.size();
+    }
 
-    public void setData(NavDrawerItem[] data) {
-        clear();
-        if (data != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                addAllHoneyComb(data);
-            }
-            else {
-                for(NavDrawerItem item: data){
-                    super.add(item);
-                }
+    public void clear() {
+        this.items.clear();
+    }
+
+    public void addAll(List<NavDrawerItem> items) {
+       this.items.addAll(items);
+    }
+
+    public void removeMenuItemWithId(long id) {
+        for( int i = 0 ; i < getItemCount(); i++) {
+            if ( id == getItemId(i)) {
+                items.remove(getItem(i));
+                break;
             }
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void addAllHoneyComb(NavDrawerItem... items) {
-        super.addAll(items);
+    public void insert(NavDrawerItem item, int index) {
+        this.items.add(index,item);
+    }
+
+    public void setSelectedItem(NavDrawerSimpleSelector selectedItem) {
+        this.mSelectedItem = selectedItem;
+    }
+
+    public void setViewtypeCreators(SparseArray viewHolderCreators) {
+        mViewHolderCreators = viewHolderCreators;
+    }
+
+    public static interface OnDrawerItemClickListener {
+        public void drawerItemClicked(int position, View view);
     }
 }

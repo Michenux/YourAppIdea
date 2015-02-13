@@ -43,7 +43,7 @@ public class FbLoginDelegate implements Session.StatusCallback {
 
     // create it in activity constructor
     public FbLoginDelegate(UserHelper userHelper, Activity activity, Bundle savedInstanceState) {
-        this(userHelper, activity, savedInstanceState, "basic_info" );
+        this(userHelper, activity, savedInstanceState, "basic_info", "email" );
     }
 
     // create it in activity constructor
@@ -125,6 +125,7 @@ public class FbLoginDelegate implements Session.StatusCallback {
                     currentUser.setFirstName(user.getFirstName());
                     currentUser.setLastName(user.getLastName());
                     currentUser.setDisplayName(user.getName());
+                    currentUser.setMail((String) user.getProperty("email"));
                     currentUser.setProviderDisplayName("Facebook");
                     currentUser.setProvider(PROVIDER_NAME);
                    FbLoginDelegate.this.mUserHelper.setCurrentUser(currentUser);
@@ -142,9 +143,10 @@ public class FbLoginDelegate implements Session.StatusCallback {
     public void onClickLogin() {
         Session session = Session.getActiveSession();
         if (!session.isOpened() && !session.isClosed()) {
-            session.openForRead(new Session.OpenRequest(mContext)
-                    .setPermissions(this.mPermissions)
-                    .setCallback(this));
+            Session.OpenRequest openRequest = new Session.OpenRequest(mContext);
+            openRequest.setPermissions(this.mPermissions);
+            openRequest.setCallback(this);
+            session.openForRead(openRequest);
         } else {
             Session.openActiveSession(mContext, true, this);
         }

@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/donation_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingTop="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:text="@string/aroundme_nolocation"
         android:id="@+id/aroundme_cityname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/aroundme_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/aroundme_cityname"
+        android:scrollbars="vertical"
+        android:layout_below="@id/aroundme_cityname"
         tools:listitem="@layout/aroundme_listitem"/>
 
 </RelativeLayout>

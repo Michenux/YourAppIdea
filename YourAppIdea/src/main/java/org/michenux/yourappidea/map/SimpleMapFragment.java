@@ -1,5 +1,8 @@
 package org.michenux.yourappidea.map;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,11 +15,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,13 +36,17 @@ import org.michenux.yourappidea.YourApplication;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
-public class SimpleMapFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, MCXSupportMapFragment.OnMapCreatedListener {
+public class SimpleMapFragment extends Fragment implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener, MCXSupportMapFragment.OnMapCreatedListener {
+
+    private static final int LOCATIONSERVICES_RESOLUTION_RESULCODE = 765;
 
     private GoogleMap mMap;
 
-    private LocationClient mLocationClient;
+    private GoogleApiClient mGoogleApiClient;
 
     private LocationRequest mRequest;
 
@@ -48,7 +59,12 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
             Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onCreate");
         }
 
-        mLocationClient = new LocationClient(this.getActivity().getApplicationContext(), this, this);
+        mGoogleApiClient = new GoogleApiClient.Builder(this.getActivity())
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
         mRequest = LocationRequest.create()
                 .setInterval(5000)
                 .setFastestInterval(16)
@@ -60,8 +76,7 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onCreateView");
         }
-        View view = container.findViewById(R.id.simplemap);
-        view = inflater.inflate(R.layout.simplemap_fragment, container, false);
+        View view = inflater.inflate(R.layout.simplemap_fragment, container, false);
         return view ;
     }
 
@@ -90,25 +105,57 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
     @Override
     public void onResume() {
         super.onResume();
-        mLocationClient.connect();
+        mGoogleApiClient.connect();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if ( mLocationClient.isConnected()) {
-            mLocationClient.removeLocationUpdates(this);
-            mLocationClient.disconnect();
+        if ( mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
+        mGoogleApiClient.disconnect();
     }
 
     @Override
     public void onConnected(Bundle bundle) {
-        mLocationClient.requestLocationUpdates(mRequest, this);
+        registerLocationUpdates();
+    }
+
+
+    private void registerLocationUpdates() {
+        PendingResult<Status> result = LocationServices.FusedLocationApi
+                .requestLocationUpdates(
+                        mGoogleApiClient,
+                        mRequest,
+                        this);
+        result.setResultCallback(new ResultCallback<Status>() {
+            public void onResult(Status status) {
+                if (status.isSuccess()) {
+                    // Successfully registered
+                } else if (status.hasResolution()) {
+                    // Google provides a way to fix the issue
+                    try {
+                        status.startResolutionForResult(
+                                SimpleMapFragment.this.getActivity(),     // your current activity used to receive the result
+                                LOCATIONSERVICES_RESOLUTION_RESULCODE); // the result code you'll look for in your onActivityResult method to retry registering
+                    } catch (IntentSender.SendIntentException e) {
+                        Log.e(YourApplication.LOG_TAG, "SimpleMapFragment start resolution failure: ", e);
+                    }
+                } else {
+                    // No recovery. Weep softly or inform the user.
+                    Log.e(YourApplication.LOG_TAG, "SimpleMapFragment registering failed: " + status.getStatusMessage());
+                }
+            }
+        });
     }
 
     @Override
-    public void onDisconnected() {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ( requestCode == LOCATIONSERVICES_RESOLUTION_RESULCODE && resultCode == Activity.RESULT_OK ) {
+            registerLocationUpdates();
+        }
     }
 
     @Override
@@ -121,14 +168,6 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(loc, 15);
             mMap.animateCamera(cameraUpdate);
         }
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Crouton.makeText(
-                this.getActivity(),
-                getString(R.string.error_connectionfailed),
-                Style.ALERT).show();
     }
 
     @Override
@@ -152,12 +191,29 @@ public class SimpleMapFragment extends Fragment implements GooglePlayServicesCli
         switch (item.getItemId()) {
 
             case R.id.simplemap_menu_info:
-                SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
-                        .setMessage(Html.fromHtml(getString(R.string.simplemap_info_details)))
-                        .setTitle(R.string.simplemap_info_title)
+                new MaterialDialog.Builder(this.getActivity())
+                        .title(R.string.simplemap_info_title)
+                        .items(R.array.simplemap_info_details)
+                        .positiveText(R.string.close)
                         .show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Crouton.makeText(
+                SimpleMapFragment.this.getActivity(),
+                getString(R.string.error_connectionfailed),
+                Style.ALERT, R.id.toolbar).show();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Crouton.makeText(
+                SimpleMapFragment.this.getActivity(),
+                getString(R.string.error_connectionsuspended),
+                Style.ALERT, R.id.toolbar).show();
     }
 }

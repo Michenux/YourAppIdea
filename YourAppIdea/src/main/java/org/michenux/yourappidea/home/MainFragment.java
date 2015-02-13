@@ -1,24 +1,18 @@
 package org.michenux.yourappidea.home;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import org.michenux.drodrolib.ui.animation.LiveButton;
-import org.michenux.drodrolib.ui.navdrawer.AbstractNavDrawerActivity;
-import org.michenux.drodrolib.ui.navdrawer.NavDrawerSelectItemRunnable;
+import org.michenux.drodrolib.ui.navdrawer.NavigationDrawerFragment;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 
-import javax.inject.Inject;
-
-public class MainFragment extends Fragment {
-
-    @Inject
-    LiveButton liveButton ;
+public class MainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,20 +28,48 @@ public class MainFragment extends Fragment {
                 .inflate(R.layout.main_fragment, container, false);
 
         Button button0 = (Button) mainView.findViewById(R.id.mainmenu_button0);
-        liveButton.setupLiveAnimOnButton(button0, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 1));
+        button0.setOnClickListener(this);
 
         Button button1 = (Button) mainView.findViewById(R.id.mainmenu_button1);
-        liveButton.setupLiveAnimOnButton(button1, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 2));
+        button1.setOnClickListener(this);
 
         Button button2 = (Button) mainView.findViewById(R.id.mainmenu_button2);
-        liveButton.setupLiveAnimOnButton(button2, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 3));
+        button2.setOnClickListener(this);
 
         Button button3 = (Button) mainView.findViewById(R.id.mainmenu_button3);
-        liveButton.setupLiveAnimOnButton(button3, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 4));
+        button3.setOnClickListener(this);
 
         Button button4 = (Button) mainView.findViewById(R.id.mainmenu_button4);
-        liveButton.setupLiveAnimOnButton(button4, new NavDrawerSelectItemRunnable((AbstractNavDrawerActivity)this.getActivity(), 5));
+        button4.setOnClickListener(this);
 
         return mainView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        NavigationDrawerFragment fragment = ((YourAppMainActivity)this.getActivity()).findNavDrawerFragment();
+        switch (v.getId()) {
+            case R.id.mainmenu_button0:
+                fragment.selectItem(1, false);
+                break;
+            case R.id.mainmenu_button1:
+                fragment.selectItem(2, false);
+                break;
+            case R.id.mainmenu_button2:
+                fragment.selectItem(3, false);
+                break;
+            case R.id.mainmenu_button3:
+                fragment.selectItem(4, false);
+                break;
+            case R.id.mainmenu_button4:
+                fragment.selectItem(5, false);
+                break;
+        }
     }
 }

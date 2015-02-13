@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="purple_light_more">#55466d</color> <!-- ffb488ff -->
-    <color name="purple_light">#4a3e60</color> <!-- a276eb -->
-    <color name="purple_middle">#3c314d</color> <!-- #8658ce -->
-    <color name="purple_middle_transparent">#803c314d</color> <!-- #808658ce -->
-    <color name="purple_dark">#1a1622</color>
-    <color name="purple_dark_transparent">#CC1a1622</color><!-- #6a3ab2 -->
+    <color name="purple_light_more">@color/accent</color> <!--#55466d-->
+    <color name="purple_light">@color/primary_light</color> <!-- #4a3e60 -->
+    <color name="purple_middle">@color/primary</color> <!-- #3c314d -->
+    <color name="purple_middle_transparent">#802196F3</color>
+    <color name="purple_dark">@color/primary_dark</color> <!-- #1a1622 -->
+    <color name="purple_dark_transparent">#801976D2</color> <!-- #CC1a1622 -->
 
-    <color name="refresh_progress_1">@color/purple_middle</color>
-    <color name="refresh_progress_2">@color/purple_light</color>
-    <color name="refresh_progress_3">@color/purple_light_more</color>
+    <color name="refresh_progress_1">@color/primary</color>
+    <color name="refresh_progress_2">@color/primary_dark</color>
+    <color name="refresh_progress_3">@color/primary_light</color>
+
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="accent">#FF4081</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
 </resources>

@@ -1,19 +1,21 @@
 package org.michenux.yourappidea;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.transition.TransitionInflater;
 
 import org.michenux.drodrolib.ui.changelog.ChangeLogHelper;
 import org.michenux.drodrolib.ui.changelog.EulaChangeLogChainHelper;
 import org.michenux.drodrolib.ui.eula.EulaHelper;
-import org.michenux.drodrolib.ui.fragment.dialog.ConfirmDialog;
-import org.michenux.drodrolib.ui.navdrawer.AbstractNavDrawerActivity;
-import org.michenux.yourappidea.aroundme.CityActivity;
+import org.michenux.drodrolib.ui.navdrawer.NavigationDrawerFragment;
 import org.michenux.yourappidea.home.LoginActivity;
 import org.michenux.yourappidea.home.MainFragment;
+import org.michenux.yourappidea.home.YourAppMainActivity;
 import org.michenux.yourappidea.settings.SettingsFragment;
 
 import javax.inject.Inject;
@@ -34,10 +36,21 @@ public class NavigationController {
 				.parse("market://details?id=" + context.getPackageName())));
 	}
 
-    public void goHomeFragment( AbstractNavDrawerActivity activity) {
+    public void goHomeFragment( YourAppMainActivity activity) {
+        MainFragment fg = new MainFragment();
+        addFragmentTransition(activity, fg);
+        NavigationDrawerFragment fragment = activity.findNavDrawerFragment();
+        fragment.setTitleWithDrawerTitle();
+        fragment.resetSelection();
         activity.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, new MainFragment(), HOME_FRAGMENT_TAG).commit();
-        activity.setTitleWithDrawerTitle();
+                .replace(R.id.content_frame, fg, HOME_FRAGMENT_TAG).commit();
+    }
+
+    public void addFragmentTransition(Activity activity, Fragment fg) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fg.setEnterTransition(TransitionInflater.from(activity).inflateTransition(android.R.transition.slide_top));
+            fg.setExitTransition(TransitionInflater.from(activity).inflateTransition(android.R.transition.slide_right));
+        }
     }
 
     public void confirmEulaAndShowChangeLog(FragmentActivity activity) {
@@ -66,20 +79,6 @@ public class NavigationController {
         ChangeLogHelper changeLogHelper = new ChangeLogHelper();
         changeLogHelper.showFullChangeLog(R.string.changelog_title, R.string.changelog_close, R.xml.changelog, activity);
     }
-
-	public void showExitDialog(final FragmentActivity activity) {
-		ConfirmDialog newFragment = ConfirmDialog.newInstance(
-				R.string.confirm_quit, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						activity.finish();
-					}
-				}, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						dialog.cancel();
-					}
-				});
-		newFragment.show(activity.getSupportFragmentManager(), "dialog");
-	}
 
     public void showSettings(FragmentActivity activity) {
         activity.getSupportFragmentManager().beginTransaction()

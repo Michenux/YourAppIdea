@@ -17,7 +17,7 @@ public class PlaceContentProvider extends AbstractContentProvider {
     public static final String LATITUDE_COLUMN = "LATITUDE";
 
     private static final String AUTHORITY = ContentProviderUtils.buildAuthority(
-            BuildConfig.PACKAGE_NAME, BuildConfig.FLAVOR, "places");
+            BuildConfig.APPLICATION_ID, BuildConfig.FLAVOR, "places");
 
     private static final String BASE_PATH = "places";
 

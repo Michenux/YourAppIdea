@@ -1,68 +1,30 @@
 package org.michenux.drodrolib.ui.navdrawer;
 
-import android.widget.BaseAdapter;
+import android.support.annotation.IdRes;
+import android.support.annotation.IntegerRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.StringRes;
+import android.util.SparseArray;
 
 import org.michenux.drodrolib.R;
 
 public class NavDrawerActivityConfiguration {
 
-	private int mainLayout;
-	private int drawerShadow;
+    private int layout;
+    private int toolbarId;
 	private int drawerLayoutId;
 	private int leftDrawerId;
+    private int recyclerViewId;
 	private int[] actionMenuItemsToHideWhenDrawerOpen;
-//	private NavDrawerItem[] navItems;
 	private int drawerOpenDesc;
 	private int drawerCloseDesc;
-    private int drawerIcon ;
-    private NavDrawerAdapter mAdapter;
+    private SparseArray viewHolderCreators = new SparseArray();
 
-    public boolean hasMenuItemWithId( long id ) {
-        NavDrawerAdapter adapter = (NavDrawerAdapter) getAdapter();
-        for( int i = 0 ; i < adapter.getCount(); i++) {
-            if ( id == adapter.getItem(i).getId()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void removeMenuItemWithId( long id ) {
-        NavDrawerAdapter adapter = (NavDrawerAdapter) getAdapter();
-        for( int i = 0 ; i < adapter.getCount(); i++) {
-            if ( id == adapter.getItem(i).getId()) {
-                adapter.remove(adapter.getItem(i));
-                break;
-            }
-        }
-    }
-
-    public void addMenuItemAtIndex( NavDrawerItem item, int index ) {
-        NavDrawerAdapter adapter = (NavDrawerAdapter) getAdapter();
-        adapter.insert(item, index);
-    }
-
-	public int getMainLayout() {
-		return mainLayout;
-	}
-
-	public void setMainLayout(int mainLayout) {
-		this.mainLayout = mainLayout;
-	}
-
-	public int getDrawerShadow() {
-		return drawerShadow;
-	}
-
-	public void setDrawerShadow(int drawerShadow) {
-		this.drawerShadow = drawerShadow;
-	}
-
-	public int getDrawerLayoutId() {
+	public @IdRes int getDrawerLayoutViewId() {
 		return drawerLayoutId;
 	}
 
-	public void setDrawerLayoutId(int drawerLayoutId) {
+	public void setDrawerLayoutId( @IdRes int drawerLayoutId) {
 		this.drawerLayoutId = drawerLayoutId;
 	}
 
@@ -70,7 +32,7 @@ public class NavDrawerActivityConfiguration {
 		return leftDrawerId;
 	}
 
-	public void setLeftDrawerId(int leftDrawerId) {
+	public void setLeftDrawerId( @IdRes int leftDrawerId) {
 		this.leftDrawerId = leftDrawerId;
 	}
 
@@ -83,19 +45,11 @@ public class NavDrawerActivityConfiguration {
 		this.actionMenuItemsToHideWhenDrawerOpen = actionMenuItemsToHideWhenDrawerOpen;
 	}
 
-//	public NavDrawerItem[] getNavItems() {
-//		return navItems;
-//	}
-
-//	public void setNavItems(NavDrawerItem[] navItems) {
-//		this.navItems = navItems;
-//	}
-
 	public int getDrawerOpenDesc() {
 		return drawerOpenDesc;
 	}
 
-	public void setDrawerOpenDesc(int drawerOpenDesc) {
+	public void setDrawerOpenDesc( @StringRes int drawerOpenDesc) {
 		this.drawerOpenDesc = drawerOpenDesc;
 	}
 
@@ -103,26 +57,37 @@ public class NavDrawerActivityConfiguration {
 		return drawerCloseDesc;
 	}
 
-	public void setDrawerCloseDesc(int drawerCloseDesc) {
+	public void setDrawerCloseDesc( @StringRes int drawerCloseDesc) {
 		this.drawerCloseDesc = drawerCloseDesc;
 	}
 
-	public NavDrawerAdapter getAdapter() {
-		return mAdapter;
-	}
-
-	public void setAdapter(NavDrawerAdapter adapter) {
-		this.mAdapter = adapter;
-	}
-
-    public int getDrawerIcon() {
-        return drawerIcon;
+    public int getToolbarId() {
+        return toolbarId;
     }
 
-    public void setDrawerIcon(int drawerIcon) {
-        this.drawerIcon = drawerIcon;
+    public void setToolbarId( @IdRes int toolbarId) {
+        this.toolbarId = toolbarId;
     }
 
+    public int getRecyclerViewId() {
+        return recyclerViewId;
+    }
+
+    public void setRecyclerViewId(int recyclerViewId) {
+        this.recyclerViewId = recyclerViewId;
+    }
+
+    public int getLayout() {
+        return layout;
+    }
+
+    public void setLayout( @LayoutRes int layout) {
+        this.layout = layout;
+    }
+
+    public SparseArray getViewHolderCreators() {
+        return viewHolderCreators;
+    }
 
     public static class Builder {
 
@@ -131,11 +96,10 @@ public class NavDrawerActivityConfiguration {
         public Builder() {
             drawerOpenDesc(R.string.drawer_open);
             drawerCloseDesc(R.string.drawer_close);
-            drawerShadow(R.drawable.drawer_shadow);
         }
 
-        public Builder mainLayout(int mainLayout) {
-            mConf.setMainLayout(mainLayout);
+        public Builder toolbarId( @IdRes int toolbarId) {
+            mConf.setToolbarId(toolbarId);
             return this;
         }
 
@@ -143,43 +107,38 @@ public class NavDrawerActivityConfiguration {
             return mConf;
         }
 
-        public Builder drawerLayoutId(int drawerLayoutId) {
+        public Builder drawerLayoutId( @IdRes int drawerLayoutId) {
             mConf.setDrawerLayoutId(drawerLayoutId);
             return this;
         }
 
-        public Builder leftDrawerId(int leftDrawerId) {
+        public Builder leftDrawerId( @IdRes int leftDrawerId) {
             mConf.setLeftDrawerId(leftDrawerId);
             return this;
         }
 
-//        public Builder menu(NavDrawerItem menuitems[]) {
-//            mConf.setNavItems(menuitems);
-//            return this;
-//        }
-
-        public Builder drawerShadow(int drawerShadowId) {
-            mConf.setDrawerShadow(drawerShadowId);
+        public Builder recyclerViewId( @IdRes int recyclerViewId) {
+            mConf.setRecyclerViewId(recyclerViewId);
             return this;
         }
 
-        public Builder drawerOpenDesc(int drawerOpenId) {
-            mConf.setDrawerOpenDesc(drawerOpenId);
+        public Builder drawerOpenDesc( @StringRes int drawerOpenDesc) {
+            mConf.setDrawerOpenDesc(drawerOpenDesc);
             return this;
         }
 
-        public Builder drawerCloseDesc(int drawerCloseId) {
+        public Builder drawerCloseDesc( @StringRes int drawerCloseId) {
             mConf.setDrawerCloseDesc(drawerCloseId);
             return this;
         }
 
-        public Builder adapter( NavDrawerAdapter adapter) {
-            mConf.setAdapter(adapter);
+        public Builder layout(@LayoutRes int layout) {
+            mConf.setLayout(layout);
             return this;
         }
 
-        public Builder drawerIcon(int icDrawer) {
-            mConf.setDrawerIcon(icDrawer);
+        public Builder registerViewTypeCreator( NavDrawerViewTypeCreator viewTypeCreator ) {
+            mConf.getViewHolderCreators().put(viewTypeCreator.getType(), viewTypeCreator);
             return this;
         }
     }

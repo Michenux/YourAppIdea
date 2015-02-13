@@ -1,4 +1,17 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/airport_listview"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/airport_swiperefreshlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.lucasr.twowayview.widget.TwoWayView
+        android:id="@+id/airport_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingTop="6dp"
+        android:scrollbars="vertical"
+        app:twowayview_layoutManager="ListLayoutManager"/>
+</android.support.v4.widget.SwipeRefreshLayout>

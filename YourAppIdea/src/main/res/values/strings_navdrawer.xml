@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="navdrawer_demos">DEMOS</string>
     <string name="navdrawer_tutorials">Tutorials</string>
-    <string name="navdrawer_listdetail">List/Detail</string>
+    <string name="navdrawer_listdetail">List detail</string>
     <string name="navdrawer_airport">Airport</string>
-    <string name="navdrawer_simplemap">Simple Map</string>
+    <string name="navdrawer_simplemap">Simple map</string>
     <string name="navdrawer_aroundme">Around me</string>
     <string name="navdrawer_tutorial">Tutorials</string>
 
-    <string name="navdrawer_profile">PROFILE</string>
     <string name="navdrawer_logout">Logout</string>
 
-    <string name="navdrawer_general">GENERAL</string>
     <string name="navdrawer_settings">Settings</string>
     <string name="navdrawer_rating">Rate this app</string>
     <string name="navdrawer_donations">Donate</string>

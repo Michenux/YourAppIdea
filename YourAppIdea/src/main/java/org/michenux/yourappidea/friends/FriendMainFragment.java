@@ -10,11 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import org.michenux.drodrolib.ui.fragment.MasterDetailFragmentHelper;
 import org.michenux.drodrolib.ui.fragment.MasterDetailFragments;
 import org.michenux.yourappidea.R;
-
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
 public class FriendMainFragment extends Fragment {
 
@@ -54,9 +54,10 @@ public class FriendMainFragment extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.friends_menu_info:
-                SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
-                        .setMessage(Html.fromHtml(getString(R.string.friends_info_details)))
-                        .setTitle(R.string.friends_info_title)
+                new MaterialDialog.Builder(this.getActivity())
+                        .title(R.string.friends_info_title)
+                        .items(R.array.friends_info_details)
+                        .positiveText(R.string.close)
                         .show();
                 return true;
         }

@@ -1,53 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="5dp"
+    android:orientation="vertical">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_card"
-    android:paddingBottom="32dp"
-    android:paddingTop="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <LinearLayout
-        android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:src="@drawable/android"/>
-
-    <TextView
-        android:id="@+id/tutorial_title"
+    <android.support.v7.widget.CardView
+        android:id="@+id/tutorial_cardview"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:gravity="center_vertical"
-        tools:text="ANDROID: PREFERENCEFRAGMENTCOMPAT">
-    </TextView>
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="3dp">
 
-    </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-    <TextView
-        android:id="@+id/tutorial_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:gravity="center_vertical"
-        tools:text="Unfortunately, PreferenceFragmentCompat is missing in android support library. In this tutorial, i show you a possible implementation that you can use until Google makes its own.">
-    </TextView>
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tutorial_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:gravity="right|center_vertical"
-        android:textStyle="bold|italic"
-        tools:text="18 Oct. 2013">
-    </TextView>
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:src="@drawable/android"
+                    android:paddingRight="4dp"/>
 
+                <TextView
+                    android:id="@+id/tutorial_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                    android:gravity="center_vertical"
+                    tools:text="ANDROID: PREFERENCEFRAGMENTCOMPAT">
+                </TextView>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tutorial_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:gravity="center_vertical"
+                tools:text="Unfortunately, PreferenceFragmentCompat is missing in android support library. In this tutorial, i show you a possible implementation that you can use until Google makes its own.">
+            </TextView>
+
+            <TextView
+                android:id="@+id/tutorial_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                android:gravity="right|center_vertical"
+                android:textStyle="bold|italic"
+                tools:text="18 Oct. 2013">
+            </TextView>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

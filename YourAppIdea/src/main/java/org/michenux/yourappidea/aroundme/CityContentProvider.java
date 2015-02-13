@@ -16,7 +16,7 @@ public class CityContentProvider extends AbstractContentProvider {
     public static final String LATITUDE_COLUMN = "LATITUDE";
 
     private static final String AUTHORITY = ContentProviderUtils.buildAuthority(
-            BuildConfig.PACKAGE_NAME, BuildConfig.FLAVOR, "cities");
+            BuildConfig.APPLICATION_ID, BuildConfig.FLAVOR, "cities");
 
     private static final String BASE_PATH = "cities";
 

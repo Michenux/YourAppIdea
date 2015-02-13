@@ -84,6 +84,7 @@ public class GoogleApiClientDelegate implements GoogleApiClient.ConnectionCallba
 
     @Override
     public void onConnected(Bundle bundle) {
+
         Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
         User user = new User();
         user.setProvider(PROVIDER_NAME);
@@ -93,6 +94,7 @@ public class GoogleApiClientDelegate implements GoogleApiClient.ConnectionCallba
         user.setFirstName(currentPerson.getName().getGivenName());
         user.setLastName(currentPerson.getName().getFamilyName());
         user.setDisplayName(currentPerson.getDisplayName());
+        user.setMail(Plus.AccountApi.getAccountName(mGoogleApiClient));
 
         this.mUserHelper.setCurrentUser(user);
 

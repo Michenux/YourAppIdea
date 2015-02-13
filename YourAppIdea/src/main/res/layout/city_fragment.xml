@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <ListView
-        android:id="@+id/city_listview"
+<org.lucasr.twowayview.widget.TwoWayView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/city_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="singleChoice"
+        android:scrollbars="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        app:twowayview_layoutManager="ListLayoutManager"
         tools:listitem="@layout/city_listitem"/>
-
-</LinearLayout>

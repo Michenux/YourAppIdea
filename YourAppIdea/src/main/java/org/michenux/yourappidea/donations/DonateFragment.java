@@ -10,16 +10,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import org.michenux.drodrolib.ui.animation.SquashAndStretch;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 
-import javax.inject.Inject;
-
 public class DonateFragment extends Fragment implements OnClickListener {
-
-    @Inject
-    SquashAndStretch squashAndStretchAnim;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,13 +28,6 @@ public class DonateFragment extends Fragment implements OnClickListener {
 		final View view = inflater.inflate(R.layout.donations_fragment, container, false);
 		final Button button = (Button) view.findViewById(R.id.donations_paypal_donate_button);
         button.setOnClickListener(this);
-
-        view.post( new Runnable() {
-            @Override
-            public void run() {
-                squashAndStretchAnim.animate(button, view, 300, 1);
-            }
-        });
 		return view;
 	}
     @Override

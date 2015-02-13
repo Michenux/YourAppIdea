@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.andexert.library.RippleView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/more"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    tools:showIn="@layout/donations_fragment">
+    <Button
+        android:id="@+id/donations_paypal_donate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
+        android:text="@string/donations_paypal_donate_button"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_drawable"/>
+</com.andexert.library.RippleView>

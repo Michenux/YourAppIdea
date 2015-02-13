@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="?activatedBackgroundIndicator"
-    android:minHeight="?listPreferredItemHeightSmall"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@drawable/city_background_selector">
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:id="@+id/city_name"
         tools:text="Paris"/>
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
         android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:text="Medium Text"
         android:id="@+id/city_country"
         tools:text="France"/>
 </LinearLayout>

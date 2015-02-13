@@ -8,17 +8,14 @@
     <string name="friend_job_label">Job :</string>
 
     <string name="friends_info_title">Info</string>
-    <string name="friends_info_details"><![CDATA[
-        <p><b>Features:</b></p>
-        <p>- List/detail screen.</p>
-        <p>- In portrait orientation, detail is displayed above the list.</p>
-        <p>- In landscape orientation, the screen is divided in two columns, one for the list, one for detail.</p>
-        <p>- On rotation, the state of the screen is preserved.</p>
+    <string-array name="friends_info_details">
+        <item>- List/detail screen.</item>
+        <item>- In portrait orientation, detail is displayed above the list.</item>
+        <item>- In landscape orientation, the screen is divided in two columns, one for the list, one for detail.</item>
+        <item>- On rotation, the state of the screen is preserved.</item>
 
-        <p><b>API and libraries:</b></p>
-        <p>- Fragments.</p>
-        <p>- ContentProvider for data.</p>
-        ]]>
-        </string>
+        <item>- Fragments.</item>
+        <item>- ContentProvider for data.</item>
+     </string-array>
 
 </resources>

@@ -16,6 +16,8 @@ public class User {
 
     private String lastName;
 
+    private String mail;
+
     public String getUserName() {
         return userName;
     }
@@ -70,5 +72,13 @@ public class User {
 
     public void setProviderDisplayName(String providerDisplayName) {
         this.providerDisplayName = providerDisplayName;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }

@@ -2,45 +2,34 @@ package org.michenux.yourappidea.friends;
 
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import org.michenux.drodrolib.db.utils.CursorUtils;
-import org.michenux.drodrolib.resources.ResourceUtils;
+import org.lucasr.twowayview.ItemClickSupport;
+import org.lucasr.twowayview.ItemSelectionSupport;
+import org.lucasr.twowayview.widget.TwoWayView;;
 import org.michenux.drodrolib.ui.fragment.FragmentHelper;
 import org.michenux.yourappidea.R;
 
-/**
- * @author Michenux
- * 
- */
-public class FriendListFragment extends ListFragment implements
-		LoaderManager.LoaderCallbacks<Cursor> {
+public class FriendListFragment extends Fragment implements
+		LoaderManager.LoaderCallbacks<Cursor>, ItemClickSupport.OnItemClickListener {
 
-	/**
-	 * 
-	 */
-	private SimpleCursorAdapter adapter;
+	private FriendRecyclerAdapter mAdapter;
 
-	/**
-	 * 
-	 */
+    private ItemSelectionSupport mItemSelectionSupport;
+
+    private TwoWayView mRecyclerView ;
+
 	private boolean dualPanel;
 
-	/**
-	 * @return
-	 */
 	public static FriendListFragment newInstance() {
 		FriendListFragment frag = new FriendListFragment();
 		// Bundle args = new Bundle();
@@ -58,6 +47,13 @@ public class FriendListFragment extends ListFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View mainView = inflater.inflate(R.layout.friendlist, container, false);
+        mRecyclerView = (TwoWayView) mainView.findViewById(R.id.friend_recyclerview);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLongClickable(false);
+        final ItemClickSupport itemClick = ItemClickSupport.addTo(mRecyclerView);
+        itemClick.setOnItemClickListener(this);
+        mItemSelectionSupport = ItemSelectionSupport.addTo(mRecyclerView);
+        mItemSelectionSupport.setChoiceMode(ItemSelectionSupport.ChoiceMode.SINGLE);
 		fillData();
 		return mainView;
 	}
@@ -73,39 +69,11 @@ public class FriendListFragment extends ListFragment implements
 		this.dualPanel = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 	}
 
-	/**
-	 * 
-	 */
 	private void fillData() {
-		String[] from = new String[] { FriendContentProvider.NAME_COLUMN};
-		int[] to = new int[] { R.id.friend_name };
 
 		this.getLoaderManager().initLoader(0, null, this);
-		this.adapter = new SimpleCursorAdapter(this.getActivity(),
-				R.layout.friendlistitem, null, from, to, 0);
-
-		this.adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-			public boolean setViewValue(View paramView, Cursor paramCursor,
-					int paramInt) {
-
-				if (paramView.getId() == R.id.friend_name) {
-
-					String faceName = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, paramCursor);
-					String friendName = CursorUtils.getString(FriendContentProvider.NAME_COLUMN, paramCursor);
-					Drawable face = ResourceUtils.getDrawableByName(faceName, FriendListFragment.this.getActivity());
-					face.setBounds( 0, 0, 70, 70 );
-
-					TextView textView = (TextView) paramView;
-					textView.setText(friendName);
-					textView.setCompoundDrawablePadding(10);
-					textView.setCompoundDrawables(face, null,	null, null);
-					return true;
-				}
-				return false;
-			}
-		});
-
-		this.setListAdapter(this.adapter);
+		this.mAdapter = new FriendRecyclerAdapter(null);
+        mRecyclerView.setAdapter(this.mAdapter);
 	}
 
 	/**
@@ -129,7 +97,7 @@ public class FriendListFragment extends ListFragment implements
 	 *      Object)
 	 */
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-		this.adapter.swapCursor(cursor);
+		this.mAdapter.swapCursor(cursor);
 	}
 
 	/**
@@ -138,46 +106,29 @@ public class FriendListFragment extends ListFragment implements
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoaderReset(android.support.v4.content.Loader)
 	 */
 	public void onLoaderReset(Loader<Cursor> cursor) {
-		this.adapter.swapCursor(null);
+		this.mAdapter.swapCursor(null);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		if ( this.getListView().getSelectedView() != null ) {
-			ensureVisible(this.getListView(), 
-				this.getListView().getSelectedView());
-		}
+        int itemPosition = mItemSelectionSupport.getCheckedItemPosition();
+        if ( itemPosition != -1 ) {
+            mRecyclerView.smoothScrollToPosition(mItemSelectionSupport.getCheckedItemPosition());
+        }
 	}
-	
-	 private void ensureVisible(ListView parent, View view) {
-		 parent.smoothScrollToPosition(parent.getSelectedItemPosition());
-//		    Rect rect = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-//		    parent.requestChildRectangleOnScreen(view, rect, false);
-		}
-	
-	
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @see android.support.v4.app.ListFragment#onListItemClick(android.widget.ListView,
-	 *      android.view.View, int, long)
-	 */
-	@Override
-	public void onListItemClick(ListView listView, View view, int position,
-			long id) {
-		
-		super.onListItemClick(listView, view, position, id);
 
-		Uri detailUri = Uri.parse(FriendContentProvider.CONTENT_URI + "/" + id);
-		FriendDetailFragment detailFragment = FriendDetailFragment
-				.newInstance(detailUri);
-		if (!this.dualPanel) {
-			FragmentHelper.initFragmentWithBackstack(detailFragment,
+    @Override
+    public void onItemClick(RecyclerView recyclerView, View view, int row, long id) {
+        Uri detailUri = Uri.parse(FriendContentProvider.CONTENT_URI + "/" + id);
+        FriendDetailFragment detailFragment = FriendDetailFragment
+                .newInstance(detailUri);
+        if (!this.dualPanel) {
+            FragmentHelper.initFragmentWithBackstack(detailFragment,
                     R.id.friendmain_fragment, this.getParentFragment().getChildFragmentManager());
-		} else {
-			FragmentHelper.initFragment(detailFragment,
-					R.id.frienddetail_fragment, this.getParentFragment().getChildFragmentManager());
-		}
-	}
+        } else {
+            FragmentHelper.initFragment(detailFragment,
+                    R.id.frienddetail_fragment, this.getParentFragment().getChildFragmentManager());
+        }
+    }
 }

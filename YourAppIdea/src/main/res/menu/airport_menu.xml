@@ -7,13 +7,6 @@
         yourapp:showAsAction="always"
         yourapp:actionLayout="@layout/airport_mode"/>
     
-    <item android:id="@+id/airport_menuRefresh"
-          android:icon="@drawable/ic_menu_refresh"
-          android:title="@string/menuitem_refresh"
-          android:alphabeticShortcut="r"
-          android:orderInCategory="1"
-          yourapp:showAsAction="always"/>
-
     <item
         android:id="@+id/airport_menu_info"
         android:titleCondensed="Info"

@@ -2,16 +2,13 @@
 <resources>
 
     <string name="error_connectionfailed">Connection failed</string>
+    <string name="error_connectionsuspended">Connection suspended</string>
 
     <string name="simplemap_info_title">Info</string>
-    <string name="simplemap_info_details"><![CDATA[
-        <p><b>Features:</b></p>
-        <p>- Just a simple map with a location button.</p>
-
-        <p><b>API and libraries:</b></p>
-        <p>- Google Map V2.</p>
-        <p>- Google Play Service to find user location.</p>
-        ]]>
-        </string>
+    <string-array name="simplemap_info_details">
+        <item>- Just a simple map with a location button.</item>
+        <item>- Google Map V2.</item>
+        <item>- Google Play Service to find user location.</item>
+    </string-array>
 
 </resources>

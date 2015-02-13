@@ -10,7 +10,7 @@ import org.michenux.drodrolib.network.sync.AbstractSyncHelper;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.tutorial.contentprovider.TutorialContentProvider;
+import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

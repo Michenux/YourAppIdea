@@ -1,66 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="NavDrawerSectionStyle">
-        <item name="android:background">@color/purple_dark</item>
-    </style>
-
-    <style name="NavDrawerSectionStyle.TextView">
-        <item name="android:textSize">18sp</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:paddingTop">7dp</item>
-        <item name="android:paddingBottom">7dp</item>
-        <item name="android:textColor">#FFFFFF</item>
-    </style>
-
-    <style name="NavDrawerItemStyle">
-        <item name="android:background">?activatedBackgroundIndicator</item>
-        <item name="android:textAppearance">?textAppearanceMedium</item>
-    </style>
-
-    <style name="NavDrawerItemStyle.TextView">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="NavDrawerLoginStyle">
-        <item name="android:background">?activatedBackgroundIndicator</item>
-        <item name="android:textAppearance">?textAppearanceMedium</item>
-    </style>
-
-    <style name="NavDrawerLoginStyle.TextView">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="NavDrawerLoginStyle.ProviderTextView">
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">13sp</item>
+    <style name="NavDrawerStyle">
+        <!-- <item name="android:divider">@color/navdrawer_divider</item> -->
+        <item name="android:dividerHeight">0.1dp</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
 
-    <style name="NavDrawerFacebookStyle">
-        <item name="android:gravity">center</item>
+    <!-- Item with icon -->
+    <style name="NavDrawerLabelWithIconStyle">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:background">@drawable/navdrawer_background_selector</item>
     </style>
 
-
-    <style name="NavDrawerFacebookProfileStyle">
-        <item name="android:paddingLeft">15dp</item>
+    <style name="NavDrawerLabelWithIconStyle.Icon">
+        <item name="android:layout_height">23dp</item>
     </style>
 
-    <style name="NavDrawerFacebookProfileTextStyle">
-        <item name="android:textSize">18sp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="NavDrawerGPlusProfileStyle">
-        <item name="android:paddingLeft">15dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:paddingRight">8dp</item>
+    <style name="NavDrawerLabelWithIconStyle.TextView" parent="@style/TextAppearance.AppCompat.Menu">
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
 </resources>

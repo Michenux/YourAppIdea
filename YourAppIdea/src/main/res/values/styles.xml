@@ -1,46 +1,26 @@
 <resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="@style/Theme.AppCompat">
-        <item name="activatedBackgroundIndicator">@drawable/listitem_background</item>
-        <item name="textAppearanceMedium">?android:attr/textAppearanceMedium</item>
-        <item name="listPreferredItemHeightSmall">48dp</item>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
 
-        <item name="actionBarItemBackground">@drawable/selectable_background_main</item>
-        <item name="popupMenuStyle">@style/PopupMenu.Main</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.Main</item>
-        <item name="actionBarStyle">@style/CustomActionBar</item>
-        <item name="actionDropDownStyle">@style/DropDownNav.Main</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
 
-        <item name="android:spinnerStyle">@style/DropDownNav.Main</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="drawerStyle">@style/NavDrawerStyle</item>
 
-        <item name="sdlDialogStyle">@style/DialogStyleDark.Custom</item>
+
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
-
-    <style name="CustomActionBar" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="background">@drawable/ab_transparent_main</item>
-    </style>
-
-    <style name="PopupMenu.Main" parent="@style/Widget.AppCompat.PopupMenu">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_main</item>
-    </style>
-
-    <style name="DropDownListView.Main" parent="@style/Widget.AppCompat.ListView.DropDown">
-        <item name="android:listSelector">@drawable/selectable_background_main</item>
-    </style>
-
-    <style name="DropDownNav.Main" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-        <item name="android:background">@drawable/spinner_background_ab_main</item>
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_main</item>
-        <item name="android:dropDownSelector">@drawable/selectable_background_main</item>
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
     </style>
 
 </resources>

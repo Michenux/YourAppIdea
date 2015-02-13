@@ -16,7 +16,7 @@ public class FriendContentProvider extends AbstractContentProvider {
     public static final String FACE_COLUMN = "FACE";
 
 	private static final String AUTHORITY = ContentProviderUtils.buildAuthority(
-            BuildConfig.PACKAGE_NAME, BuildConfig.FLAVOR, "friends");
+            BuildConfig.APPLICATION_ID, BuildConfig.FLAVOR, "friends");
 
 	private static final String BASE_PATH = "friends";
 

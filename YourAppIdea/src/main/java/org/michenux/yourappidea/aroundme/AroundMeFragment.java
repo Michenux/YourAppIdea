@@ -1,12 +1,14 @@
 package org.michenux.yourappidea.aroundme;
 
 import android.content.Intent;
+import android.content.IntentSender;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,17 +16,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
+import com.google.android.gms.location.LocationServices;
 
 import org.michenux.drodrolib.network.connectivity.ConnectivityUtils;
 import org.michenux.yourappidea.BuildConfig;
@@ -37,19 +39,24 @@ import java.util.Locale;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
-public class AroundMeFragment extends Fragment implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, PlaceLocalProvider.PlaceLoaderCallback {
+public class AroundMeFragment extends Fragment implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener,
+        PlaceLocalProvider.PlaceLoaderCallback {
+
+    private static final int LOCATIONSERVICES_RESOLUTION_RESULCODE = 765;
 
     private static final int SELECTCITY_REQUESTCODE = 1000;
 
-    private LocationClient mLocationClient;
+    private GoogleApiClient mGoogleApiClient;
 
     private LocationRequest mRequest;
 
     private Geocoder mGeocoder;
 
-    private PlaceListAdapter mPlaceListAdapter;
+    private PlaceRecyclerAdapter mPlaceListAdapter;
 
     private String mCityName;
 
@@ -68,7 +75,12 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
         setRetainInstance(true);
         setHasOptionsMenu(true);
 
-        mLocationClient = new LocationClient(this.getActivity().getApplicationContext(), this, this);
+        mGoogleApiClient = new GoogleApiClient.Builder(this.getActivity())
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
         mRequest = LocationRequest.create()
                 .setInterval(15000)
                 .setFastestInterval(5000)
@@ -77,7 +89,7 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
         mGeocoder = new Geocoder(this.getActivity(), Locale.getDefault());
 
-        mPlaceListAdapter = new PlaceListAdapter(getActivity(), R.id.aroundme_placename, new ArrayList<Place>());
+        mPlaceListAdapter = new PlaceRecyclerAdapter(new ArrayList<Place>());
         if (savedInstanceState != null) {
             this.mUseLocationClient = savedInstanceState.getBoolean("useLocationClient", true);
             this.mCityName = savedInstanceState.getString("cityName");
@@ -110,14 +122,11 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
         switch (item.getItemId()) {
 
             case R.id.aroundme_menu_info:
-                SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
-                        .setMessage(Html.fromHtml(getString(R.string.aroundme_info_details)))
-                                .setTitle(R.string.aroundme_info_title)
-                                .show();
-//
-//                FragmentManager fm = getChildFragmentManager();
-//                InfoDialog infoDialog = InfoDialog.newInstance(R.string.aroundme_info_title, R.string.aroundme_info_details);
-//                infoDialog.show(fm, );
+                new MaterialDialog.Builder(this.getActivity())
+                        .title(R.string.aroundme_info_title)
+                        .items(R.array.aroundme_info_details)
+                        .positiveText(R.string.close)
+                        .show();
                 return true;
 
             case R.id.aroundme_menu_myposition:
@@ -162,9 +171,11 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.aroundme_fragment, container, false);
 
-        ListView listView = (ListView) view.findViewById(R.id.aroundme_listview);
-        listView.setAdapter(this.mPlaceListAdapter);
-        listView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.aroundme_listview);
+        recyclerView.setAdapter(this.mPlaceListAdapter);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
 
         if (mCityName != null) {
             TextView textView = (TextView) view.findViewById(R.id.aroundme_cityname);
@@ -197,12 +208,34 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
     @Override
     public void onConnected(Bundle bundle) {
-        mLocationClient.requestLocationUpdates(mRequest, this);
+        registerLocationUpdates();
     }
 
-    @Override
-    public void onDisconnected() {
-        mLocationClient.removeLocationUpdates(this);
+    private void registerLocationUpdates() {
+        PendingResult<Status> result = LocationServices.FusedLocationApi
+                .requestLocationUpdates(
+                        mGoogleApiClient,
+                        mRequest,
+                        this);
+        result.setResultCallback(new ResultCallback<Status>() {
+            public void onResult(Status status) {
+                if (status.isSuccess()) {
+                    // Successfully registered
+                } else if (status.hasResolution()) {
+                    // Google provides a way to fix the issue
+                    try {
+                        status.startResolutionForResult(
+                                AroundMeFragment.this.getActivity(),     // your current activity used to receive the result
+                                LOCATIONSERVICES_RESOLUTION_RESULCODE); // the result code you'll look for in your onActivityResult method to retry registering
+                    } catch (IntentSender.SendIntentException e) {
+                        Log.e(YourApplication.LOG_TAG, "SimpleMapFragment start resolution failure: ", e);
+                    }
+                } else {
+                    // No recovery. Weep softly or inform the user.
+                    Log.e(YourApplication.LOG_TAG, "SimpleMapFragment registering failed: " + status.getStatusMessage());
+                }
+            }
+        });
     }
 
     @Override
@@ -238,14 +271,6 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Crouton.makeText(
-                this.getActivity(),
-                getString(R.string.error_connectionfailed),
-                Style.ALERT).show();
-    }
-
-    @Override
     public void onPlaceLoadFinished(List<Place> places) {
         this.mPlaceListAdapter.clear();
         for( Place place : places ) {
@@ -278,21 +303,30 @@ public class AroundMeFragment extends Fragment implements GooglePlayServicesClie
 
     private void connectLocationClient() {
         if ( mUseLocationClient ) {
-            int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
-            if (resultCode == ConnectionResult.SUCCESS ){
-                if (!mLocationClient.isConnected()) {
-                    mLocationClient.connect();
-                }
-            } else{
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this.getActivity(), 1 ).show();
-            }
+            mGoogleApiClient.connect();
         }
     }
 
     private void disconnectLocationClient() {
-        if ( mLocationClient.isConnected()) {
-            mLocationClient.removeLocationUpdates(this);
-            mLocationClient.disconnect();
+        if ( mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Crouton.makeText(
+                AroundMeFragment.this.getActivity(),
+                getString(R.string.error_connectionfailed),
+                Style.ALERT).show();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Crouton.makeText(
+                AroundMeFragment.this.getActivity(),
+                getString(R.string.error_connectionsuspended),
+                Style.ALERT).show();
     }
 }

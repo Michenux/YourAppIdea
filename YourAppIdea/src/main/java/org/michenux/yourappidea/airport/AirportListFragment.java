@@ -1,10 +1,11 @@
 package org.michenux.yourappidea.airport;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
-import android.text.Html;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,15 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
+import org.lucasr.twowayview.widget.TwoWayView;
 import org.michenux.drodrolib.network.volley.GsonRequest;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
@@ -32,21 +34,22 @@ import java.util.Collections;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
-import eu.inmite.android.lib.dialogs.SimpleDialogFragment;
 
 //http://www.flightradar24.com/AirportInfoService.php?airport=ORY&type=in
 //LFRS
-public class AirportListFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class AirportListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-	private Menu optionsMenu;
+	private Menu mOptionsMenu;
 
-	private RequestQueue requestQueue;
+	private RequestQueue mRequestQueue;
 	
-	private boolean requestRunning = false;
+	private boolean mRequestRunning = false;
 
-	private String currentMode = "in" ;
+	private String mCurrentMode = "in" ;
 
-    private AirportAdapter airportAdapter;
+    private AirportRecyclerAdapter mAirportAdapter;
+
+    private SwipeRefreshLayout mSwipeRefreshWidget;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,11 +62,9 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 		//setRetainInstance(true);
 		setHasOptionsMenu(true);
 		
-		this.airportAdapter = new AirportAdapter(this.getActivity(),
-				R.id.flight_name, new ArrayList<Flight>());
+		this.mAirportAdapter = new AirportRecyclerAdapter(new ArrayList<Flight>(), this.getActivity(), this.mCurrentMode);
 
-		this.requestQueue = Volley.newRequestQueue(this.getActivity());
-		this.startRequest();
+		this.mRequestQueue = Volley.newRequestQueue(this.getActivity());
 	}
 
     @Override
@@ -72,10 +73,19 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
             Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreateView");
         }
         View view = inflater.inflate(R.layout.airport_listfragment, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.airport_listview);
-        listView.setAdapter(this.airportAdapter);
-        listView.setOnItemClickListener(this);
+        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.airport_swiperefreshlayout);
+        mSwipeRefreshWidget.setColorSchemeResources(R.color.refresh_progress_1, R.color.refresh_progress_2, R.color.refresh_progress_3);
+        mSwipeRefreshWidget.setOnRefreshListener(this);
+
+        TwoWayView recyclerView = (TwoWayView) view.findViewById(R.id.airport_recyclerview);
+        recyclerView.setAdapter(this.mAirportAdapter);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.startRequest();
     }
 
     @Override
@@ -83,12 +93,12 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
         if (BuildConfig.DEBUG) {
             Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreateOptionsMenu");
         }
-		this.optionsMenu = menu;
+		this.mOptionsMenu = menu;
 		inflater.inflate(R.menu.airport_menu, menu);
 		
 		MenuItem modeMenuItem =  menu.findItem(R.id.airport_menuMode);
         Spinner spinner = (Spinner) MenuItemCompat.getActionView(modeMenuItem).findViewById(R.id.airport_mode_spinner);
-		if ( this.currentMode.equals("in")) {
+		if ( this.mCurrentMode.equals("in")) {
 			spinner.setSelection(0);
 		}
 		else {
@@ -103,10 +113,10 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 				
 				AirportListFragment.this.cancelRequests();
 				if ( position == 0 ) {
-					AirportListFragment.this.currentMode = "in";
+					AirportListFragment.this.mCurrentMode = "in";
 				}
 				else {
-					AirportListFragment.this.currentMode = "out";
+					AirportListFragment.this.mCurrentMode = "out";
 				}
 				AirportListFragment.this.startRequest();
 			}
@@ -117,8 +127,8 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 			}
 		});
 		
-		if ( this.requestRunning) {
-			this.setRefreshActionButtonState(true);
+		if ( this.mRequestRunning) {
+            mSwipeRefreshWidget.setRefreshing(true);
 		}
 	}
 
@@ -126,17 +136,14 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
-		case R.id.airport_menuRefresh:
-			this.startRequest();
-			return true;
-
         case R.id.airport_menu_info:
             FragmentManager fm = getChildFragmentManager();
-            SimpleDialogFragment.createBuilder(this.getActivity(), this.getActivity().getSupportFragmentManager())
-                    .setMessage(Html.fromHtml(getString(R.string.airport_info_details)))
-                    .setTitle(R.string.airport_info_title)
-                    .show();
 
+            new MaterialDialog.Builder(this.getActivity())
+                    .title(R.string.airport_info_title)
+                    .items(R.array.airport_info_details)
+                    .positiveText(R.string.close)
+                    .show();
             return true;
         }
 
@@ -147,43 +154,26 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
         if (BuildConfig.DEBUG) {
             Log.i(YourApplication.LOG_TAG, "AirportListFragment.startRequest");
         }
-		if ( !requestRunning ) {
-			AirportListFragment.this.requestRunning = true ;
+		if ( !mRequestRunning && getActivity() != null) {
+			AirportListFragment.this.mRequestRunning = true ;
 			
-			String url = getString(R.string.airport_rest_url, this.currentMode);
+			String url = getString(R.string.airport_rest_url, this.mCurrentMode);
 			GsonRequest<AirportRestResponse> jsObjRequest = new GsonRequest<AirportRestResponse>(
 					Method.GET, url,
 					AirportRestResponse.class, null,
 					this.createAirportRequestSuccessListener(),
 					this.createAirportRequestErrorListener());
 			jsObjRequest.setShouldCache(false);
-			this.setRefreshActionButtonState(true);
-			this.requestQueue.add(jsObjRequest);
+            mSwipeRefreshWidget.setRefreshing(true);
+			this.mRequestQueue.add(jsObjRequest);
 		}
 		else if (BuildConfig.DEBUG) {
-            Log.i(YourApplication.LOG_TAG, "  request is already running");
+            Log.i(YourApplication.LOG_TAG, "  request is already running or no activity attached");
 		}
 	}
 	
 	private void cancelRequests() {
-		this.requestQueue.cancelAll(this);
-	}
-
-	public void setRefreshActionButtonState(final boolean refreshing) {
-		if (optionsMenu != null) {
-			final MenuItem refreshItem = optionsMenu
-					.findItem(R.id.airport_menuRefresh);
-			if (refreshItem != null) {
-				if (refreshing) {
-                    MenuItemCompat.setActionView(refreshItem, R.layout.actionbar_indeterminate_progress);
-					//refreshItem
-					//		.setActionView(R.layout.actionbar_indeterminate_progress);
-				} else {
-                    MenuItemCompat.setActionView(refreshItem, null);
-					//refreshItem.setActionView(null);
-				}
-			}
-		}
+		this.mRequestQueue.cancelAll(this);
 	}
 
 	private Response.Listener<AirportRestResponse> createAirportRequestSuccessListener() {
@@ -193,7 +183,8 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
                 if (BuildConfig.DEBUG) {
                     Log.i(YourApplication.LOG_TAG, "AirportListFragment.onResponse");
                 }
-				AirportAdapter adapter = (AirportAdapter) AirportListFragment.this.airportAdapter;
+                AirportRecyclerAdapter adapter = (AirportRecyclerAdapter) AirportListFragment.this.mAirportAdapter;
+                adapter.setMode(AirportListFragment.this.mCurrentMode);
 				adapter.clear();
 				Collections.sort(response.getFlights(),
 						new FlightEtaComparator());
@@ -202,8 +193,8 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
                     adapter.add(flight);
                 }
 				adapter.notifyDataSetChanged();
-				AirportListFragment.this.setRefreshActionButtonState(false);
-				AirportListFragment.this.requestRunning = false ;
+				AirportListFragment.this.mSwipeRefreshWidget.setRefreshing(false);
+				AirportListFragment.this.mRequestRunning = false ;
 			}
 		};
 	}
@@ -215,8 +206,8 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
                 if (BuildConfig.DEBUG) {
                     Log.i(YourApplication.LOG_TAG, "AirportListFragment.onErrorResponse");
                 }
-				AirportListFragment.this.setRefreshActionButtonState(false);
-				AirportListFragment.this.requestRunning = false ;
+                AirportListFragment.this.mSwipeRefreshWidget.setRefreshing(false);
+				AirportListFragment.this.mRequestRunning = false ;
 				
 				Crouton.makeText(
 					AirportListFragment.this.getActivity(),
@@ -228,17 +219,15 @@ public class AirportListFragment extends Fragment implements AdapterView.OnItemC
 	}
 
     @Override
-    public void onDestroy() {
-        if (BuildConfig.DEBUG) {
-            Log.i(YourApplication.LOG_TAG, "AirportListFragment.onDestroy");
-        }
+    public void onDestroyView() {
+        super.onDestroyView();
         this.cancelRequests();
         Crouton.cancelAllCroutons();
-        super.onDestroy();
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+    public void onRefresh() {
+        AirportListFragment.this.cancelRequests();
+        AirportListFragment.this.startRequest();
     }
 }

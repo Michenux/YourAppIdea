@@ -25,10 +25,6 @@ public class MediaFile {
     private String uploadState = null;
     private String mediaId;
 
-    public MediaFile() {
-        // TODO Auto-generated constructor stub
-    }
-
     public int getId() {
         return id;
     }

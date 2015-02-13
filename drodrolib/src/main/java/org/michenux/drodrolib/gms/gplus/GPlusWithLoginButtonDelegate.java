@@ -11,10 +11,7 @@ import android.widget.Button;
 import com.google.android.gms.common.SignInButton;
 
 import org.michenux.drodrolib.gms.GmsUtils;
-import org.michenux.drodrolib.gms.gplus.GPlusDelegate;
-import org.michenux.drodrolib.security.User;
 import org.michenux.drodrolib.security.UserHelper;
-import org.michenux.drodrolib.security.UserSessionCallback;
 
 public class GPlusWithLoginButtonDelegate extends GPlusDelegate {
 
@@ -91,8 +88,7 @@ public class GPlusWithLoginButtonDelegate extends GPlusDelegate {
 
     @Override
     protected void updateConnectButtonState() {
-        //TODO: Update this logic to also handle the user logged in by email.
-        boolean connected = getGoogleApiClient().isConnected();
+          boolean connected = getGoogleApiClient().isConnected();
         if ( mSignOutView != null ) {
             mSignOutView.setVisibility(connected ? View.VISIBLE : View.GONE);
         }

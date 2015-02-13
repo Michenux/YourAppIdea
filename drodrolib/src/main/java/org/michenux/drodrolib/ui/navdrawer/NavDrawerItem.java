@@ -1,20 +1,40 @@
 package org.michenux.drodrolib.ui.navdrawer;
 
+import android.support.annotation.StringRes;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-public interface NavDrawerItem {
+import java.util.ArrayList;
+import java.util.List;
 
-	public int getId();
-	
-	public int getLabel();
-	
-	public int getType();
+public abstract class NavDrawerItem {
 
-	public boolean updateActionBarTitle();
+    private int mId ;
+    public abstract int getType();
 
-    public boolean isCheckable();
+    public @StringRes abstract int getLabel();
 
-    public View getView( View convertView, ViewGroup parentView, NavDrawerItem navDrawerItem, LayoutInflater inflater );
+    public abstract boolean updateActionBarTitle();
+
+    public abstract boolean isCheckable();
+
+    public abstract void onBindViewHolder(ViewHolder viewHolder, int position);
+
+    public NavDrawerItem( int id ) {
+        this.mId = id ;
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        this.mId = id;
+    }
+
+    public boolean closeDrawerOnClick() {
+        return true;
+    }
 }
