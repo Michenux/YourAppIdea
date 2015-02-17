@@ -23,6 +23,11 @@
             - search activity, filter, etc..
             - integrate a line: my position
     -->
+    <release version="2.0.1" versioncode="201">
+        <change>Fix icon launcher</change>
+        <change>Fix bug in Airport screen</change>
+        <change>Upgrade rippleeffect library</change>
+    </release>
     <release version="2.0.0" versioncode="200">
         <change>Material theme</change>
         <change>Replace ListView with RecyclerView (using twowaysview library)</change>

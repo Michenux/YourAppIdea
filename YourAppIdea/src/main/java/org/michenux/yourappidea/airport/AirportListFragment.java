@@ -208,12 +208,13 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
                 }
                 AirportListFragment.this.mSwipeRefreshWidget.setRefreshing(false);
 				AirportListFragment.this.mRequestRunning = false ;
-				
-				Crouton.makeText(
-					AirportListFragment.this.getActivity(),
-					getString(R.string.error_retrievingdata),
-					Style.ALERT).show();
-				
+
+                if ( !isDetached()) {
+                    Crouton.makeText(
+                            AirportListFragment.this.getActivity(),
+                            getString(R.string.error_retrievingdata),
+                            Style.ALERT).show();
+                }
 			}
 		};
 	}

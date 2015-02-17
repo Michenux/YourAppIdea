@@ -8,8 +8,8 @@ android {
         applicationId "org.michenux.yourappidea"
         minSdkVersion 10
         targetSdkVersion 21
-        versionCode 200
-        versionName "2.0.0"
+        versionCode 201
+        versionName "2.0.1"
     }
 
     compileOptions {
@@ -55,7 +55,7 @@ dependencies {
     compile 'de.keyboardsurfer.android.widget:crouton:1.8.5@aar'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile 'fr.avianey:facebook-android-api:3.18.0@aar'
-    compile 'com.github.traex.rippleeffect:library:1.2.3'
+    compile 'com.github.traex.rippleeffect:library:1.2.4'
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
     compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
     compile project(':drodrolib')
