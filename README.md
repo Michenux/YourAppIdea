@@ -10,24 +10,25 @@ The demo application is available on Google Play:
 
 ## Requirements
 
-* Android SDK 20 (with extras/Google Repository)
-* Android Studio 0.8.2
+* Android SDK 21 (with extras/Google Repository)
+* Android Studio 1.0.0
 
 ## What you can find inside
 
 **Implemented UI Patterns**
 
+* Material Design
 * Navigation Drawer (ActionBarActivity)
 * List/Detail (fragment)
 * Spinner in ActionBar
-* Refresh button in Action Bar
+* Toolbar
 * Contextual toasts with Crouton library
 * Pull To Refresh
 
 
 **Improove UX**
 
-* Animations on buttons
+* Fragment transition
 * Different layouts in landscape mode
 * No splashscreen (because anti-pattern)
 
@@ -74,7 +75,6 @@ The demo application is available on Google Play:
 * User login via facebook/google+
 * Preferences (using Fragment and compatible with 2.2+)
 * Eula (End User Licence Agreement) : accept/refuse Eula on first time or just display.
-* Quit Dialog (not enabled by default cause anti-pattern)
 
 ## Credits
 
