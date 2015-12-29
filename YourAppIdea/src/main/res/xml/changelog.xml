@@ -7,14 +7,14 @@
         - Airport: tabs
         - Dagger 2
 
-        - SnackBar et CoordinatorLayout ?
         - Float action button
         - Bug: ensure visible sur la friend list
-        - Selected item on friend list
+
 
         - Fix: AdView under system button bar
         - Fix: Tutorial screen, touch back while updating, crash in recyclerview (inconsistency)
         - Fix: CityActivity: statusbar transparent
+        - Fix: Selected item on friend list
 
     For 3.2.0 :
         - Picture of social networks
@@ -44,7 +44,6 @@
         </change>
         <change>Start using RxJava</change>
         <change>Enable multidex</change>
-        <change>TODO: contenu des dialog info </change>
     </release>
     <release version="2.1.0" versioncode="210">
         <change>Update to Android SDK API 22</change>
