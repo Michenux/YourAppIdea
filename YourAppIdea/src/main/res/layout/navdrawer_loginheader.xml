@@ -29,10 +29,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:text="Sign in"
+                android:text="@string/navdrawer_header_signin"
                 android:textColor="@android:color/white"
                 android:visibility="visible"
-                tools:visibility="visible"/>
+                tools:visibility="gone"/>
 
         </RelativeLayout>
 
@@ -42,25 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            tools:visibility="gone">
-
-            <TextView
-                android:id="@+id/nadrawer_loginheader_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:text="Your name"
-                android:textColor="@android:color/white"/>
-
-            <TextView
-                android:id="@+id/nadrawer_loginheader_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#FFCCCCCC"
-                android:visibility="visible"
-                android:layout_below="@id/nadrawer_loginheader_name"
-                tools:text="toto@gege.com"/>
+            tools:visibility="visible">
 
             <org.michenux.drodrolib.ui.navdrawer.NavdrawerHeaderArrowView
                 android:id="@+id/navdrawer_loginheader_arrow"
@@ -69,10 +51,29 @@
                 android:src="@drawable/expander_group"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:clickable="true"
-                android:paddingLeft="5dp"
-                android:paddingStart="5dp"
-                android:paddingBottom="5dp"/>
+                android:clickable="true"/>
+
+            <TextView
+                android:id="@+id/nadrawer_loginheader_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@android:color/white"
+                android:layout_toLeftOf="@id/navdrawer_loginheader_arrow"
+                android:layout_toStartOf="@id/navdrawer_loginheader_arrow"
+                tools:text="Your name"/>
+
+            <TextView
+                android:id="@+id/nadrawer_loginheader_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#FFCCCCCC"
+                android:visibility="visible"
+                android:layout_below="@id/nadrawer_loginheader_name"
+                android:layout_toLeftOf="@id/navdrawer_loginheader_arrow"
+                android:layout_toStartOf="@id/navdrawer_loginheader_arrow"
+                tools:text="toto@gege.com"/>
 
         </RelativeLayout>
 
@@ -111,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:text="Your app idea"
+                android:text="@string/navdrawer_header_title"
                 android:textColor="#FFFFFFFF"
                 android:gravity="center"
                 android:visibility="visible"/>
@@ -121,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:text="Amazing bootstrap"
+                android:text="@string/navdrawer_header_subtitle"
                 android:textColor="#EEEEEEEE"
                 android:layout_below="@id/nadrawer_loginheader_title"
                 android:gravity="center"

@@ -6,6 +6,8 @@
         - MVP
         - Airport: tabs
         - Dagger 2
+
+        - SnackBar et CoordinatorLayout ?
         - Float action button
         - Bug: ensure visible sur la friend list
         - Selected item on friend list
@@ -39,9 +41,7 @@
         <change>Start using RxJava</change>
 
         <change>TODO: Cardview layouting</change>
-        <change>TODO: Fix ad</change>
         <change>TODO: 65k limit</change>
-        <change>TODO: view pour les snackbars</change>
         <change>TODO: contenu des dialog info </change>
     </release>
     <release version="2.0.0" versioncode="200">

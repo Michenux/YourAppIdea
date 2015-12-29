@@ -16,4 +16,8 @@
     <string name="navdrawer_changelog">ChangeLog</string>
     <string name="navdrawer_eula">Eula</string>
 
+    <string name="navdrawer_header_title">Your app idea</string>
+    <string name="navdrawer_header_subtitle">Amazing bootstrap</string>
+    <string name="navdrawer_header_signin">Sign in</string>
+
 </resources>
