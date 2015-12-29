@@ -11,19 +11,19 @@ The demo application is available on Google Play:
 ## Requirements
 
 * Android SDK 23 (with extras/Google Repository)
-* Android Studio 1.5.0
+* Android Studio 1.5.1
 
 ## What you can find inside
 
 **Implemented UI Patterns**
 
 * Material Design
-* Navigation Drawer (ActionBarActivity)
+* Navigation Drawer, NavigationView, CoordinatorLayout, AppBarLayout, ToolBar (AppCompatActivity)
 * List/Detail (fragment)
-* Spinner in ActionBar
-* Toolbar
-* Contextual toasts with Crouton library
+* Cardview
 * Pull To Refresh
+* Spinner in ToolBar
+* Contextual toasts with SnackBar
 
 
 **Improove UX**
@@ -36,6 +36,7 @@ The demo application is available on Google Play:
 **Architecture**
 
 * Dependency injection with Dagger
+* RxJava for asking permissions and network requests
 
 
 **Persistence**
@@ -47,7 +48,7 @@ The demo application is available on Google Play:
 
 **Network**
 
-* Json Request with Volley library
+* Json Request with Retrofit and okhttp
 * SyncAdapter
 * Retrieve posts from wordpress website
 
@@ -72,9 +73,10 @@ The demo application is available on Google Play:
 
 **Others**
 
-* User login via facebook/google+
-* Preferences (using Fragment and compatible with 2.2+)
+* User sign in (facebook, google+ )
+* PreferencesFragmentCompat
 * Eula (End User Licence Agreement) : accept/refuse Eula on first time or just display.
+* Multidex enabled.
 
 ## Credits
 
