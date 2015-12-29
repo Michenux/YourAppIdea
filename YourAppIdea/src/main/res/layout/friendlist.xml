@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="6dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
     <org.lucasr.twowayview.widget.TwoWayView
         android:id="@+id/friend_recyclerview"

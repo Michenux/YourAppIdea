@@ -1,9 +1,10 @@
 package org.michenux.yourappidea.airport;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.TwoWayView;
 import org.michenux.drodrolib.ui.snackbar.SnackbarHelper;
 import org.michenux.yourappidea.BuildConfig;
@@ -51,11 +53,9 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
         if (BuildConfig.DEBUG) {
 		    Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreate");
         }
-		
-		//setRetainInstance(true);
 		setHasOptionsMenu(true);
 		
-		this.mAirportAdapter = new AirportRecyclerAdapter(new ArrayList<Flight>(), this.getActivity(), this.mCurrentMode);
+		this.mAirportAdapter = new AirportRecyclerAdapter(new ArrayList<>(), this.getActivity(), this.mCurrentMode);
 		mAirportInfoService = AirportInfoServiceFactory.create(this.getContext());
 	}
 
@@ -70,6 +70,9 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
         mSwipeRefreshWidget.setOnRefreshListener(this);
 
         TwoWayView recyclerView = (TwoWayView) view.findViewById(R.id.airport_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        final Drawable divider = ContextCompat.getDrawable(getActivity(), R.drawable.divider);
+        recyclerView.addItemDecoration(new DividerItemDecoration(divider));
         recyclerView.setAdapter(this.mAirportAdapter);
         return view;
     }
@@ -125,8 +128,6 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
 		switch (item.getItemId()) {
 
         case R.id.airport_menu_info:
-            FragmentManager fm = getChildFragmentManager();
-
             new MaterialDialog.Builder(this.getActivity())
                     .title(R.string.airport_info_title)
                     .items(R.array.airport_info_details)
@@ -167,9 +168,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
                         AirportListFragment.this.mRequestRunning = false;
 
                         SnackbarHelper.showErrorLongMessageWithAction(AirportListFragment.this.getView(),
-                                R.string.error_retrievingdata, R.string.error_retrievingdata_retry, view -> {
-                                    onRefresh();
-                                });
+                                R.string.error_retrievingdata, R.string.error_retrievingdata_retry, view -> onRefresh());
                     }
 
                     @Override

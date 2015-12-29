@@ -1,6 +1,8 @@
 package org.michenux.yourappidea.airport;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -33,14 +35,14 @@ public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecycler
     @Override
     public AirportViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View updateView = inflater.inflate(R.layout.airport_listitem, null);
+        View updateView = inflater.inflate(R.layout.airport_listitem, parent, false);
         return new AirportViewHolder(updateView);
     }
 
     @Override
     public void onBindViewHolder(AirportViewHolder viewHolder, int position) {
         Context context = viewHolder.itemView.getContext();
-        Flight flight = (Flight) this.flights.get(position);
+        Flight flight = this.flights.get(position);
         viewHolder.flightNameView.setText(flight.getFlight());
         viewHolder.flightFromView.setText(flight.getName());
         if ( flight.getEta() != null ) {
@@ -53,11 +55,9 @@ public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecycler
         viewHolder.flightSpeedView.setText(context.getString(R.string.airport_speed, Double.toString(Math.round(flight.getSpeed() * 1.852))));
         viewHolder.flightAltView.setText(context.getString(R.string.airport_altitude, Double.toString(Math.round(flight.getAltitude() / 3.2808))));
 
-        if ( mode.equals("in")) {
-            viewHolder.flightPicture.setImageResource(R.drawable.airport_landing);
-        } else {
-            viewHolder.flightPicture.setImageResource(R.drawable.airport_takeoff);
-        }
+        Drawable drawable = ContextCompat.getDrawable(viewHolder.itemView.getContext(),
+                mode.equals("in") ? R.drawable.airport_landing : R.drawable.airport_takeoff);
+        viewHolder.flightPicture.setImageDrawable(drawable);
     }
 
     @Override
@@ -81,19 +81,15 @@ public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecycler
         this.mode = mode;
     }
 
-    public String getMode() {
-        return mode;
-    }
-
     public static class AirportViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView flightPicture;
-        private TextView flightNameView;
-        private TextView flightFromView;
-        private TextView flightEtaView;
-        private TextView flightTypeView;
-        private TextView flightSpeedView;
-        private TextView flightAltView;
+        public ImageView flightPicture;
+        public TextView flightNameView;
+        public TextView flightFromView;
+        public TextView flightEtaView;
+        public TextView flightTypeView;
+        public TextView flightSpeedView;
+        public TextView flightAltView;
 
         public AirportViewHolder(View itemView) {
             super(itemView);
@@ -118,34 +114,6 @@ public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecycler
             //Alt
             flightAltView = (TextView) itemView
                     .findViewById(R.id.flight_alt);
-        }
-
-        public TextView getFlightNameView() {
-            return flightNameView;
-        }
-
-        public TextView getFlightFromView() {
-            return flightFromView;
-        }
-
-        public TextView getFlightEtaView() {
-            return flightEtaView;
-        }
-
-        public TextView getFlightTypeView() {
-            return flightTypeView;
-        }
-
-        public TextView getFlightSpeedView() {
-            return flightSpeedView;
-        }
-
-        public TextView getFlightAltView() {
-            return flightAltView;
-        }
-
-        public ImageView getFlightPicture() {
-            return flightPicture;
         }
     }
 }

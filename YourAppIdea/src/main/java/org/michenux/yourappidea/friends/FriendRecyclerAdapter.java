@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.michenux.drodrolib.db.CursorRecyclerAdapter;
@@ -23,13 +24,8 @@ public class FriendRecyclerAdapter extends CursorRecyclerAdapter<FriendRecyclerA
     public void onBindViewHolderCursor(FriendViewHolder holder, Cursor cursor) {
         String faceName = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, cursor);
         String friendName = CursorUtils.getString(FriendContentProvider.NAME_COLUMN, cursor);
-        Drawable face = ResourceUtils.getDrawableByName(faceName, holder.itemView.getContext());
-        face.setBounds( 0, 0, 70, 70 );
-
-        TextView textView = holder.getNameView();
-        textView.setText(friendName);
-        textView.setCompoundDrawablePadding(10);
-        textView.setCompoundDrawables(face, null,	null, null);
+        holder.nameView.setText(friendName);
+        holder.imageView.setImageDrawable(ResourceUtils.getDrawableByName(faceName, holder.itemView.getContext()));
     }
 
     @Override
@@ -40,15 +36,13 @@ public class FriendRecyclerAdapter extends CursorRecyclerAdapter<FriendRecyclerA
 
     public static class FriendViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mNameView;
+        public TextView nameView;
+        public ImageView imageView;
 
         public FriendViewHolder(View itemView) {
             super(itemView);
-            mNameView = (TextView) itemView.findViewById(R.id.friend_name);
-        }
-
-        public TextView getNameView() {
-            return mNameView;
+            nameView = (TextView) itemView.findViewById(R.id.friend_name);
+            imageView = (ImageView) itemView.findViewById(R.id.friend_icon);
         }
     }
 }

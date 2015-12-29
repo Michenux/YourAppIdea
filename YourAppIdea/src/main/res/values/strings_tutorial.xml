@@ -16,10 +16,10 @@
 
         <item>- RecyclerView with twowayview library.</item>
         <item>- SyncAdapter is used to retrieve the new posts.</item>
-        <item>- Volley and Gson libraries are used to query the json feed of wordpress.</item>
+        <item>- Retrofit and Gson libraries are used to query the json feed of wordpress.</item>
         <item>- ContentProvider/CursorLoader/LoaderManager are used to load the posts from the database.</item>
         <item>- SwipeRefreshLayout (android support) to refresh the list by swiping down.</item>
-        <item>- Crouton library to display errors.</item>
+        <item>- Snackbar to display errors.</item>
     </string-array>
 
 </resources>

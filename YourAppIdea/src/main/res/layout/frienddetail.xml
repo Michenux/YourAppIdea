@@ -1,60 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:clickable="true">
+    android:background="@android:color/white"
+    android:padding="@dimen/activity_horizontal_margin">
 
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/friend_cardview"
-        android:layout_gravity="center"
+    <include
+        android:id="@+id/friend_face_value"
+        layout="@layout/frienddetail_icon" />
+
+    <TextView
+        tools:text="Technical Lead"
+        android:id="@+id/friend_job_value"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="30dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardBackgroundColor="@android:color/white"
-        card_view:cardElevation="30dp">
+        android:gravity="center_horizontal"
+        android:layout_above="@id/friend_face_value"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+    <TextView
+        android:id="@+id/friend_name_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/friend_face_value"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        tools:text="Laurent Michenaud"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-            <ImageView android:id="@+id/friend_face_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="center_horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                tools:src="@drawable/face01"/>
-
-            <TextView
-                tools:text="Technical Lead"
-                android:id="@+id/friend_job_value"
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
-                android:layout_above="@id/friend_face_value"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
-
-            <TextView
-                android:id="@+id/friend_name_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/friend_face_value"
-                android:layout_centerVertical="true"
-                android:gravity="center_horizontal"
-                tools:text="Laurent Michenaud"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+</RelativeLayout>

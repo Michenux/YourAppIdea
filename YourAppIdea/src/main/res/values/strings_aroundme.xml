@@ -26,10 +26,10 @@
         <item>- Works in offline with configuration: Select a city and Local database.</item>
 
         <item>- ContentProvider/CursorLoader/LoaderManager are used to load the places from the database.</item>
-        <item>- Volley and Gson libraries are used to query the remote web service.</item>
+        <item>- Retrofit and Gson libraries are used to query the remote web service.</item>
         <item>- Universal Image Loader library is used to load the images of the places.</item>
-        <item>- Google Play Service is used to find the location of the user.</item>
+        <item>- Google Play Services are used to find the location of the user.</item>
         <item>- Geocoder is used to get the real address from the location.</item>
-        <item>- Crouton library to display errors.</item>
+        <item>- Snackbar library to display errors.</item>
     </string-array>
 </resources>

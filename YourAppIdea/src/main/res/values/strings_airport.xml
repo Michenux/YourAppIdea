@@ -20,8 +20,8 @@
         <item>- Retrieve flight information of Orly Airport (Paris/France).</item>
         <item>- Use the spinner in action bar to choose between incoming and outgoing flights.</item>
         <item>- SwipeRefreshLayout (android support) to refresh the list by swiping down.</item>
-        <item>- Volley and Gson libraries are used to query the remote web service.</item>
-        <item>- Crouton library to display errors.</item>
+        <item>- Retrofit and Gson libraries are used to query the remote web service.</item>
+        <item>- Snackbar library to display errors.</item>
     </string-array>
 
 </resources>

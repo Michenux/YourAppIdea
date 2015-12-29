@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProvider;
+import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 import dagger.ObjectGraph;
 
-public class MCXApplication extends Application {
+public class MCXApplication extends MultiDexApplication {
 
 	public static final String LOG_TAG = "MCX";
 

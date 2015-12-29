@@ -72,7 +72,7 @@
             android:name=".aroundme.CityActivity"
             android:label="@string/cityactivity_title"
             android:logo="@drawable/ic_launcher"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity android:name="com.facebook.FacebookActivity"

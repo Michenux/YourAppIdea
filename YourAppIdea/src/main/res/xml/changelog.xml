@@ -12,6 +12,10 @@
         - Bug: ensure visible sur la friend list
         - Selected item on friend list
 
+        - Fix: AdView under system button bar
+        - Fix: Tutorial screen, touch back while updating, crash in recyclerview (inconsistency)
+        - Fix: CityActivity: statusbar transparent
+
     For 3.2.0 :
         - Picture of social networks
         - https://github.com/gabrielemariotti/changeloglib
@@ -39,9 +43,7 @@
             TwoWaysView 0.1.4, Facebook Android SDK 4.8.1
         </change>
         <change>Start using RxJava</change>
-
-        <change>TODO: Cardview layouting</change>
-        <change>TODO: 65k limit</change>
+        <change>Enable multidex</change>
         <change>TODO: contenu des dialog info </change>
     </release>
     <release version="2.0.0" versioncode="200">

@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    compile supportDependencies.multidex
     compile supportDependencies.appcompat
     compile supportDependencies.design
     compile supportDependencies.recyclerview

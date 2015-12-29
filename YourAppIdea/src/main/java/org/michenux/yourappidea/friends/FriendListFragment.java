@@ -2,10 +2,12 @@ package org.michenux.yourappidea.friends;
 
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 
 import org.lucasr.twowayview.ItemClickSupport;
 import org.lucasr.twowayview.ItemSelectionSupport;
+import org.lucasr.twowayview.widget.DividerItemDecoration;
 import org.lucasr.twowayview.widget.TwoWayView;;
 import org.michenux.drodrolib.ui.fragment.FragmentHelper;
 import org.michenux.yourappidea.R;
@@ -50,6 +53,8 @@ public class FriendListFragment extends Fragment implements
         mRecyclerView = (TwoWayView) mainView.findViewById(R.id.friend_recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(false);
+        final Drawable divider = ContextCompat.getDrawable(getActivity(), R.drawable.divider);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(divider));
         final ItemClickSupport itemClick = ItemClickSupport.addTo(mRecyclerView);
         itemClick.setOnItemClickListener(this);
         mItemSelectionSupport = ItemSelectionSupport.addTo(mRecyclerView);

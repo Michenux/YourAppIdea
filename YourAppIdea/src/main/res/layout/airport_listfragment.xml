@@ -14,5 +14,6 @@
         android:layout_height="match_parent"
         android:paddingTop="6dp"
         android:scrollbars="vertical"
-        app:twowayview_layoutManager="ListLayoutManager"/>
+        app:twowayview_layoutManager="ListLayoutManager"
+        tools:listitem="@layout/airport_listitem"/>
 </android.support.v4.widget.SwipeRefreshLayout>

@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
+    android:background="@android:color/white"
     android:gravity="center_vertical|center_horizontal">
 
     <Button
