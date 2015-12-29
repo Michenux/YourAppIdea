@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".home.YourAppMainActivity">
+
+    <group android:id="@+id/mainGroup" android:checkableBehavior="all">
+        <item
+            android:id="@+id/navdrawer_tutorial"
+            android:icon="@drawable/navdrawer_tutorial"
+            android:title="@string/navdrawer_tutorial"/>
+        <item
+            android:id="@+id/navdrawer_friends"
+            android:icon="@drawable/navdrawer_friends"
+            android:title="@string/navdrawer_listdetail"/>
+        <item
+            android:id="@+id/navdrawer_airport"
+            android:icon="@drawable/navdrawer_airport"
+            android:title="@string/navdrawer_airport"/>
+        <item
+            android:id="@+id/navdrawer_map"
+            android:icon="@drawable/navdrawer_map"
+            android:title="@string/navdrawer_simplemap"/>
+        <item
+            android:id="@+id/navdrawer_aroundme"
+            android:icon="@drawable/navdrawer_aroundme"
+            android:title="@string/navdrawer_aroundme"/>
+    </group>
+
+    <group android:id="@+id/secondaryGroup" android:checkableBehavior="all">
+        <item
+            android:id="@+id/navdrawer_settings"
+            android:icon="@drawable/navdrawer_settings"
+            android:title="@string/navdrawer_settings"/>
+        <item
+            android:id="@+id/navdrawer_rating"
+            android:icon="@drawable/navdrawer_ratings"
+            android:title="@string/navdrawer_rating"
+            android:checkable="false"/>
+        <item
+            android:id="@+id/navdrawer_donations"
+            android:icon="@drawable/navdrawer_donations"
+            android:title="@string/navdrawer_donations"/>
+        <item
+            android:id="@+id/navdrawer_changelog"
+            android:icon="@drawable/navdrawer_changelog"
+            android:title="@string/navdrawer_changelog"
+            android:checkable="false"/>
+        <item
+            android:id="@+id/navdrawer_eula"
+            android:icon="@drawable/navdrawer_eula"
+            android:title="@string/navdrawer_eula"
+            android:checkable="false"/>
+    </group>
+
+</menu>

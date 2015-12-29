@@ -5,8 +5,8 @@
 
     <item
         android:id="@+id/friends_menu_info"
-        android:titleCondensed="Info"
-        android:title="Info"
+        android:titleCondensed="@string/menu_info"
+        android:title="@string/menu_info"
         android:icon="@android:drawable/ic_menu_info_details"
         yourapp:showAsAction="always"/>
 </menu>

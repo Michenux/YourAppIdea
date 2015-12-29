@@ -14,7 +14,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.lucasr.twowayview.ItemClickSupport;
 import org.lucasr.twowayview.widget.TwoWayView;
+import org.michenux.drodrolib.BuildConfig;
 import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
@@ -93,13 +93,16 @@ public class TutorialListFragment extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ViewGroup viewGroup = (ViewGroup) view;
         if ( ((YourApplication) getActivity().getApplication()).isSyncAdapterRunning()) {
-            Log.d(YourApplication.LOG_TAG, "onViewCreated: synchronizing");
+            if (BuildConfig.DEBUG) {
+                Log.d(YourApplication.LOG_TAG, "onViewCreated: synchronizing");
+            }
             updateRefresh(true);
         }
         else {
-            Log.d(YourApplication.LOG_TAG, "onViewCreated: not synchronizing");
+            if (BuildConfig.DEBUG) {
+                Log.d(YourApplication.LOG_TAG, "onViewCreated: not synchronizing");
+            }
         }
     }
 
@@ -164,9 +167,8 @@ public class TutorialListFragment extends Fragment
     public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
         String[] projection = { TutorialContentProvider.ID_COLUMN,
                 TutorialContentProvider.TITLE_COLUMN, TutorialContentProvider.DESCRIPTION_COLUMN, TutorialContentProvider.URL_COLUMN, TutorialContentProvider.DATECREATION_COLUMN };
-        CursorLoader cursorLoader = new CursorLoader(this.getActivity(),
+        return new CursorLoader(this.getActivity(),
                 TutorialContentProvider.CONTENT_URI, projection, null, null, null);
-        return cursorLoader;
     }
 
     @Override
@@ -191,11 +193,15 @@ public class TutorialListFragment extends Fragment
 
     private void updateRefresh(final boolean isSyncing) {
         if ( !isSyncing) {
-            Log.d(YourApplication.LOG_TAG, "show as not refreshing");
+            if (BuildConfig.DEBUG) {
+                Log.d(YourApplication.LOG_TAG, "show as not refreshing");
+            }
             mSwipeRefreshWidget.setRefreshing(false);
         }
         else {
-            Log.d(YourApplication.LOG_TAG, "show as refreshing");
+            if (BuildConfig.DEBUG) {
+                Log.d(YourApplication.LOG_TAG, "show as refreshing");
+            }
             mSwipeRefreshWidget.setRefreshing(true);
         }
     }

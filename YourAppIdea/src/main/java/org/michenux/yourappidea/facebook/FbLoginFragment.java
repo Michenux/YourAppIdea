@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.widget.LoginButton;
+import com.facebook.login.widget.LoginButton;
 
 import org.michenux.drodrolib.security.UserHelper;
 import org.michenux.drodrolib.security.UserSessionCallback;
@@ -21,28 +21,27 @@ public class FbLoginFragment extends Fragment implements UserSessionCallback {
     @Inject
     UserHelper mUserHelper;
 
-    private FbLoginDelegate mFbLoginFlowHelper ;
+    private FacebookDelegate mFacebookDelegate ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((YourApplication) getActivity().getApplication()).inject(this);
 
-        mFbLoginFlowHelper = new FbLoginDelegate(mUserHelper, this.getActivity(), savedInstanceState);
-        mFbLoginFlowHelper.setUserSessionCallback(this);
+        mFacebookDelegate = new FacebookDelegate(mUserHelper, this.getActivity());
+        mFacebookDelegate.setUserSessionCallback(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_facebook, container, false);
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.navmenufacebook_loginbutton);
-        loginButton.setReadPermissions("basic_info", "email");
+        loginButton.setReadPermissions("public_profile", "email");
         loginButton.setFragment(this);
 
         // Hide facebook login button if facebook app not installed
-        if ( !mFbLoginFlowHelper.isFacebookInstalled()) {
+        if ( !mFacebookDelegate.isFacebookInstalled()) {
             loginButton.setVisibility(View.GONE);
-            //TODO: should display a message
         }
         return view;
     }
@@ -50,37 +49,13 @@ public class FbLoginFragment extends Fragment implements UserSessionCallback {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mFbLoginFlowHelper.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mFbLoginFlowHelper.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mFbLoginFlowHelper.onResume();
-    }
-
-    @Override
-    public void onStop() {
-        mFbLoginFlowHelper.onStop();
-        super.onStop();
+        mFacebookDelegate.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onDestroy() {
-        mFbLoginFlowHelper.onDestroy();
+        mFacebookDelegate.onDestroy();
         super.onDestroy();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mFbLoginFlowHelper.onSaveInstanceState(outState);
     }
 
     @Override

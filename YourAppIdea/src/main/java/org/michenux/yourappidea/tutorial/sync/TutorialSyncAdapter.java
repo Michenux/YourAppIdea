@@ -1,7 +1,6 @@
 package org.michenux.yourappidea.tutorial.sync;
 
 import android.accounts.Account;
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -21,24 +20,14 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.Volley;
-
-import org.michenux.drodrolib.battery.BatteryUtils;
 import org.michenux.drodrolib.content.ContentProviderUtils;
 import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.drodrolib.info.AppUsageUtils;
-import org.michenux.drodrolib.network.connectivity.ConnectivityUtils;
-import org.michenux.drodrolib.network.volley.GsonRequest;
 import org.michenux.drodrolib.wordpress.json.WPJsonPost;
 import org.michenux.drodrolib.wordpress.json.WPJsonResponse;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,12 +40,12 @@ import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+
 public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static final String SYNC_FINISHED = "sync_finished";
     public static final String SYNC_STARTED = "sync_started";
-
-    private ContentResolver mContentResolver ;
 
     @Inject
     TutorialSyncHelper mSyncHelper;
@@ -70,25 +59,6 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter()");
         }
-        mContentResolver = context.getContentResolver();
-    }
-
-    /**
-     * Set up the sync adapter. This form of the
-     * constructor maintains compatibility with Android 3.0
-     * and later platform versions
-     */
-    @TargetApi(11)
-    public TutorialSyncAdapter(
-            Context context,
-            boolean autoInitialize,
-            boolean allowParallelSyncs) {
-        super(context, autoInitialize, allowParallelSyncs);
-
-        if (BuildConfig.DEBUG) {
-            Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter()");
-        }
-        mContentResolver = context.getContentResolver();
     }
 
     @Override
@@ -100,17 +70,15 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
             SyncResult syncResult) {
 
         ((YourApplication) getContext().getApplicationContext()).setSyncAdapterRunning(true);
-        LocalBroadcastManager.getInstance(this.getContext()).sendBroadcast( new Intent(SYNC_STARTED));
+        LocalBroadcastManager.getInstance(this.getContext()).sendBroadcast(new Intent(SYNC_STARTED));
 
-        boolean manualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
-
-        if (BuildConfig.DEBUG) {
-            Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter.onPerformSync() - manual:" + manualSync );
-        }
-
-        WPJsonPost newPost = null;
         try {
-            newPost = retrievePosts(AppUsageUtils.getLastSync(this.getContext()), provider);
+            boolean manualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
+            WPJsonPost newPost = retrievePosts(AppUsageUtils.getLastSync(this.getContext()), provider);
+
+            if (BuildConfig.DEBUG) {
+                Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter.onPerformSync() - manual:" + manualSync );
+            }
             if ( newPost != null ) {
 
                 // notification only if not manual sync
@@ -125,9 +93,10 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
             }
 
             if ( !manualSync) {
-                mSyncHelper.adjustSyncInterval(this.getContext());
+                mSyncHelper.adjustSyncInterval(TutorialSyncAdapter.this.getContext());
             }
-            AppUsageUtils.updateLastSync(this.getContext());
+            AppUsageUtils.updateLastSync(TutorialSyncAdapter.this.getContext());
+
         } catch (ParseException e) {
             Log.e(YourApplication.LOG_TAG, "tutorialSyncAdapter.onPerformSync()", e);
             syncResult.stats.numParseExceptions++;
@@ -144,7 +113,7 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
         Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newPost.getUrl()));
         PendingIntent contentIntent = PendingIntent.getActivity(this.getContext(), 0, notificationIntent, 0);
 
-        NotificationManager notificationManager = (NotificationManager) this.getContext().getSystemService(this.getContext().NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) this.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notifBuilder = new NotificationCompat.Builder(this.getContext());
         notifBuilder.setContentTitle(getContext().getString(R.string.tutorial_notification_title));
@@ -169,57 +138,47 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
             Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter.retrievePosts()");
         }
 
+        WordpressService wordpressService = WordpressServiceFactory.create(getContext());
+
+        Observable<WPJsonResponse> observable =
+                wordpressService.query("get_recent_posts", "android", "android_desc", "android", 9999);
+
+        WPJsonResponse response = observable.toBlocking().first();
+
         WPJsonPost newPost = null;
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
-        try {
-            RequestFuture<WPJsonResponse> future = RequestFuture.newFuture();
-            GsonRequest<WPJsonResponse> jsObjRequest = new GsonRequest<WPJsonResponse>(
-                    Request.Method.GET,
-                    "http://www.michenux.net/?json=get_category_posts&slug=android&custom_fields=android_desc&categories=android&count=9999",
-                    WPJsonResponse.class, null, future, future);
-            jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    5000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            //&include=id,title,custom_fields,url,date,modified,excerpt,author,thumbnail_images,content
-            requestQueue.add(jsObjRequest);
-            WPJsonResponse response = future.get(); // blocking
-            if ( BuildConfig.DEBUG) {
-                Log.d(YourApplication.LOG_TAG, "response status: " + response.getStatus());
+        if (response.getStatus().equals(WPJsonResponse.STATUS_OK) &&
+                response.getPosts() != null &&
+                !response.getPosts().isEmpty()) {
+
+            final WPJsonPost lastPost = response.getPosts().get(0);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
+            sdf.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
+            Date lastPostDate = sdf.parse(lastPost.getDate());
+            Date lastSyncDate = new Date(lastSync);
+
+            if (BuildConfig.DEBUG) {
+                Log.d(YourApplication.LOG_TAG, "title:" + lastPost.getTitle());
+                Log.d(YourApplication.LOG_TAG, "date: " + lastPost.getDate());
+                Log.d(YourApplication.LOG_TAG, "lastSync: " + sdf.format(lastSync));
             }
 
-            if (response.getStatus().equals(WPJsonResponse.STATUS_OK) && response.getPosts() != null && !response.getPosts().isEmpty()) {
-
-                WPJsonPost lastPost = response.getPosts().get(0);
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
-                sdf.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
-                Date lastPostDate = (Date) sdf.parse(lastPost.getDate());
-                Date lastSyncDate = new Date(lastSync);
-
-                if ( BuildConfig.DEBUG) {
-                    Log.d(YourApplication.LOG_TAG, "title:" + lastPost.getTitle());
-                    Log.d(YourApplication.LOG_TAG, "date: " + lastPost.getDate());
-                    Log.d(YourApplication.LOG_TAG, "lastSync: " + sdf.format(lastSync));
-                }
-
-                if ( lastPostDate.after(lastSyncDate)) {
-                    newPost = lastPost;
-                }
-
-                updateDatabase(response.getPosts(), provider);
-
-                if (ConnectivityUtils.isConnectedWifi(this.getContext()) && BatteryUtils.isChargingOrFull(this.getContext())) {
-                    //load image
-                }
-
-            }  else  if ( BuildConfig.DEBUG) {
-                Log.d(YourApplication.LOG_TAG, "result is null or empty");
+            if (lastPostDate.after(lastSyncDate)) {
+                newPost = lastPost;
             }
-        } finally {
-            requestQueue.cancelAll(this.getContext());
+
+            updateDatabase(response.getPosts(), provider);
+
+            //if (ConnectivityUtils.isConnectedWifi(TutorialSyncAdapter.this.getContext()) &&
+            //        BatteryUtils.isChargingOrFull(TutorialSyncAdapter.this.getContext())) {
+                //load image
+            //}
+
+        } else if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "result is null or empty");
         }
+
         return newPost;
     }
 
@@ -230,17 +189,13 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
         sdf.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
 
         for( WPJsonPost post : posts ) {
-            String desc = "";
-            if ( post.getCustomFields() != null && post.getCustomFields().getDescription() != null && !post.getCustomFields().getDescription().isEmpty() ) {
-                desc = post.getCustomFields().getDescription().get(0);
-            }
             String thumbnail = "";
             if ( post.getThumbnailImages() != null && post.getThumbnailImages().getFoundationFeaturedImage() != null) {
                 thumbnail = post.getThumbnailImages().getFoundationFeaturedImage().getUrl();
             }
 
-            Date postCreationDate = (Date) sdf.parse(post.getDate());
-            Date postModifDate = (Date) sdf.parse(post.getDate());
+            Date postCreationDate = sdf.parse(post.getDate());
+            Date postModifDate = sdf.parse(post.getDate());
 
             Cursor cursor = getContext().getContentResolver().query(
                     TutorialContentProvider.CONTENT_URI,   // The content URI of the words table
@@ -250,49 +205,49 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
                     null);
 
             boolean insertOrModified = false;
-            if ( cursor.moveToFirst()) {
-                long modificationDate = CursorUtils.getLong(TutorialContentProvider.DATEMODIFICATION_COLUMN, cursor);
-                if ( modificationDate != ( postModifDate.getTime() / 1000 )) {
+            if ( cursor != null ) {
+                if (cursor.moveToFirst()) {
+                    long modificationDate = CursorUtils.getLong(TutorialContentProvider.DATEMODIFICATION_COLUMN, cursor);
+                    if (modificationDate != (postModifDate.getTime() / 1000)) {
 
-                    if ( BuildConfig.DEBUG ) {
-                        Log.d(YourApplication.LOG_TAG, "updated post: " + post.getId());
+                        if (BuildConfig.DEBUG) {
+                            Log.d(YourApplication.LOG_TAG, "updated post: " + post.getId());
+                        }
+                        // delete the old one if modified
+                        ops.add(ContentProviderOperation.newDelete(TutorialContentProvider.CONTENT_URI).withSelection(TutorialContentProvider.POSTID_COLUMN + " = ?",
+                                new String[]{Integer.toString(post.getId())}).build());
+                        insertOrModified = true;
+
+                    } else {
+                        if (BuildConfig.DEBUG) {
+                            Log.d(YourApplication.LOG_TAG, "unchanged post: " + post.getId() + ", not inserting.");
+                        }
                     }
-                    // delete the old one if modified
-                    ops.add(ContentProviderOperation.newDelete(TutorialContentProvider.CONTENT_URI).withSelection(TutorialContentProvider.POSTID_COLUMN + " = ?",
-                            new String[]{Integer.toString(post.getId())}).build());
+                } else {
+                    if (BuildConfig.DEBUG) {
+                        Log.d(YourApplication.LOG_TAG, "new post: " + post.getId());
+                    }
                     insertOrModified = true;
-
                 }
-                else {
-                    if ( BuildConfig.DEBUG ) {
-                        Log.d(YourApplication.LOG_TAG, "unchanged post: " + post.getId() + ", not inserting.");
-                    }
-                }
+                cursor.close();
             }
-            else {
-                if ( BuildConfig.DEBUG ) {
-                    Log.d(YourApplication.LOG_TAG, "new post: " + post.getId());
-                }
-                insertOrModified = true;
-            }
-            cursor.close();
 
             if ( insertOrModified ) {
 
                 // insert if new or modified
                 ops.add(
-                        ContentProviderOperation.newInsert(TutorialContentProvider.CONTENT_URI)
-                                .withValue(TutorialContentProvider.POSTID_COLUMN, post.getId())
-                                .withValue(TutorialContentProvider.TITLE_COLUMN, post.getTitle())
-                                .withValue(TutorialContentProvider.DESCRIPTION_COLUMN, post.getExcerpt())
-                                .withValue(TutorialContentProvider.THUMBNAIL_COLMUN, thumbnail)
-                                .withValue(TutorialContentProvider.URL_COLUMN, post.getUrl())
-                                .withValue(TutorialContentProvider.CONTENT_COLUMN, post.getContent())
-                                .withValue(TutorialContentProvider.AUTHOR_COLUMN, post.getAuthor().getName())
-                                .withValue(TutorialContentProvider.DATECREATION_COLUMN, postCreationDate.getTime() / 1000)
-                                .withValue(TutorialContentProvider.DATEMODIFICATION_COLUMN, postModifDate.getTime() / 1000)
-                                .withYieldAllowed(false)
-                                .build());
+                    ContentProviderOperation.newInsert(TutorialContentProvider.CONTENT_URI)
+                        .withValue(TutorialContentProvider.POSTID_COLUMN, post.getId())
+                            .withValue(TutorialContentProvider.TITLE_COLUMN, post.getTitle())
+                            .withValue(TutorialContentProvider.DESCRIPTION_COLUMN, post.getExcerpt())
+                            .withValue(TutorialContentProvider.THUMBNAIL_COLMUN, thumbnail)
+                            .withValue(TutorialContentProvider.URL_COLUMN, post.getUrl())
+                            .withValue(TutorialContentProvider.CONTENT_COLUMN, post.getContent())
+                            .withValue(TutorialContentProvider.AUTHOR_COLUMN, post.getAuthor().getName())
+                            .withValue(TutorialContentProvider.DATECREATION_COLUMN, postCreationDate.getTime() / 1000)
+                            .withValue(TutorialContentProvider.DATEMODIFICATION_COLUMN, postModifDate.getTime() / 1000)
+                            .withYieldAllowed(false)
+                            .build());
             }
         }
 

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Your App Idea Dev</string>
+
+    <!-- Google Maps API Key -->
+    <string name="googlemap_apikey">AIzaSyAFbVzLpEHRU37f8dJcqmqEgcXB1vofvP4</string>
+
+    <!-- Facebook API Key -->
     <string name="app_id">1592621560969472</string>
+
 </resources>

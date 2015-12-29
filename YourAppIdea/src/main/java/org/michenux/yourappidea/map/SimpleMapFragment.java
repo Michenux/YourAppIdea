@@ -1,12 +1,12 @@
 package org.michenux.yourappidea.map;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,14 +28,15 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.michenux.drodrolib.ui.map.MCXSupportMapFragment;
+import org.michenux.drodrolib.ui.snackbar.SnackbarHelper;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
+import rx.Subscription;
 
 public class SimpleMapFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks,
@@ -49,6 +50,10 @@ public class SimpleMapFragment extends Fragment implements
     private GoogleApiClient mGoogleApiClient;
 
     private LocationRequest mRequest;
+
+    private boolean mPermissionGranted = false;
+
+    private Subscription mSubscription ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,8 +81,7 @@ public class SimpleMapFragment extends Fragment implements
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onCreateView");
         }
-        View view = inflater.inflate(R.layout.simplemap_fragment, container, false);
-        return view ;
+        return inflater.inflate(R.layout.simplemap_fragment, container, false);
     }
 
     @Override
@@ -105,7 +109,18 @@ public class SimpleMapFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        mGoogleApiClient.connect();
+
+        mSubscription = RxPermissions.getInstance(this.getActivity())
+            .request(Manifest.permission.ACCESS_FINE_LOCATION)
+            .subscribe(granted -> {
+                mPermissionGranted = granted;
+                if ( granted) {
+                    mGoogleApiClient.connect();
+                }
+                else {
+                    SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_permissionfinelocationrequired);
+                }
+            });
     }
 
     @Override
@@ -115,37 +130,37 @@ public class SimpleMapFragment extends Fragment implements
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
         mGoogleApiClient.disconnect();
+        mSubscription.unsubscribe();
     }
 
     @Override
     public void onConnected(Bundle bundle) {
+        enableLocationOnMap();
         registerLocationUpdates();
     }
 
-
     private void registerLocationUpdates() {
+
         PendingResult<Status> result = LocationServices.FusedLocationApi
                 .requestLocationUpdates(
                         mGoogleApiClient,
                         mRequest,
                         this);
-        result.setResultCallback(new ResultCallback<Status>() {
-            public void onResult(Status status) {
-                if (status.isSuccess()) {
-                    // Successfully registered
-                } else if (status.hasResolution()) {
-                    // Google provides a way to fix the issue
-                    try {
-                        status.startResolutionForResult(
-                                SimpleMapFragment.this.getActivity(),     // your current activity used to receive the result
-                                LOCATIONSERVICES_RESOLUTION_RESULCODE); // the result code you'll look for in your onActivityResult method to retry registering
-                    } catch (IntentSender.SendIntentException e) {
-                        Log.e(YourApplication.LOG_TAG, "SimpleMapFragment start resolution failure: ", e);
-                    }
-                } else {
-                    // No recovery. Weep softly or inform the user.
-                    Log.e(YourApplication.LOG_TAG, "SimpleMapFragment registering failed: " + status.getStatusMessage());
+        result.setResultCallback(status -> {
+            if (status.isSuccess()) {
+                // Successfully registered
+            } else if (status.hasResolution()) {
+                // Google provides a way to fix the issue
+                try {
+                    status.startResolutionForResult(
+                            SimpleMapFragment.this.getActivity(),     // your current activity used to receive the result
+                            LOCATIONSERVICES_RESOLUTION_RESULCODE); // the result code you'll look for in your onActivityResult method to retry registering
+                } catch (IntentSender.SendIntentException e) {
+                    Log.e(YourApplication.LOG_TAG, "SimpleMapFragment start resolution failure: ", e);
                 }
+            } else {
+                // No recovery. Weep softly or inform the user.
+                Log.e(YourApplication.LOG_TAG, "SimpleMapFragment registering failed: " + status.getStatusMessage());
             }
         });
     }
@@ -177,9 +192,16 @@ public class SimpleMapFragment extends Fragment implements
         }
         if ( googleMap != null ) {
             mMap = googleMap;
-            mMap.setMyLocationEnabled(true);
+            this.enableLocationOnMap();
         }
      }
+
+
+    private void enableLocationOnMap() {
+        if ( mPermissionGranted && mMap != null && !mMap.isMyLocationEnabled()) {
+            mMap.setMyLocationEnabled(true);
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -203,17 +225,13 @@ public class SimpleMapFragment extends Fragment implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Crouton.makeText(
-                SimpleMapFragment.this.getActivity(),
-                getString(R.string.error_connectionfailed),
-                Style.ALERT, R.id.toolbar).show();
+
+        SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_connectionfailed);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Crouton.makeText(
-                SimpleMapFragment.this.getActivity(),
-                getString(R.string.error_connectionsuspended),
-                Style.ALERT, R.id.toolbar).show();
+
+        SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_connectionsuspended);
     }
 }

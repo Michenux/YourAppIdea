@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/airport_menuMode"
-        android:title="Mode"
+        android:title="@string/airport_menu_mode"
         yourapp:showAsAction="always"
         yourapp:actionLayout="@layout/airport_mode"/>
     
     <item
         android:id="@+id/airport_menu_info"
-        android:titleCondensed="Info"
-        android:title="Info"
+        android:titleCondensed="@string/menu_info"
+        android:title="@string/menu_info"
         android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="2"
         yourapp:showAsAction="ifRoom"/>

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
+<android.support.design.widget.NavigationView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/navdrawer_recyclerview"
-    android:scrollbars="vertical"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:choiceMode="singleChoice"
-    android:divider="@null"
-    android:background="#ffffffff"
-    style="?drawerStyle"/>
+    app:itemTextColor="@color/navdrawer_item"
+    app:itemIconTint="@color/navdrawer_item"
+    app:headerLayout="@layout/navdrawer_loginheader"/>

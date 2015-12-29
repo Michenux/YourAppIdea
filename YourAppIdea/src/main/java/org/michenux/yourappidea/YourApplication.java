@@ -1,7 +1,6 @@
 package org.michenux.yourappidea;
 
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -11,8 +10,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import org.michenux.drodrolib.MCXApplication;
 import org.michenux.drodrolib.db.sqlite.SQLiteDatabaseFactory;
-import org.michenux.drodrolib.network.volley.BitmapCacheHolder;
-import org.michenux.drodrolib.security.SecurityUtils;
 import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 
 import java.util.List;
@@ -47,7 +44,7 @@ public class YourApplication extends MCXApplication {
                 //.resetViewBeforeLoading(false)  // default
                 //.delayBeforeLoading(1000)
                 .cacheInMemory(true) // default
-                .cacheOnDisc(true) // default
+                .cacheOnDisk(true) // default
                 //.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
                 //.bitmapConfig(Bitmap.Config.ARGB_8888) // default
                 //.decodingOptions(...)
@@ -94,8 +91,6 @@ public class YourApplication extends MCXApplication {
         } catch (NameNotFoundException e) {
             throw new RuntimeException(e);
         }
-        BitmapCacheHolder bitmapCacheHolder = objectGraph.get(BitmapCacheHolder.class);
-        bitmapCacheHolder.init(this, 50000000);
     }
 
     public boolean isSyncAdapterRunning() {

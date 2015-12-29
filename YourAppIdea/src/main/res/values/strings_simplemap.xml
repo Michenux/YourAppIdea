@@ -3,6 +3,7 @@
 
     <string name="error_connectionfailed">Connection failed</string>
     <string name="error_connectionsuspended">Connection suspended</string>
+    <string name="error_permissionfinelocationrequired">Your location is required.</string>
 
     <string name="simplemap_info_title">Info</string>
     <string-array name="simplemap_info_details">

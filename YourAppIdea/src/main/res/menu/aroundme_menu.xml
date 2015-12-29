@@ -5,34 +5,34 @@
 
     <item
         android:id="@+id/aroundme_menu_info"
-        android:titleCondensed="Info"
-        android:title="Info"
+        android:titleCondensed="@string/menu_info"
+        android:title="@string/menu_info"
         android:icon="@android:drawable/ic_menu_info_details"
-        yourapp:showAsAction="always"/>
+        yourapp:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/aroundme_menu_myposition"
-        android:titleCondensed="My location"
-        android:title="My location"
+        android:titleCondensed="@string/aroundme_menu_mylocation_condensed"
+        android:title="@string/aroundme_menu_mylocation"
         android:icon="@android:drawable/ic_menu_mylocation"
         yourapp:showAsAction="never"/>
 
     <item
         android:id="@+id/aroundme_menu_selectlocation"
-        android:titleCondensed="City..."
-        android:title="Select city..."
+        android:titleCondensed="@string/aroundme_menu_selectcity_condensed"
+        android:title="@string/aroundme_menu_selectcity"
         yourapp:showAsAction="never"/>
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/aroundme_menu_localprovider"
-            android:titleCondensed="Local"
-            android:title="Local database"
+            android:titleCondensed="@string/aroundme_menu_localdatabase_condensed"
+            android:title="@string/aroundme_menu_localdatabase"
             yourapp:showAsAction="never"/>
         <item
             android:id="@+id/aroundme_menu_remoteprovider"
-            android:titleCondensed="Remote"
-            android:title="Remote webservice"
+            android:titleCondensed="@string/aroundme_menu_remotedatabase_condensed"
+            android:title="@string/aroundme_menu_remotedatabase"
             yourapp:showAsAction="never"/>
     </group>
 </menu>

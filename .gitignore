@@ -30,3 +30,5 @@ proguard/
 
 # Misc
 .DS_Store
+
+google-services.json

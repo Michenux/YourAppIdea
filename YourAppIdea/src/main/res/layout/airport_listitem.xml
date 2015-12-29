@@ -1,113 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingBottom="5dp"
-    android:orientation="vertical">
+    android:gravity="left|center"
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/airport_cardview"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="3dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="3dp">
+    <ImageView
+        android:id="@+id/flight_picture"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        tools:src="@drawable/airport_takeoff"
+        android:paddingRight="15dp"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center"
-            android:orientation="horizontal"
-            android:padding="5dp">
+    <TextView
+        android:id="@+id/flight_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/flight_picture"
+        android:gravity="center_vertical"
+        android:text="flight_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title">
+    </TextView>
 
-            <ImageView
-                android:id="@+id/flight_picture"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                tools:src="@drawable/airport_takeoff"
-                android:paddingRight="15dp"/>
+    <TextView
+        android:id="@+id/flight_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/flight_name"
+        android:gravity="right|center_vertical"
+        tools:text="flight_from"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1">
+    </TextView>
 
-            <TextView
-                android:id="@+id/flight_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/flight_picture"
-                android:gravity="center_vertical"
-                android:text="flight_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title">
-            </TextView>
+    <TextView
+        android:id="@+id/flight_eta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        tools:text="eta"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_below="@id/flight_name"
+        android:layout_alignLeft="@+id/flight_name"
+        android:layout_alignStart="@+id/flight_name">
+    </TextView>
 
-            <TextView
-                android:id="@+id/flight_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@id/flight_name"
-                android:gravity="right|center_vertical"
-                tools:text="flight_from"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1">
-            </TextView>
+    <TextView
+        android:id="@+id/flight_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/flight_from"
+        android:layout_marginLeft="10px"
+        android:layout_toRightOf="@id/flight_eta"
+        android:gravity="right|center_vertical"
+        tools:text="type"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1">
+    </TextView>
 
-            <TextView
-                android:id="@+id/flight_eta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                tools:text="eta"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_below="@id/flight_name"
-                android:layout_alignLeft="@+id/flight_name"
-                android:layout_alignStart="@+id/flight_name">
-            </TextView>
+    <TextView
+        android:id="@+id/flight_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/flight_type"
+        android:layout_marginLeft="10px"
+        android:gravity="center_vertical"
+        tools:text="speed"
+        android:textColor="?attr/colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1">
+    </TextView>
 
-            <TextView
-                android:id="@+id/flight_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/flight_from"
-                android:layout_marginLeft="10px"
-                android:layout_toRightOf="@id/flight_eta"
-                android:gravity="right|center_vertical"
-                tools:text="type"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1">
-            </TextView>
+    <TextView
+        android:id="@+id/flight_alt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flight_type"
+        android:layout_marginRight="10px"
+        android:layout_toLeftOf="@id/flight_speed"
+        android:gravity="center_vertical"
+        tools:text="altitude"
+        android:textColor="?colorAccent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" >
+    </TextView>
 
-            <TextView
-                android:id="@+id/flight_speed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/flight_type"
-                android:layout_marginLeft="10px"
-                android:gravity="center_vertical"
-                tools:text="speed"
-                android:textColor="?attr/colorAccent"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1">
-            </TextView>
-
-            <TextView
-                android:id="@+id/flight_alt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/flight_type"
-                android:layout_marginRight="10px"
-                android:layout_toLeftOf="@id/flight_speed"
-                android:gravity="center_vertical"
-                tools:text="altitude"
-                android:textColor="?colorAccent"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" >
-            </TextView>
-
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+</RelativeLayout>

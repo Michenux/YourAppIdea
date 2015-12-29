@@ -1,7 +1,6 @@
 package org.michenux.yourappidea.airport;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import org.michenux.yourappidea.R;
 
+import java.util.Collection;
 import java.util.List;
 
 public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecyclerAdapter.AirportViewHolder> {
@@ -71,6 +71,10 @@ public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecycler
 
     public void add(Flight flight) {
         this.flights.add(flight);
+    }
+
+    public void addAll(Collection<Flight> flights) {
+        this.flights.addAll(flights);
     }
 
     public void setMode(String mode) {

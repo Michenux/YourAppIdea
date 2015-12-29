@@ -85,9 +85,8 @@ public class FriendListFragment extends Fragment implements
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
 		String[] projection = { FriendContentProvider.ID_COLUMN,
                 FriendContentProvider.NAME_COLUMN, FriendContentProvider.FACE_COLUMN };
-		CursorLoader cursorLoader = new CursorLoader(this.getActivity(),
+		return new CursorLoader(this.getActivity(),
 				FriendContentProvider.CONTENT_URI, projection, null, null, null);
-		return cursorLoader;
 	}
 
 	/**

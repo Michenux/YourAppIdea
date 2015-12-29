@@ -1,5 +1,6 @@
 package org.michenux.yourappidea.aroundme;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Address;
@@ -27,8 +28,10 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.michenux.drodrolib.network.connectivity.ConnectivityUtils;
+import org.michenux.drodrolib.ui.snackbar.SnackbarHelper;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
@@ -37,8 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
+import rx.Subscription;
 
 public class AroundMeFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks,
@@ -67,6 +69,8 @@ public class AroundMeFragment extends Fragment implements
     private boolean mUseLocationClient = true;
 
     private Location mCurrentLocation;
+
+    private Subscription mSubscription ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -188,13 +192,24 @@ public class AroundMeFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        this.connectLocationClient();
+
+        mSubscription = RxPermissions.getInstance(this.getActivity())
+            .request(Manifest.permission.ACCESS_FINE_LOCATION)
+            .subscribe(granted -> {
+                if ( granted) {
+                    this.connectLocationClient();
+                }
+                else {
+                    SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_permissionfinelocationrequired);
+                }
+            });
     }
 
     @Override
     public void onPause() {
         super.onPause();
         this.disconnectLocationClient();
+        mSubscription.unsubscribe();
     }
 
     @Override
@@ -316,17 +331,11 @@ public class AroundMeFragment extends Fragment implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Crouton.makeText(
-                AroundMeFragment.this.getActivity(),
-                getString(R.string.error_connectionfailed),
-                Style.ALERT).show();
+        SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_connectionfailed);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Crouton.makeText(
-                AroundMeFragment.this.getActivity(),
-                getString(R.string.error_connectionsuspended),
-                Style.ALERT).show();
+        SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_connectionsuspended);
     }
 }

@@ -1,13 +1,15 @@
 package org.michenux.yourappidea.aroundme;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import org.michenux.yourappidea.R;
 
-public class CityActivity extends ActionBarActivity {
+public class CityActivity extends AppCompatActivity {
 
     private Toolbar mToolBar;
 
@@ -18,7 +20,10 @@ public class CityActivity extends ActionBarActivity {
 
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if ( actionBar != null ) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

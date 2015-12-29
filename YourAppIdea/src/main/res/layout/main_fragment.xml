@@ -1,105 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainmenu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:gravity="center_vertical|center_horizontal">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/mainmenu_button0"
+        android:text="@string/mainmenu_button0"
+        android:layout_height="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:gravity="center_vertical|center_horizontal">
+        android:textColor="@android:color/white"
+        android:layout_margin="5dp">
+    </Button>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/mainmenu_button0_ripple"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:rv_color="?attr/colorControlHighlight">
-            <Button
-                android:id="@+id/mainmenu_button0"
-                android:text="@string/mainmenu_button0"
-                android:textColor="@android:color/white"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/button_drawable">
-            </Button>
-        </com.andexert.library.RippleView>
+    <Button
+        android:id="@+id/mainmenu_button1"
+        android:text="@string/mainmenu_button1"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:textColor="@android:color/white"
+        android:layout_margin="5dp">
+    </Button>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/mainmenu_button1_ripple"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:rv_color="?attr/colorControlHighlight">
-            <Button
-                android:id="@+id/mainmenu_button1"
-                android:text="@string/mainmenu_button1"
-                android:textColor="@android:color/white"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/button_drawable">
-            </Button>
-        </com.andexert.library.RippleView>
+    <Button
+        android:id="@+id/mainmenu_button2"
+        android:text="@string/mainmenu_button2"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:textColor="@android:color/white"
+        android:layout_margin="5dp">
+    </Button>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/mainmenu_button2_ripple"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:rv_color="?attr/colorControlHighlight">
-            <Button
-                android:id="@+id/mainmenu_button2"
-                android:text="@string/mainmenu_button2"
-                android:textColor="@android:color/white"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/button_drawable">
-            </Button>
-        </com.andexert.library.RippleView>
+    <Button
+        android:id="@+id/mainmenu_button3"
+        android:text="@string/mainmenu_button3"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:textColor="@android:color/white"
+        android:layout_margin="5dp">
+    </Button>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/mainmenu_button3_ripple"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:rv_color="?attr/colorControlHighlight">
-            <Button
-                    android:id="@+id/mainmenu_button3"
-                    android:text="@string/mainmenu_button3"
-                    android:textColor="@android:color/white"
-                android:layout_height="50dp"
-                    android:layout_width="match_parent"
-                android:background="@drawable/button_drawable">
-            </Button>
-        </com.andexert.library.RippleView>
+    <Button
+        android:id="@+id/mainmenu_button4"
+        android:text="@string/mainmenu_button4"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:textColor="@android:color/white"
+        android:layout_margin="5dp">
+    </Button>
 
-        <com.andexert.library.RippleView
-            android:id="@+id/mainmenu_button4_ripple"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:rv_color="?attr/colorControlHighlight">
-            <Button
-                android:id="@+id/mainmenu_button4"
-                android:text="@string/mainmenu_button4"
-                android:textColor="@android:color/white"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:background="@drawable/button_drawable">
-            </Button>
-        </com.andexert.library.RippleView>
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

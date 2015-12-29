@@ -10,7 +10,6 @@ import org.michenux.drodrolib.network.sync.AbstractSyncHelper;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
-import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -34,7 +33,7 @@ public class TutorialSyncHelper extends AbstractSyncHelper {
             intervals.put(7, 2);// every 3 days
             intervals.put(8, 2);// every 4 days
         }else {
-            intervals.put(1, 1 * MINUTE_PER_HOUR); // every hour
+            intervals.put(1, MINUTE_PER_HOUR); // every hour
             intervals.put(2, 2 * MINUTE_PER_HOUR); // every two-hour
             intervals.put(3, 6 * MINUTE_PER_HOUR); // every six-hour
             intervals.put(4, 12* MINUTE_PER_HOUR);// twice a day

@@ -21,7 +21,6 @@ import org.michenux.yourappidea.settings.SettingsFragment;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-
 @Singleton
 public class NavigationController {
 
@@ -54,20 +53,16 @@ public class NavigationController {
     }
 
     public void confirmEulaAndShowChangeLog(FragmentActivity activity) {
-        EulaChangeLogChainHelper chain = new EulaChangeLogChainHelper(R.string.eula_title, R.string.eula_accept,
-                R.string.eula_refuse, R.string.changelog_whatsnew_title, R.string.changelog_close, R.xml.changelog, activity);
-        chain.show();
+        EulaChangeLogChainHelper.show(activity, R.string.eula_title, R.string.eula_accept,
+                R.string.eula_refuse, R.string.changelog_whatsnew_title, R.string.changelog_close, R.xml.changelog);
     }
 
 	public void confirmEula(FragmentActivity activity) {
-        EulaHelper eulaHelper = new EulaHelper(activity);
-        eulaHelper.showAcceptRefuse(R.string.eula_title, R.string.eula_accept,
-                R.string.eula_refuse);
+        EulaHelper.showAcceptRefuse(activity, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
 	}
 
 	public void showEula(FragmentActivity activity) {
-        EulaHelper eulaHelper = new EulaHelper(activity);
-        eulaHelper.show(R.string.eula_title, R.string.eula_close);
+        EulaHelper.show(activity, R.string.eula_title);
 	}
 
     public void showWhatsNew( FragmentActivity activity ) {

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,10 +12,9 @@ import android.view.KeyEvent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import org.michenux.drodrolib.gms.gplus.GoogleApiClientDelegate;
+import org.michenux.drodrolib.gms.auth.GoogleAuthDelegate;
 import org.michenux.drodrolib.security.UserSessionCallback;
 import org.michenux.drodrolib.ui.navdrawer.NavigationDrawerFragment;
-import org.michenux.yourappidea.facebook.FbLoginDelegate;
 import org.michenux.drodrolib.info.AppUsageUtils;
 import org.michenux.drodrolib.security.SecurityUtils;
 import org.michenux.drodrolib.security.UserHelper;
@@ -23,10 +22,11 @@ import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.NavigationController;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
+import org.michenux.yourappidea.facebook.FacebookDelegate;
 
 import javax.inject.Inject;
 
-public class YourAppMainActivity extends ActionBarActivity implements UserSessionCallback {
+public class YourAppMainActivity extends AppCompatActivity implements UserSessionCallback {
 
     @Inject
     NavigationController navController;
@@ -36,11 +36,9 @@ public class YourAppMainActivity extends ActionBarActivity implements UserSessio
 
     private AdView mAdView ;
 
-    private FbLoginDelegate mFbLoginDelegate;
+    private FacebookDelegate mFacebookDelegate;
 
-    private GoogleApiClientDelegate mGoogleApiClientDlg;
-
-    private Toolbar mToolBar;
+    private GoogleAuthDelegate mGoogleAuthDelegate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +47,8 @@ public class YourAppMainActivity extends ActionBarActivity implements UserSessio
         setContentView(R.layout.main);
 
         // toolbar
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        Toolbar toolBar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolBar);
 
         // For debug
         if ( BuildConfig.DEBUG) {
@@ -79,11 +75,11 @@ public class YourAppMainActivity extends ActionBarActivity implements UserSessio
         mAdView.loadAd(adRequest);
 
         // social networks
-        mFbLoginDelegate = new FbLoginDelegate(mUserHelper, this, savedInstanceState);
-        mFbLoginDelegate.setUserSessionCallback(this);
+        mFacebookDelegate = new FacebookDelegate(mUserHelper, this);
+        mFacebookDelegate.setUserSessionCallback(this);
 
-        mGoogleApiClientDlg = new GoogleApiClientDelegate(this, mUserHelper, savedInstanceState);
-        mGoogleApiClientDlg.setUserSessionCallback(this);
+        mGoogleAuthDelegate = new GoogleAuthDelegate(this, mUserHelper);
+        mGoogleAuthDelegate.setUserSessionCallback(this);
     }
 
     @Override
@@ -114,55 +110,39 @@ public class YourAppMainActivity extends ActionBarActivity implements UserSessio
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mFbLoginDelegate.onActivityResult(requestCode, resultCode, data);
-        mGoogleApiClientDlg.onActivityResult(requestCode, resultCode, data);
+        mFacebookDelegate.onActivityResult(requestCode, resultCode, data);
+        mGoogleAuthDelegate.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClientDlg.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        mGoogleApiClientDlg.onStop();
-        mFbLoginDelegate.onStop();
-        super.onStop();
+        mGoogleAuthDelegate.onStart();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mAdView.pause();
-        mFbLoginDelegate.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mAdView.resume();
-        mFbLoginDelegate.onResume();
     }
 
     @Override
     public void onDestroy() {
-        mAdView.destroy();
+        //mAdView.destroy();
         super.onDestroy();
-        mFbLoginDelegate.onDestroy();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mFbLoginDelegate.onSaveInstanceState(outState);
-        mGoogleApiClientDlg.onSaveInstanceState(outState);
+        mFacebookDelegate.onDestroy();
     }
 
     @Override
     public void onLogin() {
-        NavigationDrawerFragment navigationDrawerFragment = findNavDrawerFragment();
-        navigationDrawerFragment.refreshMenu();
+        YourAppNavigationFragment navFragment = findNavDrawerFragment();
+        navFragment.setupHeaderView();
     }
 
     public YourAppNavigationFragment findNavDrawerFragment() {
@@ -172,25 +152,21 @@ public class YourAppMainActivity extends ActionBarActivity implements UserSessio
     @Override
     public void onLogout() {
         YourAppNavigationFragment navigationDrawerFragment = findNavDrawerFragment();
+        navigationDrawerFragment.setupHeaderView();
         navigationDrawerFragment.showPrimaryMenu();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         NavigationDrawerFragment navigationDrawerFragment = findNavDrawerFragment();
-        if ( navigationDrawerFragment.onKeyDown(keyCode, event)) {
-            return true;
-        }
-        else {
-            return super.onKeyDown(keyCode, event);
-        }
+        return navigationDrawerFragment.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
-    public FbLoginDelegate getFbLoginDelegate() {
-        return mFbLoginDelegate;
+    public FacebookDelegate getFacebookDelegate() {
+        return mFacebookDelegate;
     }
 
-    public GoogleApiClientDelegate getGoogleApiClientDlg() {
-        return mGoogleApiClientDlg;
+    public GoogleAuthDelegate getGoogleAuthDelegate() {
+        return mGoogleAuthDelegate;
     }
 }

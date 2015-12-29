@@ -58,7 +58,9 @@ public class PlaceLocalProvider implements PlaceProvider, LoaderManager.LoaderCa
         sort.append(this.mCurrentLocation.getLongitude());
         sort.append(") LIMIT 20 ");
 
-        Log.d(YourApplication.LOG_TAG, "TEST: " + PlaceContentProvider.CONTENT_URI.toString());
+        if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "TEST: " + PlaceContentProvider.CONTENT_URI.toString());
+        }
         return new CursorLoader(this.mFragment.getActivity(), PlaceContentProvider.CONTENT_URI, projection, null, null, sort.toString());
     }
 
@@ -91,7 +93,7 @@ public class PlaceLocalProvider implements PlaceProvider, LoaderManager.LoaderCa
     @Override
     public void onLoaderReset(Loader<Cursor> cursor) {
         if ( this.mCallback != null ) {
-            this.mCallback.onPlaceLoadFinished(new ArrayList<Place>());
+            this.mCallback.onPlaceLoadFinished(new ArrayList<>());
         }
     }
 

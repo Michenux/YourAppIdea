@@ -35,8 +35,7 @@ public class FriendRecyclerAdapter extends CursorRecyclerAdapter<FriendRecyclerA
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.friendlistitem, parent, false);
-        FriendViewHolder vh = new FriendViewHolder(v);
-        return vh;
+        return new FriendViewHolder(v);
     }
 
     public static class FriendViewHolder extends RecyclerView.ViewHolder {

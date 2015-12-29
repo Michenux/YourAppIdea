@@ -2,14 +2,15 @@
 
     <string name="app_name">Your App Idea</string>
 
-    <!-- Facebook -->
-    <string name="app_id">1445798595651770</string>
+    <!-- Google Maps API Key -->
+    <string name="googlemap_apikey">AIzaSyDNPreInss5-Yua-nkAHq9qvy84Yqc1wnY</string>
 
-    <string name="preferences_label">Preferences</string>
+    <!-- Facebook API Key -->
+    <string name="facebook_app_id">1445798595651770</string>
 
-    <string name="menuitem_refresh">Refresh</string>
-    <string name="menuitem_preferences">Settings</string>
+    <string name="menu_info">Info</string>
 
     <string name="error_retrievingdata">Error retrieving data</string>
+    <string name="error_retrievingdata_retry">RETRY</string>
 
 </resources>

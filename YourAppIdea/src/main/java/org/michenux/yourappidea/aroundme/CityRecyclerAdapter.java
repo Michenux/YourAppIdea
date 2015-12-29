@@ -21,8 +21,7 @@ public class CityRecyclerAdapter extends CursorRecyclerAdapter<CityRecyclerAdapt
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_listitem, parent, false);
-        CityViewHolder vh = new CityViewHolder(v);
-        return vh;
+        return new CityViewHolder(v);
     }
 
     @Override

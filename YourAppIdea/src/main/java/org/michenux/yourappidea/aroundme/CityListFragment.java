@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
@@ -44,7 +45,7 @@ public class CityListFragment extends Fragment implements LoaderManager.LoaderCa
         TwoWayView recyclerView = (TwoWayView) view.findViewById(R.id.city_listview);
         recyclerView.setAdapter(this.mAdapter);
         recyclerView.setHasFixedSize(true);
-        final Drawable divider = getResources().getDrawable(R.drawable.divider);
+        final Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider);
         recyclerView.addItemDecoration(new DividerItemDecoration(divider));
         final ItemClickSupport itemClick = ItemClickSupport.addTo(recyclerView);
         itemClick.setOnItemClickListener(this);
@@ -55,9 +56,8 @@ public class CityListFragment extends Fragment implements LoaderManager.LoaderCa
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = { CityContentProvider.ID_COLUMN,
                 CityContentProvider.NAME_COLUMN, CityContentProvider.COUNTRY_COLUMN, CityContentProvider.LATITUDE_COLUMN, CityContentProvider.LONGITUDE_COLUMN };
-        CursorLoader cursorLoader = new CursorLoader(this.getActivity(),
+        return new CursorLoader(this.getActivity(),
                 CityContentProvider.CONTENT_URI, projection, null, null, CityContentProvider.NAME_COLUMN);
-        return cursorLoader;
     }
 
     @Override

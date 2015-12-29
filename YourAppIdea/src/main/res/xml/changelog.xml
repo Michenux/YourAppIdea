@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
     <!--
-    For 2.1.0 :
-        - RippleEffect sur le navigationdrawer
+    For 3.1.0 :
+        - Databinding
+        - MVP
+        - Airport: tabs
+        - Dagger 2
         - Float action button
         - Bug: ensure visible sur la friend list
         - Selected item on friend list
 
-    For 2.2.0 :
+    For 3.2.0 :
         - Picture of social networks
         - https://github.com/gabrielemariotti/changeloglib
 
@@ -23,6 +26,24 @@
             - search activity, filter, etc..
             - integrate a line: my position
     -->
+    <release version="3.0.0" versioncode="300">
+        <change>Android MinSDK 15</change>
+        <change>Permissions for Android M using RxPermissions</change>
+        <change>Add android design library : NavigationView, SnackBar, CoordinatorLayout, and remove Crouton and Ripple Effect 1.3.</change>
+        <change>Added library Android Support Preferences</change>
+        <change>Replace volley with retrofit library</change>
+        <change>Upgrade libraries : Google Gson 2.4, Android AppCompat/RecyclerView/Cardlibs 23.1.1,
+            Google Play Services 8.3.0, Material-Dialogs 0.8.5.2, Universal Image Loader 1.9.5,
+            TwoWaysView 0.1.4, Facebook Android SDK 4.8.1
+        </change>
+        <change>Start using RxJava</change>
+
+        <change>TODO: Cardview layouting</change>
+        <change>TODO: Fix ad</change>
+        <change>TODO: 65k limit</change>
+        <change>TODO: view pour les snackbars</change>
+        <change>TODO: contenu des dialog info </change>
+    </release>
     <release version="2.0.0" versioncode="200">
         <change>Material theme</change>
         <change>Replace ListView with RecyclerView (using twowaysview library)</change>

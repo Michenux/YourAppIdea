@@ -28,8 +28,7 @@ public class FriendDetailFragment extends Fragment {
      * @return
      */
     public static FriendDetailFragment newInstance() {
-        FriendDetailFragment frag = new FriendDetailFragment();
-        return frag;
+		return new FriendDetailFragment();
     }
 
     /**

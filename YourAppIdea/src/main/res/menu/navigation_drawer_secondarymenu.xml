@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".home.YourAppMainActivity">
+
+    <group android:id="@+id/logoutGroup" android:checkableBehavior="all">
+        <item
+            android:id="@+id/navdrawer_logout"
+            android:icon="@drawable/navdrawer_logout"
+            android:title="@string/navdrawer_logout"/>
+    </group>
+
+</menu>

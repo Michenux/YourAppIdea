@@ -2,4 +2,5 @@
 <resources>
 
     <string name="loginactivity_title">Sign in</string>
+    <string name="loginactivity_subtitle">Connect via a social network</string>
 </resources>

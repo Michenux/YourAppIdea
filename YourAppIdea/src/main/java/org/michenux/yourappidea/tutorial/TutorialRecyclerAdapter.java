@@ -1,6 +1,5 @@
 package org.michenux.yourappidea.tutorial;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -24,8 +23,7 @@ public class TutorialRecyclerAdapter extends CursorRecyclerAdapter<TutorialRecyc
     @Override
     public TutorialViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.tutorial_listitem, parent, false);
-        TutorialViewHolder vh = new TutorialViewHolder(v);
-        return vh;
+        return new TutorialViewHolder(v);
     }
 
     @Override

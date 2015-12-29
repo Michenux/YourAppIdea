@@ -10,9 +10,17 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
 
         <item name="android:colorButtonNormal">@color/primary</item>
-        <item name="android:statusBarColor">@color/primary_dark</item>
 
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="drawerStyle">@style/NavDrawerStyle</item>
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
 </resources>
