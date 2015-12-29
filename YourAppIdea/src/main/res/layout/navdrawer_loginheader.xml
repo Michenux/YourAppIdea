@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:clickable="false"
+    android:background="@drawable/navdrawer_header_bg"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <RelativeLayout
+        android:id="@+id/loginheader_bottompart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:id="@+id/nadrawer_loginheader_disconnected_viewgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nadrawer_loginheader_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Sign in"
+                android:textColor="@android:color/white"
+                android:visibility="visible"
+                tools:visibility="visible"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/nadrawer_loginheader_connected_viewgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/nadrawer_loginheader_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Your name"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/nadrawer_loginheader_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#FFCCCCCC"
+                android:visibility="visible"
+                android:layout_below="@id/nadrawer_loginheader_name"
+                tools:text="toto@gege.com"/>
+
+            <org.michenux.drodrolib.ui.navdrawer.NavdrawerHeaderArrowView
+                android:id="@+id/navdrawer_loginheader_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/expander_group"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="5dp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical"
+        android:layout_above="@id/loginheader_bottompart"
+        android:layout_marginTop="8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/nadrawer_loginheader_picture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/navdrawer_profile"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@id/nadrawer_loginheader_picture"
+            android:layout_toEndOf="@id/nadrawer_loginheader_picture"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/nadrawer_loginheader_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="Your app idea"
+                android:textColor="#FFFFFFFF"
+                android:gravity="center"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/nadrawer_loginheader_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:text="Amazing bootstrap"
+                android:textColor="#EEEEEEEE"
+                android:layout_below="@id/nadrawer_loginheader_title"
+                android:gravity="center"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

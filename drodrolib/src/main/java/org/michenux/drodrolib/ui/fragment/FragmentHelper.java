@@ -4,10 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-/**
- * @author Michenux
- *
- */
 public class FragmentHelper {
 
 	/**
@@ -54,7 +50,7 @@ public class FragmentHelper {
 		ft = fm.beginTransaction();
 		ft.add(container1, f2);
 		ft.add(container2, f1);
-		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		ft.setTransition(FragmentTransaction.TRANSIT_NONE);
 			
 		ft.commit();
 	}

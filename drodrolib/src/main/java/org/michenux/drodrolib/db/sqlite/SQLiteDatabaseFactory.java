@@ -9,10 +9,6 @@ import org.michenux.drodrolib.info.VersionUtils;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-/**
- * @author Michenux
- * 
- */
 @Singleton
 public class SQLiteDatabaseFactory {
 	

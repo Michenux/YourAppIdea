@@ -14,8 +14,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
-import org.michenux.drodrolib.network.json.LocationDeserializer;
-import org.michenux.drodrolib.network.json.TimestampDeserializer;
+import org.michenux.drodrolib.network.gson.LocationDeserializer;
+import org.michenux.drodrolib.network.gson.TimestampDeserializer;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;

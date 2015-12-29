@@ -25,8 +25,8 @@ public class MCXSupportMapFragment extends SupportMapFragment {
         this.onMapCreatedListener = onMapCreatedListener;
     }
 
-    public static interface OnMapCreatedListener {
+    public interface OnMapCreatedListener {
 
-        public void onMapCreated( GoogleMap googleMap);
+        void onMapCreated( GoogleMap googleMap);
     }
 }

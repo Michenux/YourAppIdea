@@ -80,7 +80,7 @@ public abstract class AbstractContentProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues values) {
         int uriType = mUriMatcher.match(uri);
         SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
-        long id = 0;
+        long id ;
         switch (uriType) {
             case LIST:
                 id = sqlDB.insert(mTableName, null, values);
@@ -97,7 +97,7 @@ public abstract class AbstractContentProvider extends ContentProvider {
                       String[] selectionArgs) {
         int uriType = mUriMatcher.match(uri);
         SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
-        int rowsUpdated = 0;
+        int rowsUpdated ;
         switch (uriType) {
             case LIST:
                 rowsUpdated = sqlDB.update(mTableName, values, selection,
@@ -125,7 +125,7 @@ public abstract class AbstractContentProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         int uriType = mUriMatcher.match(uri);
         SQLiteDatabase sqlDB = this.sqliteDatabaseFactory.getDatabase();
-        int rowsDeleted = 0;
+        int rowsDeleted ;
         switch (uriType) {
             case LIST:
                 rowsDeleted = sqlDB.delete(mTableName, selection,

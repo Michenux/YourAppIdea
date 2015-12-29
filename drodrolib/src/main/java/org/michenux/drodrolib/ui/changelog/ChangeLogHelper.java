@@ -23,7 +23,7 @@ public class ChangeLogHelper {
 
     private static final String PREFERENCE_CHANGELOG_LASTSHOWN_VERSION = "changelog.lastshown.version";
 
-    private String cssStyle = "h1 { margin-left: 0px; font-size: 12pt; }"
+    private static String cssStyle = "h1 { margin-left: 0px; font-size: 12pt; }"
             + "li { margin-left: 0px; font-size: 9pt; }"
             + "ul { padding-left: 30px; }"
             + ".summary { font-size: 9pt; color: #606060; display: block; clear: left; }"

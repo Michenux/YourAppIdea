@@ -11,10 +11,6 @@ import org.michenux.drodrolib.resources.AssetUtils;
 
 import java.io.IOException;
 
-/**
- * @author Michenux
- *
- */
 public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 
 	/**

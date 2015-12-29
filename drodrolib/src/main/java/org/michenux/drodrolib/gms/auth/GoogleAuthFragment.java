@@ -1,4 +1,4 @@
-package org.michenux.drodrolib.gms.gplus;
+package org.michenux.drodrolib.gms.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +16,12 @@ import org.michenux.drodrolib.security.UserSessionCallback;
 
 import javax.inject.Inject;
 
-public class GooglePlusLoginFragment extends Fragment implements UserSessionCallback, View.OnClickListener {
+public class GoogleAuthFragment extends Fragment implements UserSessionCallback, View.OnClickListener {
 
     @Inject
     UserHelper mUserHelper;
 
-    private GoogleApiClientDelegate mGoogleApiClientDelegate;
+    private GoogleAuthDelegate mGoogleAuthDelegate;
 
     private SignInButton mSignInButton;
 
@@ -30,8 +30,8 @@ public class GooglePlusLoginFragment extends Fragment implements UserSessionCall
         super.onCreate(savedInstanceState);
         ((MCXApplication) getActivity().getApplication()).inject(this);
 
-        mGoogleApiClientDelegate = new GoogleApiClientDelegate(this.getActivity(), mUserHelper, savedInstanceState);
-        mGoogleApiClientDelegate.setUserSessionCallback(this);
+        mGoogleAuthDelegate = new GoogleAuthDelegate(this.getActivity(), mUserHelper);
+        mGoogleAuthDelegate.setUserSessionCallback(this);
 
     }
 
@@ -46,25 +46,13 @@ public class GooglePlusLoginFragment extends Fragment implements UserSessionCall
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mGoogleApiClientDelegate.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mGoogleApiClientDelegate.onSaveInstanceState(outState);
+        mGoogleAuthDelegate.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mGoogleApiClientDelegate.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        mGoogleApiClientDelegate.onStop();
-        super.onStop();
+        mGoogleAuthDelegate.onStart();
     }
 
     @Override
@@ -82,19 +70,14 @@ public class GooglePlusLoginFragment extends Fragment implements UserSessionCall
         if (isSignedIn) {
             mSignInButton.setVisibility(View.INVISIBLE);
         } else {
-            if ( !mGoogleApiClientDelegate.isConnectionResult()) {
-                mSignInButton.setVisibility(View.INVISIBLE);
-            } else {
-                mSignInButton.setVisibility(View.VISIBLE);
-            }
-
+            mSignInButton.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onClick(View view) {
         if ( view.getId() == R.id.sign_in_button ) {
-            mGoogleApiClientDelegate.signIn(this.getActivity());
+            mGoogleAuthDelegate.signIn(this.getActivity());
         }
     }
 }

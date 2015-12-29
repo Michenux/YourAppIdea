@@ -2,9 +2,10 @@ package org.michenux.drodrolib.ui.eula;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.michenux.drodrolib.R;
@@ -19,32 +20,26 @@ public class EulaHelper {
     private static final String PREFERENCES_EULA = "eula";
     private static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted";
 
-    private FragmentActivity fragmentActivity;
-
-    public EulaHelper(FragmentActivity fragmentActivity) {
-        this.fragmentActivity = fragmentActivity;
-    }
-
-    public boolean showAcceptRefuse(int title, int acceptLabel, int refuseLabel) {
+    public static boolean showAcceptRefuse(final FragmentActivity activity, int title, int acceptLabel, int refuseLabel) {
         boolean shown = false;
-        if (!isAccepted()) {
-            FragmentManager fm = fragmentActivity.getSupportFragmentManager();
-            String eula = readEula(fragmentActivity);
+        if (!isAccepted(activity)) {
+            String eula = readEula(activity);
 
-            new MaterialDialog.Builder(this.fragmentActivity)
+            new MaterialDialog.Builder(activity)
                     .title(title)
                     .content(eula)
                     .negativeText(refuseLabel)
                     .positiveText(acceptLabel)
-                    .callback(new MaterialDialog.ButtonCallback() {
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
                         @Override
-                        public void onPositive(MaterialDialog dialog) {
-                            saveAccept();
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            activity.finish();
                         }
-
+                    })
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
-                        public void onNegative(MaterialDialog dialog) {
-                            fragmentActivity.finish();
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            saveAccept(activity);
                         }
                     })
                     .show();
@@ -53,26 +48,25 @@ public class EulaHelper {
         return shown;
     }
 
-    public void show(int title, int closeLabel) {
-        FragmentManager fm = fragmentActivity.getSupportFragmentManager();
-        String eula = readEula(fragmentActivity);
-        new MaterialDialog.Builder(this.fragmentActivity)
+    public static void show(FragmentActivity activity, int title ) {
+        String eula = readEula(activity);
+        new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(eula)
                 .positiveText(R.string.close)
                 .show();
     }
 
-    public boolean isAccepted() {
-        SharedPreferences preferences = fragmentActivity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE);
+    public static boolean isAccepted( FragmentActivity activity ) {
+        SharedPreferences preferences = activity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE);
         return preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false);
     }
 
-    public void saveAccept() {
-        fragmentActivity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE).edit().putBoolean(PREFERENCE_EULA_ACCEPTED, true).commit();
+    public static void saveAccept( FragmentActivity activity ) {
+        activity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE).edit().putBoolean(PREFERENCE_EULA_ACCEPTED, true).commit();
     }
 
-    private String readEula(FragmentActivity activity) {
+    private static String readEula(FragmentActivity activity) {
 
         StringBuilder buffer = new StringBuilder();
         try {
@@ -91,12 +85,8 @@ public class EulaHelper {
                 is.close();
             }
         } catch (IOException e) {
-            fragmentActivity.finish();
+            activity.finish();
         }
         return buffer.toString();
-    }
-
-    protected FragmentActivity getFragmentActivity() {
-        return fragmentActivity;
     }
 }

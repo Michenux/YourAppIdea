@@ -1,4 +1,4 @@
-package org.michenux.drodrolib.network.json;
+package org.michenux.drodrolib.network.gson;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

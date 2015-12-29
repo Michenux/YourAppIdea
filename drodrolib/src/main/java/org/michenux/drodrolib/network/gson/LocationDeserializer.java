@@ -1,4 +1,4 @@
-package org.michenux.drodrolib.network.json;
+package org.michenux.drodrolib.network.gson;
 
 import android.location.Location;
 
