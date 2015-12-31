@@ -11,9 +11,24 @@
     tools:context=".home.HomeActivity"
     tools:openDrawer="start">
 
-    <android.support.design.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center|bottom"
+            android:layout_centerHorizontal="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="a150d852e9f388f"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/adView">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -25,30 +40,17 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                ads:adSize="SMART_BANNER"
-                ads:adUnitId="a150d852e9f388f"/>
-
-            <FrameLayout
-                android:id="@+id/content_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_above="@id/adView">
-            </FrameLayout>
-
-        </RelativeLayout>
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
+
+    </RelativeLayout>
 
     <fragment android:name="org.michenux.yourappidea.home.YourAppNavigationFragment"
         android:id="@+id/navdrawer_left"

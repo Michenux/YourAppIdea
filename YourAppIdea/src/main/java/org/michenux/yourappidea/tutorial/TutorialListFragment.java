@@ -5,16 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,11 +26,10 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import org.lucasr.twowayview.ItemClickSupport;
-import org.lucasr.twowayview.widget.DividerItemDecoration;
-import org.lucasr.twowayview.widget.TwoWayView;
 import org.michenux.drodrolib.BuildConfig;
 import org.michenux.drodrolib.db.utils.CursorUtils;
+import org.michenux.drodrolib.ui.recyclerview.DividerItemDecoration;
+import org.michenux.drodrolib.ui.recyclerview.ItemClickSupport;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
@@ -40,13 +39,25 @@ import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 import javax.inject.Inject;
 
 public class TutorialListFragment extends Fragment
-        implements LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener, ItemClickSupport.OnItemClickListener {
+        implements
+        LoaderManager.LoaderCallbacks<Cursor>,
+        SwipeRefreshLayout.OnRefreshListener,
+        ItemClickSupport.OnItemClickListener
+        {
 
+    /**
+     * True if has already synchronized
+     */
     private boolean mHasSync = false;
+
+    /**
+     * True if refreshing
+     */
+    private boolean mRefreshing = false;
 
     private TutorialRecyclerAdapter mAdapter;
 
-    private SwipeRefreshLayout mSwipeRefreshWidget;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Inject
     TutorialSyncHelper mTutorialSyncHelper;
@@ -80,17 +91,25 @@ public class TutorialListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tutorial_list, container, false);
-        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.tutorial_swiperefreshlayout);
-        mSwipeRefreshWidget.setColorSchemeResources(R.color.refresh_progress_1, R.color.refresh_progress_2, R.color.refresh_progress_3);
-        TwoWayView recyclerView = (TwoWayView) view.findViewById(R.id.tutorial_listview);
+
+        // SwipeRefresh layout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.tutorial_swiperefreshlayout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.refresh_progress_1, R.color.refresh_progress_2, R.color.refresh_progress_3);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.tutorial_listview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLongClickable(false);
-        final Drawable divider = ContextCompat.getDrawable(getActivity(), R.drawable.divider);
-        recyclerView.addItemDecoration(new DividerItemDecoration(divider));
-        final ItemClickSupport itemClick = ItemClickSupport.addTo(recyclerView);
-        itemClick.setOnItemClickListener(this);
-        fillData(recyclerView);
-        mSwipeRefreshWidget.setOnRefreshListener(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(this);
+
+        this.getLoaderManager().initLoader(0, null, this);
+        this.mAdapter = new TutorialRecyclerAdapter();
+        recyclerView.setAdapter(this.mAdapter);
+
         return view;
     }
 
@@ -141,28 +160,30 @@ public class TutorialListFragment extends Fragment
         if ( !mHasSync ) {
             mTutorialSyncHelper.performSync();
         }
+        else {
+            updateRefresh(mRefreshing);
+        }
     }
 
     @Override
     public void onPause() {
-        super.onPause();
-
+        // Unregister receiver
         LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(onFinishSyncReceiver);
         LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(onStartSyncReceiver);
 
-    }
+        // Disable SwipeRefreshLayout
+        // because of that bug:
+        //   http://stackoverflow.com/questions/27057449/when-switch-fragment-with-swiperefreshlayout-during-refreshing-fragment-freezes
+        mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.destroyDrawingCache();
+        mSwipeRefreshLayout.clearAnimation();
+        super.onPause();
 
-    private void fillData( TwoWayView recyclerView) {
-
-        this.getLoaderManager().initLoader(0, null, this);
-
-        this.mAdapter = new TutorialRecyclerAdapter(null);
-        recyclerView.setAdapter(this.mAdapter);
     }
 
     @Override
-    public void onItemClick(RecyclerView recyclerView, View view, int row, long column) {
-        mAdapter.getCursor().moveToPosition(row);
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        mAdapter.getCursor().moveToPosition(position);
         String uri = CursorUtils.getString(TutorialContentProvider.URL_COLUMN, mAdapter.getCursor());
         Intent viewTutoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         this.startActivity(viewTutoIntent);
@@ -187,27 +208,28 @@ public class TutorialListFragment extends Fragment
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public void onRefresh() {
         mTutorialSyncHelper.performSync();
     }
 
+    /**
+     * Update status of SwipeRefreshLayout
+     * @param isSyncing true if synchronization is progress
+     */
     private void updateRefresh(final boolean isSyncing) {
         if ( !isSyncing) {
             if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "show as not refreshing");
             }
-            mSwipeRefreshWidget.setRefreshing(false);
+            mSwipeRefreshLayout.setRefreshing(false);
+            mRefreshing = false;
         }
         else {
             if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "show as refreshing");
             }
-            mSwipeRefreshWidget.setRefreshing(true);
+            mSwipeRefreshLayout.setRefreshing(true);
+            mRefreshing = true;
         }
     }
 }

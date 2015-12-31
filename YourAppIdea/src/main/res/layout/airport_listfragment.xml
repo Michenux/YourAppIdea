@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<org.michenux.yourappidea.FixedSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/airport_swiperefreshlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <org.lucasr.twowayview.widget.TwoWayView
+    <!--
+    android.support.v4.widget.SwipeRefreshLayout
+    <android.support.v7.widget.RecyclerView
+        -->
+        <android.support.v7.widget.RecyclerView
         android:id="@+id/airport_recyclerview"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="6dp"
-        android:scrollbars="vertical"
-        app:twowayview_layoutManager="ListLayoutManager"
         tools:listitem="@layout/airport_listitem"/>
-</android.support.v4.widget.SwipeRefreshLayout>
+
+</org.michenux.yourappidea.FixedSwipeRefreshLayout>

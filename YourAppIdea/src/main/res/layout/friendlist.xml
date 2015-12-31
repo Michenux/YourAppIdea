@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="6dp"
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <org.lucasr.twowayview.widget.TwoWayView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/friend_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        app:twowayview_layoutManager="ListLayoutManager"/>
+        tools:listitem="@layout/friendlistitem"/>
 
     <TextView
         android:id="@android:id/empty"

@@ -1,5 +1,6 @@
 package org.michenux.yourappidea.tutorial;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -9,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.michenux.drodrolib.db.CursorRecyclerAdapter;
+import org.michenux.drodrolib.db.CursorRecyclerViewAdapter;
 import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
 
-public class TutorialRecyclerAdapter extends CursorRecyclerAdapter<TutorialRecyclerAdapter.TutorialViewHolder> {
+public class TutorialRecyclerAdapter extends CursorRecyclerViewAdapter<TutorialRecyclerAdapter.TutorialViewHolder> {
+
+    public TutorialRecyclerAdapter() {
+        super(null);
+    }
 
     public TutorialRecyclerAdapter(Cursor cursor) {
         super(cursor);
@@ -27,11 +32,10 @@ public class TutorialRecyclerAdapter extends CursorRecyclerAdapter<TutorialRecyc
     }
 
     @Override
-    public void onBindViewHolderCursor(TutorialViewHolder holder, Cursor cursor) {
-
+    public void onBindViewHolder(TutorialViewHolder viewHolder, Cursor cursor) {
         String title = CursorUtils.getString(TutorialContentProvider.TITLE_COLUMN, cursor);
-        holder.getTitleView().setText(Html.fromHtml(title));
-        holder.getDescriptionView().setText(Html.fromHtml(CursorUtils.getString(TutorialContentProvider.DESCRIPTION_COLUMN, cursor)));
+        viewHolder.getTitleView().setText(Html.fromHtml(title));
+        viewHolder.getDescriptionView().setText(Html.fromHtml(CursorUtils.getString(TutorialContentProvider.DESCRIPTION_COLUMN, cursor)));
 
         long date = CursorUtils.getLong(TutorialContentProvider.DATECREATION_COLUMN, cursor) * 1000;
         int flags = 0;
@@ -39,8 +43,8 @@ public class TutorialRecyclerAdapter extends CursorRecyclerAdapter<TutorialRecyc
         flags |= DateUtils.FORMAT_ABBREV_MONTH;
         flags |= DateUtils.FORMAT_SHOW_YEAR;
 
-        holder.getDateView().setText(DateUtils.formatDateTime(holder.itemView.getContext(), date, flags));
-}
+        viewHolder.getDateView().setText(DateUtils.formatDateTime(viewHolder.itemView.getContext(), date, flags));
+    }
 
     public static class TutorialViewHolder extends RecyclerView.ViewHolder {
 

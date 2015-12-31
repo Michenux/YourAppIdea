@@ -36,11 +36,11 @@ public class NavigationController {
 	}
 
     public void goHomeFragment( YourAppMainActivity activity) {
-        MainFragment fg = new MainFragment();
-        addFragmentTransition(activity, fg);
         NavigationDrawerFragment fragment = activity.findNavDrawerFragment();
         fragment.setTitleWithDrawerTitle();
         fragment.resetSelection();
+        MainFragment fg = new MainFragment();
+        addFragmentTransition(activity, fg);
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fg, HOME_FRAGMENT_TAG).commit();
     }

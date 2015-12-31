@@ -84,7 +84,6 @@ public class YourAppMainActivity extends AppCompatActivity implements UserSessio
 
     @Override
     public void onBackPressed() {
-
         NavigationDrawerFragment navigationDrawerFragment = findNavDrawerFragment();
         if ( navigationDrawerFragment == null || !navigationDrawerFragment.onBackPressed()) {
             // See bug: http://stackoverflow.com/questions/13418436/android-4-2-back-stack-behaviour-with-nested-fragments/14030872#14030872
@@ -92,7 +91,6 @@ public class YourAppMainActivity extends AppCompatActivity implements UserSessio
             FragmentManager fm = getSupportFragmentManager();
             Fragment currentFragment = fm.findFragmentById(R.id.content_frame);
             if (currentFragment != null && currentFragment.getChildFragmentManager().getBackStackEntryCount() > 0) {
-                // Get the fragment fragment manager - and pop the backstack
                 currentFragment.getChildFragmentManager().popBackStack();
             }
             // Else, nothing in the direct fragment back stack

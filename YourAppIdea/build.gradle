@@ -77,8 +77,8 @@ dependencies {
     compile supportDependencies.preferences
     compile otherDependencies.universalImageLoader
     compile otherDependencies.facebookSdk
-    compile otherDependencies.twoWayViewCore
-    compile otherDependencies.twoWayViewLayouts
+    //compile otherDependencies.twoWayViewCore
+    //compile otherDependencies.twoWayViewLayouts
     compile otherDependencies.retrofit
     compile otherDependencies.retrofitGsonConverter
 

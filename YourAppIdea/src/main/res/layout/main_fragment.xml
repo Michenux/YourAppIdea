@@ -1,59 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainmenu"
+    android:id="@+id/main_scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:background="@android:color/white"
-    android:gravity="center_vertical|center_horizontal">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/mainmenu_button0"
-        android:text="@string/mainmenu_button0"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:id="@+id/mainmenu"
         android:layout_width="match_parent"
-        android:textColor="@android:color/white"
-        android:layout_margin="5dp">
-    </Button>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="35dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical|center_horizontal">
 
-    <Button
-        android:id="@+id/mainmenu_button1"
-        android:text="@string/mainmenu_button1"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:textColor="@android:color/white"
-        android:layout_margin="5dp">
-    </Button>
+        <Button
+            android:id="@+id/mainmenu_button0"
+            android:text="@string/mainmenu_button0"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp">
+        </Button>
 
-    <Button
-        android:id="@+id/mainmenu_button2"
-        android:text="@string/mainmenu_button2"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:textColor="@android:color/white"
-        android:layout_margin="5dp">
-    </Button>
+        <Button
+            android:id="@+id/mainmenu_button1"
+            android:text="@string/mainmenu_button1"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp">
+        </Button>
 
-    <Button
-        android:id="@+id/mainmenu_button3"
-        android:text="@string/mainmenu_button3"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:textColor="@android:color/white"
-        android:layout_margin="5dp">
-    </Button>
+        <Button
+            android:id="@+id/mainmenu_button2"
+            android:text="@string/mainmenu_button2"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp">
+        </Button>
 
-    <Button
-        android:id="@+id/mainmenu_button4"
-        android:text="@string/mainmenu_button4"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:textColor="@android:color/white"
-        android:layout_margin="5dp">
-    </Button>
+        <Button
+            android:id="@+id/mainmenu_button3"
+            android:text="@string/mainmenu_button3"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp">
+        </Button>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/mainmenu_button4"
+            android:text="@string/mainmenu_button4"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp">
+        </Button>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

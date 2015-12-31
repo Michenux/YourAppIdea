@@ -6,7 +6,7 @@
     <string name="googlemap_apikey">AIzaSyDNPreInss5-Yua-nkAHq9qvy84Yqc1wnY</string>
 
     <!-- Facebook API Key -->
-    <string name="facebook_app_id">1445798595651770</string>
+    <string name="app_id">1445798595651770</string>
 
     <string name="preferences_label">Preferences</string>
 

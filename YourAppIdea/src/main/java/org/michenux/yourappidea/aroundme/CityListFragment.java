@@ -3,22 +3,21 @@ package org.michenux.yourappidea.aroundme;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.lucasr.twowayview.ItemClickSupport;
-import org.lucasr.twowayview.widget.DividerItemDecoration;
-import org.lucasr.twowayview.widget.TwoWayView;
 import org.michenux.drodrolib.db.utils.CursorUtils;
+import org.michenux.drodrolib.ui.recyclerview.DividerItemDecoration;
+import org.michenux.drodrolib.ui.recyclerview.ItemClickSupport;
 import org.michenux.yourappidea.R;
 
 public class CityListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ItemClickSupport.OnItemClickListener {
@@ -42,13 +41,14 @@ public class CityListFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.city_fragment, container, false);
-        TwoWayView recyclerView = (TwoWayView) view.findViewById(R.id.city_listview);
-        recyclerView.setAdapter(this.mAdapter);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.city_listview);
         recyclerView.setHasFixedSize(true);
-        final Drawable divider = ContextCompat.getDrawable(getContext(), R.drawable.divider);
-        recyclerView.addItemDecoration(new DividerItemDecoration(divider));
-        final ItemClickSupport itemClick = ItemClickSupport.addTo(recyclerView);
-        itemClick.setOnItemClickListener(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+        recyclerView.setAdapter(this.mAdapter);
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(this);
         return view;
     }
 
@@ -71,7 +71,7 @@ public class CityListFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onItemClick(RecyclerView recyclerView, View view, int position, long id) {
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Intent returnIntent = new Intent();
         Cursor cursor = this.mAdapter.getCursor();
         cursor.moveToPosition(position);

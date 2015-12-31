@@ -1,12 +1,13 @@
 package org.michenux.yourappidea.airport;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,8 +20,7 @@ import android.widget.Spinner;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import org.lucasr.twowayview.widget.DividerItemDecoration;
-import org.lucasr.twowayview.widget.TwoWayView;
+import org.michenux.drodrolib.ui.recyclerview.DividerItemDecoration;
 import org.michenux.drodrolib.ui.snackbar.SnackbarHelper;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
@@ -42,7 +42,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
 
     private AirportRecyclerAdapter mAirportAdapter;
 
-    private SwipeRefreshLayout mSwipeRefreshWidget;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 	private AirportInfoService mAirportInfoService;
 
@@ -65,14 +65,16 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
             Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreateView");
         }
 		View view = inflater.inflate(R.layout.airport_listfragment, container, false);
-        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.airport_swiperefreshlayout);
-        mSwipeRefreshWidget.setColorSchemeResources(R.color.refresh_progress_1, R.color.refresh_progress_2, R.color.refresh_progress_3);
-        mSwipeRefreshWidget.setOnRefreshListener(this);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.airport_swiperefreshlayout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.refresh_progress_1, R.color.refresh_progress_2, R.color.refresh_progress_3);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        TwoWayView recyclerView = (TwoWayView) view.findViewById(R.id.airport_recyclerview);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.airport_recyclerview);
         recyclerView.setHasFixedSize(true);
-        final Drawable divider = ContextCompat.getDrawable(getActivity(), R.drawable.divider);
-        recyclerView.addItemDecoration(new DividerItemDecoration(divider));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         recyclerView.setAdapter(this.mAirportAdapter);
         return view;
     }
@@ -117,13 +119,29 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
 
             }
         });
-		
-		if ( this.mRequestRunning) {
-            mSwipeRefreshWidget.setRefreshing(true);
-		}
 	}
 
-	@Override
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ( mRequestRunning ) {
+            mSwipeRefreshLayout.setRefreshing(true);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        // Disable SwipeRefreshLayout
+        // because of that bug:
+        //   http://stackoverflow.com/questions/27057449/when-switch-fragment-with-swiperefreshlayout-during-refreshing-fragment-freezes
+        mSwipeRefreshLayout.setRefreshing(false);
+        mSwipeRefreshLayout.destroyDrawingCache();
+        mSwipeRefreshLayout.clearAnimation();
+        super.onPause();
+    }
+
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
@@ -155,7 +173,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
                 .subscribe(new Subscriber<AirportRestResponse>() {
                     @Override
                     public void onCompleted() {
-                        AirportListFragment.this.mSwipeRefreshWidget.setRefreshing(false);
+                        AirportListFragment.this.mSwipeRefreshLayout.setRefreshing(false);
                         AirportListFragment.this.mRequestRunning = false;
                     }
 
@@ -164,7 +182,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
                         if (BuildConfig.DEBUG) {
                             Log.i(YourApplication.LOG_TAG, "AirportListFragment.onError", e);
                         }
-                        AirportListFragment.this.mSwipeRefreshWidget.setRefreshing(false);
+                        AirportListFragment.this.mSwipeRefreshLayout.setRefreshing(false);
                         AirportListFragment.this.mRequestRunning = false;
 
                         SnackbarHelper.showErrorLongMessageWithAction(AirportListFragment.this.getView(),
@@ -185,7 +203,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
                     }
                 });
 
-            mSwipeRefreshWidget.setRefreshing(true);
+            mSwipeRefreshLayout.setRefreshing(true);
 		}
 		else if (BuildConfig.DEBUG) {
             Log.i(YourApplication.LOG_TAG, "  request is already running or no activity attached");
