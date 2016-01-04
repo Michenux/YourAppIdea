@@ -1,11 +1,22 @@
 language: android
 
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+
 android:
   components:
     - tools
     - build-tools-23.0.2
     - android-23
     - extra-android-m2repository
-    
+  licenses:
+    - '.+'
+
+before_install:
+  - export JAVA7_HOME=/usr/lib/jvm/java-7-oracle
+  - export JAVA8_HOME=/usr/lib/jvm/java-8-oracle
+  - export JAVA_HOME=$JAVA7_HOME
+  
 script:
-  ./gradlew build
+  ./gradlew clean assembleDebug
