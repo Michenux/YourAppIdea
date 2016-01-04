@@ -9,29 +9,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.michenux.drodrolib.db.CursorRecyclerAdapter;
+import org.michenux.drodrolib.db.CursorRecyclerViewAdapter;
 import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.drodrolib.resources.ResourceUtils;
 import org.michenux.yourappidea.R;
 
-public class FriendRecyclerAdapter extends CursorRecyclerAdapter<FriendRecyclerAdapter.FriendViewHolder> {
+public class FriendRecyclerAdapter extends CursorRecyclerViewAdapter<FriendRecyclerAdapter.FriendViewHolder> {
 
     public FriendRecyclerAdapter(Cursor cursor) {
         super(cursor);
     }
 
     @Override
-    public void onBindViewHolderCursor(FriendViewHolder holder, Cursor cursor) {
-        String faceName = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, cursor);
-        String friendName = CursorUtils.getString(FriendContentProvider.NAME_COLUMN, cursor);
-        holder.nameView.setText(friendName);
-        holder.imageView.setImageDrawable(ResourceUtils.getDrawableByName(faceName, holder.itemView.getContext()));
-    }
-
-    @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.friendlistitem, parent, false);
         return new FriendViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(FriendViewHolder viewHolder, Cursor cursor) {
+        String faceName = CursorUtils.getString(FriendContentProvider.FACE_COLUMN, cursor);
+        String friendName = CursorUtils.getString(FriendContentProvider.NAME_COLUMN, cursor);
+        viewHolder.nameView.setText(friendName);
+        viewHolder.imageView.setImageDrawable(ResourceUtils.getDrawableByName(faceName, viewHolder.itemView.getContext()));
     }
 
     public static class FriendViewHolder extends RecyclerView.ViewHolder {

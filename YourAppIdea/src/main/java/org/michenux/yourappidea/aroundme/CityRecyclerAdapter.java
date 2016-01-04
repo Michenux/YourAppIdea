@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.michenux.drodrolib.db.CursorRecyclerAdapter;
+import org.michenux.drodrolib.db.CursorRecyclerViewAdapter;
 import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 
 
-public class CityRecyclerAdapter extends CursorRecyclerAdapter<CityRecyclerAdapter.CityViewHolder> {
+public class CityRecyclerAdapter extends CursorRecyclerViewAdapter<CityRecyclerAdapter.CityViewHolder> {
 
     public CityRecyclerAdapter(Cursor cursor) {
         super(cursor);
@@ -25,13 +25,12 @@ public class CityRecyclerAdapter extends CursorRecyclerAdapter<CityRecyclerAdapt
     }
 
     @Override
-    public void onBindViewHolderCursor(CityViewHolder holder, Cursor cursor) {
-
+    public void onBindViewHolder(CityViewHolder viewHolder, Cursor cursor) {
         String cityName = CursorUtils.getString(CityContentProvider.NAME_COLUMN, cursor);
-        holder.getNameView().setText(cityName);
+        viewHolder.getNameView().setText(cityName);
 
         String countryName = CursorUtils.getString(CityContentProvider.COUNTRY_COLUMN, cursor);
-        holder.getCountryView().setText(countryName);
+        viewHolder.getCountryView().setText(countryName);
     }
 
     public static class CityViewHolder extends RecyclerView.ViewHolder {
