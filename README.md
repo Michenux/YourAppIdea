@@ -1,6 +1,7 @@
 # YourAppIdea
 
 [![Build Status](https://travis-ci.org/Michenux/YourAppIdea.svg?branch=master)](https://travis-ci.org/Michenux/YourAppIdea)
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 Project template for android and demo app for tutorials on [michenux.net](http://www.michenux.net)
 
