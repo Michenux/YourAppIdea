@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "spartan-archive-826",
+    "project_number": "193514795353",
+    "name": "YourAppIdea"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193514795353:android:637251afd7d1dc41",
+        "client_id": "android:org.michenux.yourappidea.debug",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "org.michenux.yourappidea.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193514795353-a4mgk4uo6oglr6q7h1j5p2dmramjtaba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.michenux.yourappidea.debug",
+            "certificate_hash": "2E0894D69AE30ED284EAE8CDC5807B7463EF54AA"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

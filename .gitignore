@@ -32,5 +32,4 @@ proguard/
 .DS_Store
 
 YourAppIdea/google-services.json
-YourAppIdea/src/debug/google-services.json
 YourAppIdea/src/release/google-services.json
