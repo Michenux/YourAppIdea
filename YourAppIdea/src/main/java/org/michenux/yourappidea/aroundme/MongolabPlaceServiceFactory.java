@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Location;
 
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.OkHttpClient;
 
 import org.michenux.drodrolib.network.gson.LocationDeserializer;
 import org.michenux.drodrolib.network.gson.TimestampDeserializer;
@@ -13,9 +12,10 @@ import org.michenux.yourappidea.R;
 
 import java.sql.Timestamp;
 
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MongolabPlaceServiceFactory {
 
@@ -25,8 +25,9 @@ public class MongolabPlaceServiceFactory {
         gsonBuilder.registerTypeAdapter(Timestamp.class, new TimestampDeserializer());
         gsonBuilder.registerTypeAdapter(Location.class, new LocationDeserializer());
 
-        OkHttpClient client = new OkHttpClient();
-        client.interceptors().add(new LoggingInterceptor());
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new LoggingInterceptor())
+                .build();
 
         String url = context.getString(R.string.aroundme_placeremoteprovider_url);
 

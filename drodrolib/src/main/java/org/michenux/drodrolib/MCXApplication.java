@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProvider;
+import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +57,38 @@ public class MCXApplication extends MultiDexApplication {
 	
 	public void onObjectGraphCreated( ObjectGraph objectGraph) {
 		
+	}
+
+	public static MCXApplication getRealApplication(Context applicationContext)
+	{
+		MCXApplication application = null;
+
+		if (applicationContext instanceof MCXApplication)
+		{
+			application = (MCXApplication) applicationContext;
+		}
+		else
+		{
+			Application realApplication = null;
+			Field magicField = null;
+			try
+			{
+				magicField = applicationContext.getClass().getDeclaredField("realApplication");
+				magicField.setAccessible(true);
+				realApplication = (Application) magicField.get(applicationContext);
+			}
+			catch (NoSuchFieldException e)
+			{
+				Log.e(LOG_TAG, e.getMessage(), e);
+			}
+			catch (IllegalAccessException e)
+			{
+				Log.e(LOG_TAG, e.getMessage(), e);
+			}
+
+			application = (MCXApplication) realApplication;
+		}
+
+		return application;
 	}
 }

@@ -13,14 +13,14 @@ apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "org.michenux.yourappidea"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
-        versionCode 300
-        versionName "3.0.0"
+        versionCode 310
+        versionName "3.1.0"
 
         multiDexEnabled true
     }
@@ -77,10 +77,12 @@ dependencies {
     compile supportDependencies.preferences
     compile otherDependencies.universalImageLoader
     compile otherDependencies.facebookSdk
-    //compile otherDependencies.twoWayViewCore
-    //compile otherDependencies.twoWayViewLayouts
     compile otherDependencies.retrofit
     compile otherDependencies.retrofitGsonConverter
+    compile playServicesDependencies.maps
+    compile playServicesDependencies.auth
+    compile playServicesDependencies.ads
+    compile playServicesDependencies.location
 
     compile rx.rxPermission
     compile rx.rxbinding
@@ -93,9 +95,6 @@ dependencies {
     testCompile testDependencies.mockito
     testCompile testDependencies.hamcrest
 }
-
-apply plugin: 'com.google.gms.google-services'
-
 
 def appModuleRootFolder = '.'
 def srcDir = 'src'
@@ -121,3 +120,6 @@ afterEvaluate {
     processDebugGoogleServices.dependsOn switchToDebug
     processReleaseGoogleServices.dependsOn switchToRelease
 }
+
+// At bottom, so that no dependency collisions are introduced
+apply plugin: 'com.google.gms.google-services'

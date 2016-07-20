@@ -37,7 +37,7 @@ public abstract class AbstractContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        ((MCXApplication) getContext().getApplicationContext()).inject(this);
+        MCXApplication.getRealApplication(getContext().getApplicationContext()).inject(this);
         return true;
     }
 

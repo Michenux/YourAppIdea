@@ -2,8 +2,8 @@ package org.michenux.yourappidea.tutorial.sync;
 
 import org.michenux.drodrolib.wordpress.json.WPJsonResponse;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 // "http://www.michenux.net/?json=get_recent_posts&amp;count=1"

@@ -2,14 +2,14 @@ package org.michenux.drodrolib.network.okhttp;
 
 import android.util.Log;
 
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import org.michenux.drodrolib.BuildConfig;
 import org.michenux.drodrolib.MCXApplication;
 
 import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class LoggingInterceptor implements Interceptor {
 

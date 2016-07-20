@@ -19,7 +19,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -27,10 +26,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
-import org.michenux.drodrolib.ui.map.MCXSupportMapFragment;
 import org.michenux.drodrolib.ui.snackbar.SnackbarHelper;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.R;
@@ -41,7 +41,8 @@ import rx.Subscription;
 public class SimpleMapFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, MCXSupportMapFragment.OnMapCreatedListener {
+        LocationListener,
+        OnMapReadyCallback {
 
     private static final int LOCATIONSERVICES_RESOLUTION_RESULCODE = 765;
 
@@ -53,7 +54,7 @@ public class SimpleMapFragment extends Fragment implements
 
     private boolean mPermissionGranted = false;
 
-    private Subscription mSubscription ;
+    private Subscription mSubscription;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,23 +88,20 @@ public class SimpleMapFragment extends Fragment implements
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MCXSupportMapFragment mapFragment = getMapFragment();
+        SupportMapFragment mapFragment = getMapFragment();
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onViewCreated - mapFragment = " + mapFragment);
         }
-        if ( mapFragment == null ) {
-            mapFragment = new MCXSupportMapFragment();
-            mapFragment.setOnMapCreatedListener(this);
+        if (mapFragment == null) {
+            mapFragment = new SupportMapFragment();
             mapFragment.setRetainInstance(true);
             getChildFragmentManager().beginTransaction().replace(R.id.simplemap, mapFragment, null).commit();
         }
-        else {
-            this.mMap = mapFragment.getMap();
-        }
+        mapFragment.getMapAsync(this);
     }
 
-    private MCXSupportMapFragment getMapFragment() {
-        return (MCXSupportMapFragment) getChildFragmentManager().findFragmentById(R.id.simplemap);
+    private SupportMapFragment getMapFragment() {
+        return (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.simplemap);
     }
 
     @Override
@@ -111,22 +109,21 @@ public class SimpleMapFragment extends Fragment implements
         super.onResume();
 
         mSubscription = RxPermissions.getInstance(this.getActivity())
-            .request(Manifest.permission.ACCESS_FINE_LOCATION)
-            .subscribe(granted -> {
-                mPermissionGranted = granted;
-                if ( granted) {
-                    mGoogleApiClient.connect();
-                }
-                else {
-                    SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_permissionfinelocationrequired);
-                }
-            });
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe(granted -> {
+                    mPermissionGranted = granted;
+                    if (granted) {
+                        mGoogleApiClient.connect();
+                    } else {
+                        SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_permissionfinelocationrequired);
+                    }
+                });
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if ( mGoogleApiClient.isConnected()) {
+        if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
         mGoogleApiClient.disconnect();
@@ -139,6 +136,7 @@ public class SimpleMapFragment extends Fragment implements
         registerLocationUpdates();
     }
 
+    @SuppressWarnings({"MissingPermission"})
     private void registerLocationUpdates() {
 
         PendingResult<Status> result = LocationServices.FusedLocationApi
@@ -185,18 +183,7 @@ public class SimpleMapFragment extends Fragment implements
         }
     }
 
-    @Override
-    public void onMapCreated(GoogleMap googleMap) {
-        if (BuildConfig.DEBUG) {
-            Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onMapCreated - map: " + googleMap);
-        }
-        if ( googleMap != null ) {
-            mMap = googleMap;
-            this.enableLocationOnMap();
-        }
-     }
-
-
+    @SuppressWarnings({"MissingPermission"})
     private void enableLocationOnMap() {
         if ( mPermissionGranted && mMap != null && !mMap.isMyLocationEnabled()) {
             mMap.setMyLocationEnabled(true);
@@ -233,5 +220,16 @@ public class SimpleMapFragment extends Fragment implements
     public void onConnectionSuspended(int i) {
 
         SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_connectionsuspended);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        if (BuildConfig.DEBUG) {
+            Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onMapCreated - map: " + googleMap);
+        }
+        if ( googleMap != null ) {
+            mMap = googleMap;
+            this.enableLocationOnMap();
+        }
     }
 }
