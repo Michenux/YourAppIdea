@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/friend_face_value"
-        layout="@layout/frienddetail_icon" />
+        layout="@layout/frienddetail_icon"/>
 
     <TextView
         tools:text="Technical Lead"
@@ -30,5 +30,4 @@
         android:gravity="center_horizontal"
         tools:text="Laurent Michenaud"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
 </RelativeLayout>

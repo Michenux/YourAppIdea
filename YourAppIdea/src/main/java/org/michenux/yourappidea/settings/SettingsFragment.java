@@ -14,7 +14,6 @@ import org.michenux.yourappidea.tutorial.sync.TutorialSyncHelper;
 import javax.inject.Inject;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
-
     @Inject
     TutorialSyncHelper mTutorialSyncHelper;
 
@@ -29,14 +28,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if ( key.equals("notificationPref")) {
-            if ( sharedPreferences.getBoolean(key, true)){
+        if (key.equals("notificationPref")) {
+            if (sharedPreferences.getBoolean(key, true)) {
                 if (BuildConfig.DEBUG) {
                     Log.d(YourApplication.LOG_TAG, "settings notificationPref changed: addPeriodicSync()");
                 }
                 mTutorialSyncHelper.enablePeriodicSync(this.getActivity());
-            }
-            else {
+            } else {
                 if (BuildConfig.DEBUG) {
                     Log.d(YourApplication.LOG_TAG, "settings notificationPref changed: removePeriodicSync()");
                 }

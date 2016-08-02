@@ -1,7 +1,6 @@
 package org.michenux.drodrolib.wordpress.json;
 
 public class WPThumbnailImage {
-
     private String url;
     private String width;
     private String height;

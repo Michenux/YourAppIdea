@@ -13,7 +13,7 @@ ext {
     gsonVersion = "2.7"
     okhttpVersion = "3.4.1"
     daggerVersion = "1.2.5"
-    circleImageViewVersion= "2.0.0"
+    circleImageViewVersion = "2.0.0"
     materialDialogsVersion = "0.8.6.2"
     universalimageloaderVersion = "1.9.5"
     facebookSdkVersion = "4.14.0"
@@ -26,48 +26,48 @@ ext {
     multidexVersion = "1.0.1"
 
     supportDependencies = [
-        design:                     "com.android.support:design:${supportLibrary}",
-        cardview:                   "com.android.support:cardview-v7:${supportLibrary}",
-        recyclerview:               "com.android.support:recyclerview-v7:${supportLibrary}",
-        appcompat:                  "com.android.support:appcompat-v7:${supportLibrary}",
-        supportannotations:         "com.android.support:support-annotations:${supportLibrary}",
-        preferences:                "com.android.support:preference-v7:${supportLibrary}",
-        multidex:                   "com.android.support:multidex:${multidexVersion}"
+            design            : "com.android.support:design:${supportLibrary}",
+            cardview          : "com.android.support:cardview-v7:${supportLibrary}",
+            recyclerview      : "com.android.support:recyclerview-v7:${supportLibrary}",
+            appcompat         : "com.android.support:appcompat-v7:${supportLibrary}",
+            supportannotations: "com.android.support:support-annotations:${supportLibrary}",
+            preferences       : "com.android.support:preference-v7:${supportLibrary}",
+            multidex          : "com.android.support:multidex:${multidexVersion}"
     ]
 
     playServicesDependencies = [
-        ads:       "com.google.android.gms:play-services-ads:${playServicesVersion}",
-        location:  "com.google.android.gms:play-services-location:${playServicesVersion}",
-        maps:      "com.google.android.gms:play-services-maps:${playServicesVersion}",
-        auth:      "com.google.android.gms:play-services-auth:${playServicesVersion}"
+            ads     : "com.google.android.gms:play-services-ads:${playServicesVersion}",
+            location: "com.google.android.gms:play-services-location:${playServicesVersion}",
+            maps    : "com.google.android.gms:play-services-maps:${playServicesVersion}",
+            auth    : "com.google.android.gms:play-services-auth:${playServicesVersion}"
     ]
 
     testDependencies = [
-        espressoCore:    "com.android.support.test.espresso:espresso-core:$espressoVersion",
-        espressoContrib: "com.android.support.test.espresso:espresso-contrib:$espressoVersion",
-        testRunner:      "com.android.support.test:runner:${testRunnerVersion}",
-        junit:           "junit:junit:${junitVersion}",
-        mockito:         "org.mockito:mockito-core:${mockitoVersion}",
-        hamcrest:        "org.hamcrest:hamcrest-library:${hamcrestVersion}"
+            espressoCore   : "com.android.support.test.espresso:espresso-core:$espressoVersion",
+            espressoContrib: "com.android.support.test.espresso:espresso-contrib:$espressoVersion",
+            testRunner     : "com.android.support.test:runner:${testRunnerVersion}",
+            junit          : "junit:junit:${junitVersion}",
+            mockito        : "org.mockito:mockito-core:${mockitoVersion}",
+            hamcrest       : "org.hamcrest:hamcrest-library:${hamcrestVersion}"
     ]
 
     rx = [
-        rxPermission:          "com.tbruyelle.rxpermissions:rxpermissions:${rxPermissionVersion}@aar",
-        rxbinding:             "com.jakewharton.rxbinding:rxbinding:${rxbindingVersion}",
-        rxAndroid:             "io.reactivex:rxandroid:${rxAndroidVersion}",
-        retrofitRxJava:        "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+            rxPermission  : "com.tbruyelle.rxpermissions:rxpermissions:${rxPermissionVersion}@aar",
+            rxbinding     : "com.jakewharton.rxbinding:rxbinding:${rxbindingVersion}",
+            rxAndroid     : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            retrofitRxJava: "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
     ]
 
     otherDependencies = [
-        gson:                  "com.google.code.gson:gson:${gsonVersion}",
-        okhttp:                "com.squareup.okhttp3:okhttp:${okhttpVersion}",
-        retrofit:              "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-        retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-        daggerCompiler:        "com.squareup.dagger:dagger-compiler:${daggerVersion}",
-        dagger:                "com.squareup.dagger:dagger:${daggerVersion}",
-        circleImageView:       "de.hdodenhof:circleimageview:${circleImageViewVersion}",
-        materialDialogs:       "com.github.afollestad.material-dialogs:core:${materialDialogsVersion}@aar",
-        universalImageLoader:  "com.nostra13.universalimageloader:universal-image-loader:${universalimageloaderVersion}",
-        facebookSdk:           "com.facebook.android:facebook-android-sdk:${facebookSdkVersion}",
+            gson                 : "com.google.code.gson:gson:${gsonVersion}",
+            okhttp               : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            retrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            daggerCompiler       : "com.squareup.dagger:dagger-compiler:${daggerVersion}",
+            dagger               : "com.squareup.dagger:dagger:${daggerVersion}",
+            circleImageView      : "de.hdodenhof:circleimageview:${circleImageViewVersion}",
+            materialDialogs      : "com.github.afollestad.material-dialogs:core:${materialDialogsVersion}@aar",
+            universalImageLoader : "com.nostra13.universalimageloader:universal-image-loader:${universalimageloaderVersion}",
+            facebookSdk          : "com.facebook.android:facebook-android-sdk:${facebookSdkVersion}",
     ]
 }

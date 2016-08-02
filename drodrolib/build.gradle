@@ -34,7 +34,7 @@ dependencies {
     compile otherDependencies.gson
     compile otherDependencies.okhttp
     compile otherDependencies.circleImageView
-    compile (otherDependencies.materialDialogs) {
+    compile(otherDependencies.materialDialogs) {
         transitive = true
     }
 }

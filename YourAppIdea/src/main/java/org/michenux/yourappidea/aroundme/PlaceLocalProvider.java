@@ -19,23 +19,22 @@ import java.util.Collections;
 import java.util.List;
 
 public class PlaceLocalProvider implements PlaceProvider, LoaderManager.LoaderCallbacks<Cursor> {
-
     private Location mCurrentLocation;
 
-    private Fragment mFragment ;
+    private Fragment mFragment;
 
     private PlaceLoaderCallback mCallback;
 
     private DistanceComparator mDistanceComparator = new DistanceComparator();
 
-    public PlaceLocalProvider( Fragment fragment, PlaceLoaderCallback callback ) {
-        this.mFragment = fragment ;
+    public PlaceLocalProvider(Fragment fragment, PlaceLoaderCallback callback) {
+        this.mFragment = fragment;
         this.mCallback = callback;
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        mCurrentLocation = location ;
+        mCurrentLocation = location;
         mFragment.getLoaderManager().restartLoader(1, null, this);
     }
 
@@ -85,20 +84,19 @@ public class PlaceLocalProvider implements PlaceProvider, LoaderManager.LoaderCa
         }
 
         Collections.sort(places, this.mDistanceComparator);
-        if ( this.mCallback != null ) {
+        if (this.mCallback != null) {
             this.mCallback.onPlaceLoadFinished(places);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursor) {
-        if ( this.mCallback != null ) {
+        if (this.mCallback != null) {
             this.mCallback.onPlaceLoadFinished(new ArrayList<>());
         }
     }
 
     @Override
     public void onDestroy() {
-
     }
 }

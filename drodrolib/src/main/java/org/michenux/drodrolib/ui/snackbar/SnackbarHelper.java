@@ -7,8 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class SnackbarHelper {
-
-    public static void showInfoLongMessage( View view, @StringRes int message ) {
+    public static void showInfoLongMessage(View view, @StringRes int message) {
         Snackbar snackbar = Snackbar
                 .make(view, message, Snackbar.LENGTH_LONG);
         View sbView = snackbar.getView();
@@ -17,11 +16,11 @@ public class SnackbarHelper {
         snackbar.show();
     }
 
-    public static void showErrorLongMessageWithAction( View view, @StringRes int message, @StringRes int actionMessage,
-                                            View.OnClickListener actionOnClickListener ) {
+    public static void showErrorLongMessageWithAction(View view, @StringRes int message, @StringRes int actionMessage,
+                                                      View.OnClickListener actionOnClickListener) {
         Snackbar snackbar = Snackbar
                 .make(view, message, Snackbar.LENGTH_LONG)
-                .setAction(actionMessage, actionOnClickListener );
+                .setAction(actionMessage, actionOnClickListener);
         snackbar.setActionTextColor(Color.RED);
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(org.michenux.drodrolib.R.id.snackbar_text);

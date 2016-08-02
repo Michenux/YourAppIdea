@@ -31,7 +31,6 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             tools:text="Android: PreferenceFragmentcompat">
         </TextView>
-
     </LinearLayout>
 
     <TextView
@@ -52,5 +51,4 @@
         android:textStyle="bold|italic"
         tools:text="18 Oct. 2013">
     </TextView>
-
 </LinearLayout>

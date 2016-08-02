@@ -20,31 +20,30 @@ import dagger.Module;
 
 @Module(
         injects = {
-            YourApplication.class,
+                YourApplication.class,
 
-            YourAppMainActivity.class,
-            LoginActivity.class,
+                YourAppMainActivity.class,
+                LoginActivity.class,
 
-            FriendContentProvider.class,
-            TutorialContentProvider.class,
-            PlaceContentProvider.class,
-            CityContentProvider.class,
-            YourAppNavigationFragment.class,
+                FriendContentProvider.class,
+                TutorialContentProvider.class,
+                PlaceContentProvider.class,
+                CityContentProvider.class,
+                YourAppNavigationFragment.class,
 
-            MainFragment.class,
-            DonateFragment.class,
-            SettingsFragment.class,
-            TutorialListFragment.class,
-            AroundMeFragment.class,
-            FbLoginFragment.class,
+                MainFragment.class,
+                DonateFragment.class,
+                SettingsFragment.class,
+                TutorialListFragment.class,
+                AroundMeFragment.class,
+                FbLoginFragment.class,
 
-            TutorialSyncAdapter.class
+                TutorialSyncAdapter.class
         },
         includes = {
-            MCXModule.class
+                MCXModule.class
         },
-        overrides=true
-    )
+        overrides = true
+)
 public class YourAppModule {
-
 }

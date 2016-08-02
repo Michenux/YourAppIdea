@@ -6,8 +6,7 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 
 public class BatteryUtils {
-
-    public static boolean isChargingOrFull( Context context ) {
+    public static boolean isChargingOrFull(Context context) {
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = context.registerReceiver(null, intentFilter);
         return isChargingOrFull(batteryStatus);
@@ -19,11 +18,10 @@ public class BatteryUtils {
     }
 
     /**
-     *
      * @param context
      * @return BatteryManager.BATTERY_PLUGGED_USB, BatteryManager.BATTERY_PLUGGED_AC, BatteryManager.BATTERY_PLUGGED_WIRELESS
      */
-    public static int getChargingMode( Context context ) {
+    public static int getChargingMode(Context context) {
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = context.registerReceiver(null, intentFilter);
         return getChargingMode(batteryStatus);
@@ -33,7 +31,7 @@ public class BatteryUtils {
         return batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
     }
 
-    public static float getChargePct( Context context ) {
+    public static float getChargePct(Context context) {
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = context.registerReceiver(null, intentFilter);
         return getChargePct(batteryStatus);
@@ -42,6 +40,6 @@ public class BatteryUtils {
     public static float getChargePct(Intent batteryStatus) {
         int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-        return level / (float) scale ;
+        return level / (float) scale;
     }
 }

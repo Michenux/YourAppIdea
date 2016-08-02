@@ -6,10 +6,9 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 public class ContentProviderUtils {
-
-    public static String buildAuthority( String packageName, String flavor, String name) {
+    public static String buildAuthority(String packageName, String flavor, String name) {
         StringBuilder authority = new StringBuilder(packageName);
-        if ( !TextUtils.isEmpty(flavor)) {
+        if (!TextUtils.isEmpty(flavor)) {
             authority.append('.');
             authority.append(flavor);
         }
@@ -18,8 +17,8 @@ public class ContentProviderUtils {
         return authority.toString();
     }
 
-    public static int count(Uri uri,String selection,String[] selectionArgs, ContentResolver contentResolver) {
-        Cursor cursor = contentResolver.query(uri,new String[] {"count(*)"},
+    public static int count(Uri uri, String selection, String[] selectionArgs, ContentResolver contentResolver) {
+        Cursor cursor = contentResolver.query(uri, new String[]{"count(*)"},
                 selection, selectionArgs, null);
         if (cursor.getCount() == 0) {
             cursor.close();

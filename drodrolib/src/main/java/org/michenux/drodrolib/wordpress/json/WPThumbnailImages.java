@@ -3,7 +3,6 @@ package org.michenux.drodrolib.wordpress.json;
 import com.google.gson.annotations.SerializedName;
 
 public class WPThumbnailImages {
-
     private WPThumbnailImage full;
     private WPThumbnailImage thumbnail;
     private WPThumbnailImage medium;
@@ -51,6 +50,4 @@ public class WPThumbnailImages {
     public void setFoundationFeaturedImage(WPThumbnailImage foundationFeaturedImage) {
         this.foundationFeaturedImage = foundationFeaturedImage;
     }
-
-
 }

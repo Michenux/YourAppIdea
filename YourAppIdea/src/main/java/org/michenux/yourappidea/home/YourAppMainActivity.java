@@ -13,11 +13,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import org.michenux.drodrolib.gms.auth.GoogleAuthDelegate;
-import org.michenux.drodrolib.security.UserSessionCallback;
-import org.michenux.drodrolib.ui.navdrawer.NavigationDrawerFragment;
 import org.michenux.drodrolib.info.AppUsageUtils;
 import org.michenux.drodrolib.security.SecurityUtils;
 import org.michenux.drodrolib.security.UserHelper;
+import org.michenux.drodrolib.security.UserSessionCallback;
+import org.michenux.drodrolib.ui.navdrawer.NavigationDrawerFragment;
 import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.NavigationController;
 import org.michenux.yourappidea.R;
@@ -27,14 +27,13 @@ import org.michenux.yourappidea.facebook.FacebookDelegate;
 import javax.inject.Inject;
 
 public class YourAppMainActivity extends AppCompatActivity implements UserSessionCallback {
-
     @Inject
     NavigationController navController;
 
     @Inject
     UserHelper mUserHelper;
 
-    private AdView mAdView ;
+    private AdView mAdView;
 
     private FacebookDelegate mFacebookDelegate;
 
@@ -51,7 +50,7 @@ public class YourAppMainActivity extends AppCompatActivity implements UserSessio
         setSupportActionBar(toolBar);
 
         // For debug
-        if ( BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "HashKey: " + SecurityUtils.logHashKey(this));
         }
 
@@ -85,7 +84,7 @@ public class YourAppMainActivity extends AppCompatActivity implements UserSessio
     @Override
     public void onBackPressed() {
         NavigationDrawerFragment navigationDrawerFragment = findNavDrawerFragment();
-        if ( navigationDrawerFragment == null || !navigationDrawerFragment.onBackPressed()) {
+        if (navigationDrawerFragment == null || !navigationDrawerFragment.onBackPressed()) {
             // See bug: http://stackoverflow.com/questions/13418436/android-4-2-back-stack-behaviour-with-nested-fragments/14030872#14030872
             // If the fragment exists and has some back-stack entry
             FragmentManager fm = getSupportFragmentManager();
@@ -95,10 +94,9 @@ public class YourAppMainActivity extends AppCompatActivity implements UserSessio
             }
             // Else, nothing in the direct fragment back stack
             else {
-                if ( currentFragment != null && !NavigationController.HOME_FRAGMENT_TAG.equals(currentFragment.getTag())) {
+                if (currentFragment != null && !NavigationController.HOME_FRAGMENT_TAG.equals(currentFragment.getTag())) {
                     this.navController.goHomeFragment(this);
-                }
-                else {
+                } else {
                     super.onBackPressed();
                 }
             }

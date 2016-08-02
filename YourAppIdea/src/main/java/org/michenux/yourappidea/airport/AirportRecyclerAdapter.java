@@ -17,11 +17,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecyclerAdapter.AirportViewHolder> {
+    private java.text.DateFormat df;
+    private java.text.DateFormat tf;
 
-    private java.text.DateFormat df ;
-    private java.text.DateFormat tf ;
-
-    private List<Flight> flights ;
+    private List<Flight> flights;
     private String mode;
 
     public AirportRecyclerAdapter(List<Flight> flights, Context context, String currentMode) {
@@ -45,10 +44,9 @@ public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecycler
         Flight flight = this.flights.get(position);
         viewHolder.flightNameView.setText(flight.getFlight());
         viewHolder.flightFromView.setText(flight.getName());
-        if ( flight.getEta() != null ) {
+        if (flight.getEta() != null) {
             viewHolder.flightEtaView.setText(context.getString(R.string.airport_eta, df.format(flight.getEta()) + " " + tf.format(flight.getEta())));
-        }
-        else {
+        } else {
             viewHolder.flightEtaView.setText("");
         }
         viewHolder.flightTypeView.setText(flight.getType());
@@ -82,7 +80,6 @@ public class AirportRecyclerAdapter extends RecyclerView.Adapter<AirportRecycler
     }
 
     public static class AirportViewHolder extends RecyclerView.ViewHolder {
-
         public ImageView flightPicture;
         public TextView flightNameView;
         public TextView flightFromView;

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/preferences_label" >
+    <PreferenceCategory
+        android:title="@string/preferences_label">
         <CheckBoxPreference
-            android:title="Enable notification"
             android:defaultValue="true"
+            android:key="notificationPref"
             android:summary="Be notified when..."
-            android:key="notificationPref" />
+            android:title="Enable notification"/>
     </PreferenceCategory>
-
 </PreferenceScreen>

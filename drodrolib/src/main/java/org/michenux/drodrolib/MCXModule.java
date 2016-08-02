@@ -10,7 +10,6 @@ import dagger.Module;
         SQLiteDatabaseFactory.class,
         UserHelper.class,
         GoogleAuthFragment.class
-    })
+})
 public class MCXModule {
-
 }

@@ -31,7 +31,9 @@
             - search activity, filter, etc..
             - integrate a line: my position
     -->
-    <release version="3.1.0" versioncode="310">
+    <release
+        version="3.1.0"
+        versioncode="310">
         <change>Android MinSDK 16</change>
         <change>Fix to work with Android Studio Instant Run</change>
         <change>Upgrade Google Services Gradle Plugin to 3.0.0</change>
@@ -43,29 +45,40 @@
         <change>Upgrade to Material Dialogs 0.8.6.2</change>
         <change>Upgrade to RxPermission 0.7.0, RxBinding 0.4.0, RxAndroid 1.2.1</change>
     </release>
-    <release version="3.0.0" versioncode="300">
+    <release
+        version="3.0.0"
+        versioncode="300">
         <change>Android MinSDK 15</change>
         <change>Permissions for Android M using RxPermissions</change>
-        <change>Add android design library : NavigationView, SnackBar, CoordinatorLayout, and remove Crouton and Ripple Effect 1.3.</change>
+        <change>Add android design library : NavigationView, SnackBar, CoordinatorLayout, and remove
+            Crouton and Ripple Effect 1.3.
+        </change>
         <change>Added library Android Support Preferences</change>
         <change>Replace volley with retrofit library</change>
-        <change>Upgrade libraries : Android AppCompat/RecyclerView/CardView 23.1.1, Google Play Services 8.3.0,
+        <change>Upgrade libraries : Android AppCompat/RecyclerView/CardView 23.1.1, Google Play
+            Services 8.3.0,
             Google Gson 2.4, Material-Dialogs 0.8.5.2, Universal Image Loader 1.9.5,
             TwoWaysView 0.1.4, Facebook Android SDK 4.8.1
         </change>
         <change>Start using RxJava</change>
         <change>Enable multidex</change>
     </release>
-    <release version="2.1.0" versioncode="210">
+    <release
+        version="2.1.0"
+        versioncode="210">
         <change>Update to Android SDK API 22</change>
         <change>Update librairies: crouton 1.8.5, rippleeffect 1.3</change>
     </release>
-    <release version="2.0.1" versioncode="201">
+    <release
+        version="2.0.1"
+        versioncode="201">
         <change>Fix icon launcher</change>
         <change>Fix bug in Airport screen</change>
         <change>Upgrade rippleeffect library</change>
     </release>
-    <release version="2.0.0" versioncode="200">
+    <release
+        version="2.0.0"
+        versioncode="200">
         <change>Material theme</change>
         <change>Replace ListView with RecyclerView (using twowaysview library)</change>
         <change>Use of toolbar</change>
@@ -73,34 +86,54 @@
         <change>Navigation drawer: header with login to social networks</change>
         <change>Use RippleEffect library</change>
     </release>
-    <release version="1.5.1" versioncode="151">
-        <change>Use SwipeRefreshLayout from android support and remove actionbarpulltorefresh library</change>
+    <release
+        version="1.5.1"
+        versioncode="151">
+        <change>Use SwipeRefreshLayout from android support and remove actionbarpulltorefresh
+            library
+        </change>
     </release>
-    <release version="1.5.0" versioncode="150">
+    <release
+        version="1.5.0"
+        versioncode="150">
         <change>Add login via Facebook or Google+</change>
     </release>
-    <release version="1.4.2" versioncode="142">
+    <release
+        version="1.4.2"
+        versioncode="142">
         <change>Use library android-style-dialog</change>
         <change>Update launch icon</change>
         <change>Smart interval for sync adapter</change>
     </release>
-    <release version="1.4.1" versioncode="141">
+    <release
+        version="1.4.1"
+        versioncode="141">
         <change>Around me screen: local and remote provider</change>
         <change>Around me screen: select city</change>
-        <change>Add info icon in action bar to explain features and technical details of the current screen.</change>
+        <change>Add info icon in action bar to explain features and technical details of the current
+            screen.
+        </change>
     </release>
-    <release version="1.4.0" versioncode="140">
+    <release
+        version="1.4.0"
+        versioncode="140">
         <change>Add Around me screen</change>
         <change>Use the new Admob included in Google Play Services</change>
         <change>Remove EULA on first launch (don't annoy users)</change>
     </release>
-    <release version="1.3.0" versioncode="130">
+    <release
+        version="1.3.0"
+        versioncode="130">
         <change>Add tutorial screen</change>
         <change>Change Java Compatibility to 1.7</change>
-        <change>Remove enumerations in code (Enums often require more than twice as much memory as static constants)</change>
+        <change>Remove enumerations in code (Enums often require more than twice as much memory as
+            static constants)
+        </change>
         <change>fix: title lost in action bar on rotation</change>
     </release>
-    <release version="1.2.3" versioncode="123">
+    <release
+        version="1.2.3"
+        versioncode="123">
         <change>Notification when new tutorial available (SyncAdapter)</change>
         <change>SimpleMap: add my location</change>
         <change>Fix PreferenceCompatFragment</change>
@@ -109,14 +142,20 @@
         <change>Fix SimpleMap activity on Android 2.3.3</change>
         <change>Fix button animation: withEndAction method available from API 16 min.</change>
     </release>
-    <release version="1.2.2" versioncode="122">
-        <change>Remove "Quit" from NavigationDrawer and "Quit Confirm Dialog" (anti-pattern)</change>
-        <change>Add preferences fragment (custom preference fragment compatible with Android 2.2+)</change>
+    <release
+        version="1.2.2"
+        versioncode="122">
+        <change>Remove "Quit" from NavigationDrawer and "Quit Confirm Dialog" (anti-pattern)
+        </change>
+        <change>Add preferences fragment (custom preference fragment compatible with Android 2.2+)
+        </change>
         <change>Fix bug on changelog</change>
     </release>
-    <release version="1.2.1" versioncode="121">
+    <release
+        version="1.2.1"
+        versioncode="121">
         <change>Add simple map screen (Google API v2)</change>
-        <change>Add animation on buttons  of the main menu</change>
+        <change>Add animation on buttons of the main menu</change>
         <change>Add animation on paypal button of the donation screen</change>
         <change>Show ChangeLog on app upgrade (display changelog from previous version)</change>
         <change>Add ChangeLog in the navigation drawer (display full changelog)</change>
@@ -125,33 +164,49 @@
         <change>Add "exit application" dialog on back pressed of the main screen</change>
         <change>Replace volley source code with the volley jar.</change>
     </release>
-    <release version="1.2.0" versioncode="120">
+    <release
+        version="1.2.0"
+        versioncode="120">
         <change>Compatibility with Android Devices 2.3.3+</change>
         <change>use ActionBarCompat</change>
         <change>Fix navigation issues</change>
         <change>Fix Friend List/Detail</change>
     </release>
-    <release version="1.1.0" versioncode="110">
+    <release
+        version="1.1.0"
+        versioncode="110">
         <change>Add donation screen (paypal)</change>
     </release>
-    <release version="1.0.9" versioncode="109">
+    <release
+        version="1.0.9"
+        versioncode="109">
         <change>Remove splashscreen as they are devils</change>
         <change>Add actionbar spinner on airport screen</change>
         <change>Use dagger for dependency injection</change>
     </release>
-    <release version="1.0.8" versioncode="108">
+    <release
+        version="1.0.8"
+        versioncode="108">
         <change>Add volley and crouton libraries</change>
     </release>
-    <release version="1.0.7" versioncode="107">
+    <release
+        version="1.0.7"
+        versioncode="107">
         <change>Replace some activities with fragments (+nested fragments)</change>
     </release>
-    <release version="1.0.6" versioncode="106">
+    <release
+        version="1.0.6"
+        versioncode="106">
         <change>Replace SlidingMenu library with Navigation Drawer</change>
     </release>
-    <release version="1.0.5" versioncode="105">
+    <release
+        version="1.0.5"
+        versioncode="105">
         <change>Add sliding menu</change>
     </release>
-    <release version="1.0.4" versioncode="104">
+    <release
+        version="1.0.4"
+        versioncode="104">
         <change>AsyncTask example</change>
         <change>Circular progressbar example</change>
     </release>

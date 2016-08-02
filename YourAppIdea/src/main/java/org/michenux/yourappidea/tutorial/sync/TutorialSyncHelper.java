@@ -16,8 +16,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class TutorialSyncHelper extends AbstractSyncHelper {
-
-    public static final String ACCOUNT = "tutorialaccount" ;
+    public static final String ACCOUNT = "tutorialaccount";
 
     @Inject
     public TutorialSyncHelper() {
@@ -32,24 +31,23 @@ public class TutorialSyncHelper extends AbstractSyncHelper {
             intervals.put(6, 2);// every 2 days
             intervals.put(7, 2);// every 3 days
             intervals.put(8, 2);// every 4 days
-        }else {
+        } else {
             intervals.put(1, MINUTE_PER_HOUR); // every hour
             intervals.put(2, 2 * MINUTE_PER_HOUR); // every two-hour
             intervals.put(3, 6 * MINUTE_PER_HOUR); // every six-hour
-            intervals.put(4, 12* MINUTE_PER_HOUR);// twice a day
-            intervals.put(5, 24* MINUTE_PER_HOUR);// once a day
-            intervals.put(6, 48* MINUTE_PER_HOUR);// every 2 days
-            intervals.put(7, 72* MINUTE_PER_HOUR);// every 3 days
-            intervals.put(8, 96* MINUTE_PER_HOUR);// every 4 days
+            intervals.put(4, 12 * MINUTE_PER_HOUR);// twice a day
+            intervals.put(5, 24 * MINUTE_PER_HOUR);// once a day
+            intervals.put(6, 48 * MINUTE_PER_HOUR);// every 2 days
+            intervals.put(7, 72 * MINUTE_PER_HOUR);// every 3 days
+            intervals.put(8, 96 * MINUTE_PER_HOUR);// every 4 days
         }
         setIntervals(intervals);
     }
 
-    public void createTutorialAccount( Context context ) {
+    public void createTutorialAccount(Context context) {
         super.createAccount(ACCOUNT, context.getString(R.string.tutorials_accountType), TutorialContentProvider.AUTHORITY,
                 this.isNotificationEnabled(context), context);
     }
-
 
     @Override
     public void adjustSyncInterval(Context context) {
@@ -78,7 +76,7 @@ public class TutorialSyncHelper extends AbstractSyncHelper {
     @Override
     protected void saveIntervalIndex(int intervalIndex, Context context) {
         if (BuildConfig.DEBUG) {
-            Log.d(YourApplication.LOG_TAG, "saveIntervalIndex: " + intervalIndex );
+            Log.d(YourApplication.LOG_TAG, "saveIntervalIndex: " + intervalIndex);
         }
         super.saveIntervalIndex(intervalIndex, context);
     }
@@ -90,10 +88,9 @@ public class TutorialSyncHelper extends AbstractSyncHelper {
         }
         boolean result = super.createAccount(accountName, accountType, authority, enableSync, context);
         if (BuildConfig.DEBUG) {
-            if ( result ) {
+            if (result) {
                 Log.d(YourApplication.LOG_TAG, accountName + " account created");
-            }
-            else {
+            } else {
                 Log.d(YourApplication.LOG_TAG, accountName + " account already exists");
             }
         }
@@ -102,23 +99,22 @@ public class TutorialSyncHelper extends AbstractSyncHelper {
 
     @Override
     protected boolean addPeriodicSync(int intervalInMinute) {
-        if ( BuildConfig.DEBUG ) {
+        if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "addPeriodicSync in minute: " + intervalInMinute);
         }
         boolean added = super.addPeriodicSync(intervalInMinute);
         if (BuildConfig.DEBUG) {
-            if ( added ) {
+            if (added) {
                 Log.d(YourApplication.LOG_TAG, "periodic sync does not exist");
-                Log.d(YourApplication.LOG_TAG, "add periodic sync with interval in minute : " + intervalInMinute );
-            }
-            else {
+                Log.d(YourApplication.LOG_TAG, "add periodic sync with interval in minute : " + intervalInMinute);
+            } else {
                 Log.d(YourApplication.LOG_TAG, "periodic sync already exists");
             }
         }
         return added;
     }
 
-    public boolean isNotificationEnabled( Context context ) {
+    public boolean isNotificationEnabled(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getBoolean("notificationPref", true);
     }

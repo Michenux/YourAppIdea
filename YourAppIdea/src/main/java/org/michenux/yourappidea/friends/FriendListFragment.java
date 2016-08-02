@@ -21,30 +21,29 @@ import org.michenux.drodrolib.ui.recyclerview.ItemClickSupport;
 import org.michenux.yourappidea.R;
 
 public class FriendListFragment extends Fragment implements
-		LoaderManager.LoaderCallbacks<Cursor>, ItemClickSupport.OnItemClickListener {
+        LoaderManager.LoaderCallbacks<Cursor>, ItemClickSupport.OnItemClickListener {
+    private FriendRecyclerAdapter mAdapter;
 
-	private FriendRecyclerAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
-    private RecyclerView mRecyclerView ;
+    private boolean dualPanel;
 
-	private boolean dualPanel;
-
-	public static FriendListFragment newInstance() {
-		// Bundle args = new Bundle();
-		// frag.setArguments(args);
-		return new FriendListFragment();
-	}
+    public static FriendListFragment newInstance() {
+        // Bundle args = new Bundle();
+        // frag.setArguments(args);
+        return new FriendListFragment();
+    }
 
     /**
-	 * {@inheritDoc}
-	 *
-	 * @see android.support.v4.app.ListFragment#onCreateView(android.view.LayoutInflater,
-	 *      android.view.ViewGroup, android.os.Bundle)
-	 */
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View mainView = inflater.inflate(R.layout.friendlist, container, false);
+     * {@inheritDoc}
+     *
+     * @see android.support.v4.app.ListFragment#onCreateView(android.view.LayoutInflater,
+     * android.view.ViewGroup, android.os.Bundle)
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View mainView = inflater.inflate(R.layout.friendlist, container, false);
         mRecyclerView = (RecyclerView) mainView.findViewById(R.id.friend_recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(false);
@@ -53,59 +52,58 @@ public class FriendListFragment extends Fragment implements
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), null));
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(this);
-		fillData();
-		return mainView;
-	}
+        fillData();
+        return mainView;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
-	 */
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		this.dualPanel = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        this.dualPanel = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
 
-	private void fillData() {
-
-		this.getLoaderManager().initLoader(0, null, this);
-		this.mAdapter = new FriendRecyclerAdapter(null);
+    private void fillData() {
+        this.getLoaderManager().initLoader(0, null, this);
+        this.mAdapter = new FriendRecyclerAdapter(null);
         mRecyclerView.setAdapter(this.mAdapter);
-	}
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int,
-	 *      android.os.Bundle)
-	 */
-	public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
-		String[] projection = { FriendContentProvider.ID_COLUMN,
-                FriendContentProvider.NAME_COLUMN, FriendContentProvider.FACE_COLUMN };
-		return new CursorLoader(this.getActivity(),
-				FriendContentProvider.CONTENT_URI, projection, null, null, null);
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int,
+     * android.os.Bundle)
+     */
+    public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
+        String[] projection = {FriendContentProvider.ID_COLUMN,
+                FriendContentProvider.NAME_COLUMN, FriendContentProvider.FACE_COLUMN};
+        return new CursorLoader(this.getActivity(),
+                FriendContentProvider.CONTENT_URI, projection, null, null, null);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader,
-	 *      Object)
-	 */
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-		this.mAdapter.swapCursor(cursor);
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader,
+     * Object)
+     */
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        this.mAdapter.swapCursor(cursor);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 *
+    /**
+     * {@inheritDoc}
+     *
      * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoaderReset(android.support.v4.content.Loader)
-	 */
-	public void onLoaderReset(Loader<Cursor> cursor) {
-		this.mAdapter.swapCursor(null);
-	}
+     */
+    public void onLoaderReset(Loader<Cursor> cursor) {
+        this.mAdapter.swapCursor(null);
+    }
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {

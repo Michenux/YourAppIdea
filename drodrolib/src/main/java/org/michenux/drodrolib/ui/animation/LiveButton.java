@@ -12,7 +12,6 @@ import javax.inject.Singleton;
 
 @Singleton
 public class LiveButton {
-
     private DecelerateInterpolator decelerator = new DecelerateInterpolator();
     private OvershootInterpolator overshooter = new OvershootInterpolator(10f);
 
@@ -20,25 +19,24 @@ public class LiveButton {
     LiveButton() {
     }
 
-    public void setupLiveAnimOnButton( Button button, final Runnable onEndRunnable ) {
-        if (android.os.Build.VERSION.SDK_INT>=16) {
+    public void setupLiveAnimOnButton(Button button, final Runnable onEndRunnable) {
+        if (android.os.Build.VERSION.SDK_INT >= 16) {
             this.setupLiveAnimOnButtonL16(button, onEndRunnable);
-        }
-        else {
-            button.setOnClickListener( new View.OnClickListener() {
+        } else {
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onEndRunnable.run();;
+                    onEndRunnable.run();
+                    ;
                 }
             });
         }
     }
 
     @TargetApi(16)
-    public void setupLiveAnimOnButtonL16( final Button button, final Runnable onEndRunnable ) {
+    public void setupLiveAnimOnButtonL16(final Button button, final Runnable onEndRunnable) {
         button.animate().setDuration(400);
         button.setOnTouchListener(new View.OnTouchListener() {
-
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() == MotionEvent.ACTION_DOWN) {

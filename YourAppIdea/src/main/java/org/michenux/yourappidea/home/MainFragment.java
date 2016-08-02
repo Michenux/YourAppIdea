@@ -13,7 +13,6 @@ import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +22,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View mainView = inflater
                 .inflate(R.layout.main_fragment, container, false);
 
@@ -52,8 +50,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        NavigationDrawerFragment fragment = ((YourAppMainActivity)this.getActivity()).findNavDrawerFragment();
+        NavigationDrawerFragment fragment = ((YourAppMainActivity) this.getActivity()).findNavDrawerFragment();
         switch (v.getId()) {
             case R.id.mainmenu_button0:
                 fragment.selectItem(R.id.navdrawer_tutorial, false);

@@ -15,29 +15,29 @@ import org.michenux.drodrolib.info.AppUsageUtils;
 import java.util.List;
 
 public abstract class AbstractSyncHelper {
-
     private static final String SYNCINTERVAL_PARAM = "syncInterval";
     public static final int MINUTE_PER_HOUR = 60;
     public static final int SECONDS_PER_MINUTE = 60;
 
-    private Account mAccount ;
+    private Account mAccount;
 
     private String mAuthority;
 
     private int mDefaultIntervalIndex;
 
-    private SparseIntArray mIntervals ;
+    private SparseIntArray mIntervals;
 
     /**
      * Adjust synchronization interval
+     *
      * @param context context
      */
-    public void adjustSyncInterval(Context context ) {
+    public void adjustSyncInterval(Context context) {
         long lastSync = AppUsageUtils.getLastSync(context);
         long appLastUsed = AppUsageUtils.getLastUsedTimestamp(context);
 
         // if app used since last sync, increase frequency
-        if ( appLastUsed > lastSync ) {
+        if (appLastUsed > lastSync) {
             increaseFrequency(context);
         }
         // if app not used since last sync, reduce frequency
@@ -46,22 +46,22 @@ public abstract class AbstractSyncHelper {
         }
     }
 
-    private int getSyncIntervalIndex( Context context ) {
+    private int getSyncIntervalIndex(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(SYNCINTERVAL_PARAM, mDefaultIntervalIndex);
     }
 
-    private int getSyncIntervalInMinute( Context context ) {
+    private int getSyncIntervalInMinute(Context context) {
         return getSyncIntervalInMinute(getSyncIntervalIndex(context), context);
     }
 
-    private int getSyncIntervalInMinute( int intervalIndex, Context context ) {
+    private int getSyncIntervalInMinute(int intervalIndex, Context context) {
         return mIntervals.get(intervalIndex);
     }
 
     protected void increaseFrequency(Context context) {
         int syncIntervalIndex = getSyncIntervalIndex(context);
-        if ( syncIntervalIndex > 1) {
+        if (syncIntervalIndex > 1) {
             saveIntervalIndex(--syncIntervalIndex, context);
             addPeriodicSync(getSyncIntervalInMinute(syncIntervalIndex, context));
         }
@@ -69,28 +69,26 @@ public abstract class AbstractSyncHelper {
 
     protected void reduceFrequency(Context context) {
         int syncIntervalIndex = getSyncIntervalIndex(context);
-        if ( syncIntervalIndex < mIntervals.size()) {
+        if (syncIntervalIndex < mIntervals.size()) {
             saveIntervalIndex(++syncIntervalIndex, context);
             addPeriodicSync(getSyncIntervalInMinute(syncIntervalIndex, context));
         }
     }
 
-    protected void saveIntervalIndex( int intervalIndex, Context context ) {
+    protected void saveIntervalIndex(int intervalIndex, Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(SYNCINTERVAL_PARAM, intervalIndex);
         editor.commit();
     }
 
-
-    public boolean createAccount( String accountName, String accountType, String authority, boolean enableSync, Context context ) {
-
+    public boolean createAccount(String accountName, String accountType, String authority, boolean enableSync, Context context) {
         this.mAccount = new Account(accountName, accountType);
-        this.mAuthority = authority ;
+        this.mAuthority = authority;
         AccountManager accountManager = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
         boolean result = accountManager.addAccountExplicitly(mAccount, null, null);
 
-        if ( enableSync ) {
+        if (enableSync) {
             addPeriodicSync(getSyncIntervalInMinute(context));
         }
 
@@ -107,25 +105,25 @@ public abstract class AbstractSyncHelper {
         ContentResolver.removePeriodicSync(mAccount, mAuthority, bundle);
     }
 
-    public void enablePeriodicSync( Context context) {
+    public void enablePeriodicSync(Context context) {
         addPeriodicSync(getSyncIntervalInMinute(context));
     }
 
     /**
      * Schedule syncAdapter by interval
+     *
      * @param intervalInMinute interval in minute
      */
-    protected boolean addPeriodicSync( int intervalInMinute ) {
+    protected boolean addPeriodicSync(int intervalInMinute) {
         boolean added = false;
-        if ( !periodicSyncExists(intervalInMinute )) {
-              Bundle bundle = new Bundle();
+        if (!periodicSyncExists(intervalInMinute)) {
+            Bundle bundle = new Bundle();
 
             // remove all others
             removePeriodicSync();
 
             ContentResolver.setIsSyncable(mAccount, mAuthority, 1);
             ContentResolver.setSyncAutomatically(mAccount, mAuthority, true);
-
 
             long syncInSecond = intervalInMinute * SECONDS_PER_MINUTE;
             ContentResolver.addPeriodicSync(
@@ -141,17 +139,18 @@ public abstract class AbstractSyncHelper {
 
     /**
      * Test if periodic sync is already configured
+     *
      * @param intervalInMinute interval in minute
      * @return true if already exists
      */
-    private boolean periodicSyncExists( int intervalInMinute ) {
+    private boolean periodicSyncExists(int intervalInMinute) {
         boolean exists = false;
         long syncInSecond = intervalInMinute * SECONDS_PER_MINUTE;
         List<PeriodicSync> periodicSyncs = ContentResolver.getPeriodicSyncs(mAccount, mAuthority);
-        if ( periodicSyncs != null && !periodicSyncs.isEmpty()) {
-            for( PeriodicSync periodicSync : periodicSyncs ) {
+        if (periodicSyncs != null && !periodicSyncs.isEmpty()) {
+            for (PeriodicSync periodicSync : periodicSyncs) {
                 if (periodicSync.period == syncInSecond) {
-                    exists = true ;
+                    exists = true;
                 }
             }
         }

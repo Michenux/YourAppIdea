@@ -12,15 +12,13 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 public class LocationDeserializer implements JsonDeserializer<Location> {
-
     @Override
     public Location deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         Location location = new Location("mongodb");
         JsonArray coord = jsonObject.getAsJsonArray("coordinates");
         location.setLongitude(coord.get(0).getAsDouble());
         location.setLatitude(coord.get(1).getAsDouble());
-        return location ;
+        return location;
     }
 }

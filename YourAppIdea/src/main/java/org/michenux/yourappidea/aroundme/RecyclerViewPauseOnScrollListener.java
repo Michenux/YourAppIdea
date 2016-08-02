@@ -7,7 +7,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import static android.support.v7.widget.RecyclerView.OnScrollListener;
 
 public class RecyclerViewPauseOnScrollListener extends OnScrollListener {
-
     private ImageLoader mImageLoader;
 
     private final boolean mPauseOnScroll;

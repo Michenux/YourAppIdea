@@ -3,8 +3,7 @@ package org.michenux.drodrolib.wordpress.json;
 import com.google.gson.annotations.SerializedName;
 
 public class WPAuthor {
-
-    private long id ;
+    private long id;
     private String slug;
     private String name;
 

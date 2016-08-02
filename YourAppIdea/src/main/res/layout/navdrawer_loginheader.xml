@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
@@ -33,9 +34,7 @@
                 android:textColor="@android:color/white"
                 android:visibility="visible"
                 tools:visibility="gone"/>
-
         </RelativeLayout>
-
 
         <RelativeLayout
             android:id="@+id/nadrawer_loginheader_connected_viewgroup"
@@ -74,11 +73,8 @@
                 android:layout_toLeftOf="@id/navdrawer_loginheader_arrow"
                 android:layout_toStartOf="@id/navdrawer_loginheader_arrow"
                 tools:text="toto@gege.com"/>
-
         </RelativeLayout>
-
     </RelativeLayout>
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -128,7 +124,5 @@
                 android:gravity="center"
                 android:visibility="visible"/>
         </RelativeLayout>
-
     </RelativeLayout>
-
 </RelativeLayout>

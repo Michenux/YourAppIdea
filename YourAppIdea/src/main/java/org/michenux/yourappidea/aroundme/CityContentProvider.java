@@ -8,7 +8,6 @@ import org.michenux.drodrolib.db.AbstractContentProvider;
 import org.michenux.yourappidea.BuildConfig;
 
 public class CityContentProvider extends AbstractContentProvider {
-
     public static final String TABLE_NAME = "T_CITY";
     public static final String NAME_COLUMN = "NAME";
     public static final String COUNTRY_COLUMN = "COUNTRY";
@@ -30,6 +29,6 @@ public class CityContentProvider extends AbstractContentProvider {
     }
 
     public CityContentProvider() {
-        super(TABLE_NAME, uriMatcher, BASE_PATH );
+        super(TABLE_NAME, uriMatcher, BASE_PATH);
     }
 }
