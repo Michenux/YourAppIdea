@@ -28,7 +28,7 @@ public class SqlParser {
 		}
 		return sqlIns;
 	}
-	
+
 	/**
 	 * @param is
 	 * @return
@@ -101,7 +101,7 @@ public class SqlParser {
 	 * Split an SQL script into separate statements delimited with the provided
 	 * delimiter character. Each individual statement will be added to the
 	 * provided <code>List</code>.
-	 * 
+	 *
 	 * @param script
 	 *            the SQL script
 	 * @param delim

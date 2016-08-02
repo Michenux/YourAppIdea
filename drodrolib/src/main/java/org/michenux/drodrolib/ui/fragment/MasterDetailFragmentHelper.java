@@ -13,9 +13,9 @@ public class MasterDetailFragmentHelper {
 	public static MasterDetailFragments getCurrentFragments( int masterView, int detailView, Class<? extends Fragment> detailClass,
 			FragmentManager fm ) {
 		MasterDetailFragments masterDetailFragments = new MasterDetailFragments();
-		
+
 		List<Fragment> fragmentToRemove = new ArrayList<>();
-		
+
 		Fragment frag1 = fm.findFragmentById(masterView);
 		if ( frag1 != null ) {
 			if ( detailClass.isAssignableFrom(frag1.getClass())) {
@@ -33,14 +33,14 @@ public class MasterDetailFragmentHelper {
 				fragmentToRemove.add(frag1);
 			}
 		}
-		
+
 		Fragment frag2 = fm.findFragmentById(detailView);
 		if ( frag2 != null ) {
 			fragmentToRemove.add(frag2);
 			if ( masterDetailFragments.detail == null ) {
 				masterDetailFragments.detail = frag2 ;
 			}
-		}	
+		}
 
 		FragmentTransaction ft = fm.beginTransaction();
 		for( Fragment f : fragmentToRemove ) {
@@ -48,7 +48,7 @@ public class MasterDetailFragmentHelper {
 		}
 		ft.commit();
 		fm.executePendingTransactions();
-		
+
 		return masterDetailFragments ;
 	}
 

@@ -22,12 +22,12 @@ public class AssetUtils {
 		}
 		return false ;
 	}
-	
+
 	/**
 	 * @param path
 	 * @param assetManager
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static String[] list( String path, AssetManager assetManager ) throws IOException {
 		String[] files = assetManager.list(path);

@@ -19,9 +19,9 @@ public class FriendDetailFragment extends Fragment {
 	private Uri detailUri;
 
 	private TextView nameField;
-	
+
 	private TextView jobField ;
-	
+
 	private ImageView faceField ;
 
     /**
@@ -45,7 +45,7 @@ public class FriendDetailFragment extends Fragment {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
 	 *      android.view.ViewGroup, android.os.Bundle)
 	 */
@@ -61,14 +61,14 @@ public class FriendDetailFragment extends Fragment {
 				.findViewById(R.id.friend_job_value);
 		this.faceField = (ImageView) mainView
 				.findViewById(R.id.friend_face_value);
-		
+
 		this.detailUri = (savedInstanceState == null) ? null
 				: (Uri) savedInstanceState
 						.getParcelable(FriendContentProvider.CONTENT_ITEM_TYPE);
 
 		Bundle extras = getArguments();
 		if (extras != null && this.detailUri == null) {
-			
+
 			this.detailUri = extras
 					.getParcelable(FriendContentProvider.CONTENT_ITEM_TYPE);
 		}
@@ -103,7 +103,7 @@ public class FriendDetailFragment extends Fragment {
 				this.faceField.setImageDrawable(
 					ResourceUtils.getDrawableByName(
                             faceImg, this.getActivity()));
-				
+
 			} finally {
 				cursor.close();
 			}

@@ -17,27 +17,27 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 	 * Sub path in assets directory for sql files
 	 */
 	private static final String SQL_DIR = "sql" ;
-	
+
 	/**
 	 * Init sql file
 	 */
 	private static final String CREATEFILE = "create.sql";
-	
+
 	/**
 	 * Upgrade Sql File prefix
 	 */
 	private static final String UPGRADEFILE_PREFIX = "upgrade-";
-	
+
 	/**
 	 * Upgrade Sql File suffix
 	 */
 	private static final String UPGRADEFILE_SUFFIX = ".sql";
-	
+
 	/**
 	 * Android context
 	 */
 	private Context context ;
-	
+
 	/**
 	 * @param context androdi context
 	 * @param name database name
@@ -50,7 +50,7 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 		this.context = context ;
 	}
 
-	/** 
+	/**
 	 * {@inheritDoc}
 	 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
 	 */
@@ -72,7 +72,7 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 		try {
 			for( String sqlFile : AssetUtils.list(SQL_DIR, this.context.getAssets())) {
 				if ( sqlFile.startsWith(UPGRADEFILE_PREFIX)) {
-					int fileVersion = Integer.parseInt(sqlFile.substring( UPGRADEFILE_PREFIX.length(),  sqlFile.length() - UPGRADEFILE_SUFFIX.length())); 
+					int fileVersion = Integer.parseInt(sqlFile.substring( UPGRADEFILE_PREFIX.length(),  sqlFile.length() - UPGRADEFILE_SUFFIX.length()));
 					if ( fileVersion > oldVersion && fileVersion <= newVersion ) {
 						execSqlFile( sqlFile, db );
 					}
@@ -82,7 +82,7 @@ public class SQLiteDatabaseHelper extends SQLiteOpenHelper {
 			throw new RuntimeException("Database upgrade failed", exception );
 		}
 	}
-	
+
 	/**
 	 * @param sqlFile
 	 * @param db

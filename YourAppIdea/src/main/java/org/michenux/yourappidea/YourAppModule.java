@@ -19,13 +19,13 @@ import org.michenux.yourappidea.tutorial.sync.TutorialSyncAdapter;
 import dagger.Module;
 
 @Module(
-	    injects = {
+        injects = {
             YourApplication.class,
 
             YourAppMainActivity.class,
             LoginActivity.class,
 
-    		FriendContentProvider.class,
+            FriendContentProvider.class,
             TutorialContentProvider.class,
             PlaceContentProvider.class,
             CityContentProvider.class,
@@ -39,12 +39,12 @@ import dagger.Module;
             FbLoginFragment.class,
 
             TutorialSyncAdapter.class
-	    },
-	    includes = {
-	    	MCXModule.class
-	    },
-	    overrides=true
-	)
+        },
+        includes = {
+            MCXModule.class
+        },
+        overrides=true
+    )
 public class YourAppModule {
 
 }

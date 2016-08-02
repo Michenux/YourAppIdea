@@ -24,7 +24,7 @@ public class FriendMainFragment extends Fragment {
         setRetainInstance(false);
         setHasOptionsMenu(true);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

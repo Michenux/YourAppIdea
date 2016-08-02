@@ -9,25 +9,25 @@ public class Flight {
 
 	@SerializedName("callsign")
 	private String callSign ;
-	
+
 	private String iata ;
-	
+
 	private String type ;
-	
+
 	@SerializedName("lat")
 	private double latitude ;
-	
+
 	@SerializedName("lon")
 	private double longitude ;
-	
+
 	@SerializedName("spd")
 	private long speed ;
-	
+
 	@SerializedName("alt")
 	private long altitude ;
-	
+
 	private String flight ;
-	
+
 	private String name ;
 
     @SerializedName("eta")

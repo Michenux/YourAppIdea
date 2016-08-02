@@ -1,5 +1,5 @@
 create table T_FRIEND (
-	_id integer primary key autoincrement, 
+	_id integer primary key autoincrement,
 	JOB TEXT not null,
 	FACE TEXT not null,
 	NAME text not null);
@@ -53,7 +53,6 @@ insert into T_PLACE(_id, NAME, COUNTRY, URL, LONGITUDE, LATITUDE) values (null,'
 insert into T_PLACE(_id, NAME, COUNTRY, URL, LONGITUDE, LATITUDE) values (null,'Capitol Hill','United States','http://lmichenaud.free.fr/yai/Capitol%20Hill.jpg',-77.00174649999997, 38.8844371);
 insert into T_PLACE(_id, NAME, COUNTRY, URL, LONGITUDE, LATITUDE) values (null,'Niagara Falls','Canada','http://lmichenaud.free.fr/yai/Niagara%20Falls.jpg',-79.08610759999999, 43.0903891);
 insert into T_PLACE(_id, NAME, COUNTRY, URL, LONGITUDE, LATITUDE) values (null,'Chichen Itza','Mexique','http://lmichenaud.free.fr/yai/Chichen%20Itza.jpg',-88.56861099999998, 20.6795187);
-
 
 create table T_CITY (
 	_id integer primary key autoincrement,

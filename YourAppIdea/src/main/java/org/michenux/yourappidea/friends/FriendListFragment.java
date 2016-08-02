@@ -37,7 +37,7 @@ public class FriendListFragment extends Fragment implements
 
     /**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see android.support.v4.app.ListFragment#onCreateView(android.view.LayoutInflater,
 	 *      android.view.ViewGroup, android.os.Bundle)
 	 */
@@ -59,7 +59,7 @@ public class FriendListFragment extends Fragment implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
 	 */
 	@Override
@@ -77,7 +77,7 @@ public class FriendListFragment extends Fragment implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int,
 	 *      android.os.Bundle)
 	 */
@@ -90,7 +90,7 @@ public class FriendListFragment extends Fragment implements
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android.support.v4.content.Loader,
 	 *      Object)
 	 */

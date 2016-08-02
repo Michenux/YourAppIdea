@@ -16,7 +16,7 @@ public class ResourceUtils {
 		}
 		return ContextCompat.getDrawable(context, drawableResource);
 	}
-	
+
 	public static int getDrawableIdByName( String name, Context context ) {
 		int drawableResource = context.getResources().getIdentifier(
 						name,

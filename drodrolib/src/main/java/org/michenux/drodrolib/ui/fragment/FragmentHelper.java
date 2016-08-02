@@ -15,9 +15,9 @@ public class FragmentHelper {
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.add(container, frag);
 		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-		ft.commit();		
+		ft.commit();
 	}
-	
+
 	/**
 	 * @param frag
 	 * @param container
@@ -30,14 +30,14 @@ public class FragmentHelper {
         ft.addToBackStack(null);
         ft.commit();
 	}
-	
+
 	/**
 	 * @param container1
 	 * @param container2
 	 * @param fm
 	 */
 	public static void swapFragment( int container1, int container2, FragmentManager fm ) {
-		
+
 		Fragment f1 = fm.findFragmentById(container1);
 		Fragment f2 = fm.findFragmentById(container2);
 
@@ -46,12 +46,12 @@ public class FragmentHelper {
 		ft.remove(f2);
 		ft.commit();
 		fm.executePendingTransactions();
-			
+
 		ft = fm.beginTransaction();
 		ft.add(container1, f2);
 		ft.add(container2, f1);
 		ft.setTransition(FragmentTransaction.TRANSIT_NONE);
-			
+
 		ft.commit();
 	}
 }

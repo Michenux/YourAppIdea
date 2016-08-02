@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class SQLiteDatabaseFactory {
-	
+
 	/**
 	 * SQLite Open Helper
 	 */
@@ -21,11 +21,11 @@ public class SQLiteDatabaseFactory {
 	 * SQLite Database
 	 */
 	private SQLiteDatabase database ;
-	
+
 	@Inject public SQLiteDatabaseFactory() {
-		
+
 	}
-	
+
 	/**
 	 * @throws NameNotFoundException
 	 */
@@ -50,17 +50,17 @@ public class SQLiteDatabaseFactory {
 	public SQLiteDatabase getDatabase() {
 		return this.database;
 	}
-	
+
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
 		if ( this.database != null && this.database.isOpen()) {
 			this.database.close();
 		}
-	} 
-	
+	}
+
 	/**
-	 * 
+	 *
 	 */
 	public void closeDatabase() {
 		this.database.close();

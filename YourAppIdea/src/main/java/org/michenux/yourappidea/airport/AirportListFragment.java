@@ -54,7 +54,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
 		    Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreate");
         }
 		setHasOptionsMenu(true);
-		
+
 		this.mAirportAdapter = new AirportRecyclerAdapter(new ArrayList<>(), this.getActivity(), this.mCurrentMode);
 		mAirportInfoService = AirportInfoServiceFactory.create(this.getContext());
 	}
@@ -91,7 +91,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
             Log.i(YourApplication.LOG_TAG, "AirportListFragment.onCreateOptionsMenu");
         }
 		inflater.inflate(R.menu.airport_menu, menu);
-		
+
 		MenuItem modeMenuItem =  menu.findItem(R.id.airport_menuMode);
         Spinner spinner = (Spinner) MenuItemCompat.getActionView(modeMenuItem).findViewById(R.id.airport_mode_spinner);
 		if ( this.mCurrentMode.equals("in")) {
@@ -100,7 +100,7 @@ public class AirportListFragment extends Fragment implements SwipeRefreshLayout.
 		else {
 			spinner.setSelection(1, false);
 		}
-		
+
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

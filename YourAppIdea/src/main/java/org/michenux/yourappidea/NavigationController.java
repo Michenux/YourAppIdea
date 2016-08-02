@@ -27,9 +27,9 @@ public class NavigationController {
     public static final String HOME_FRAGMENT_TAG = "home";
 
 	@Inject public NavigationController() {
-		
+
 	}
-	
+
 	public void startAppRating(Context context) {
 		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri
 				.parse("market://details?id=" + context.getPackageName())));

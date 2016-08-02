@@ -4,4 +4,3 @@ create table T_TUTORIAL (
 	DESCRIPTION TEXT not null,
 	URL TEXT not null,
 	DATECREATION INTEGER  not null );
-

@@ -20,11 +20,11 @@ public class MCXApplication extends MultiDexApplication {
 	public static final String LOG_TAG = "MCX";
 
 	private ObjectGraph objectGraph;
-	
+
 	public void inject(Activity activity) {
 		getObjectGraph().inject(activity);
 	}
-	
+
 	public void inject(ContentProvider contentProvider) {
 		getObjectGraph().inject(contentProvider) ;
 	}
@@ -50,13 +50,13 @@ public class MCXApplication extends MultiDexApplication {
 		}
 		return objectGraph;
 	}
-	
+
 	public void buildDaggerModules( List<Object> modules) {
 		modules.add(new MCXModule());
 	}
-	
+
 	public void onObjectGraphCreated( ObjectGraph objectGraph) {
-		
+
 	}
 
 	public static MCXApplication getRealApplication(Context applicationContext)

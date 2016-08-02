@@ -24,7 +24,7 @@ public class DonateFragment extends Fragment implements OnClickListener {
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+
 		final View view = inflater.inflate(R.layout.donations_fragment, container, false);
 		final Button button = (Button) view.findViewById(R.id.donations_paypal_donate_button);
         button.setOnClickListener(this);
@@ -43,8 +43,8 @@ public class DonateFragment extends Fragment implements OnClickListener {
         uriBuilder.appendQueryParameter("no_shipping", "1");
         uriBuilder.appendQueryParameter("currency_code", "EUR");
         Uri payPalUri = uriBuilder.build();
-    	
-       	Intent viewIntent = new Intent(Intent.ACTION_VIEW, payPalUri);
-       	startActivity(viewIntent);
+
+        Intent viewIntent = new Intent(Intent.ACTION_VIEW, payPalUri);
+        startActivity(viewIntent);
 	}
 }

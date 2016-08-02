@@ -6,7 +6,7 @@
         android:title="@string/airport_menu_mode"
         yourapp:showAsAction="always"
         yourapp:actionLayout="@layout/airport_mode"/>
-    
+
     <item
         android:id="@+id/airport_menu_info"
         android:titleCondensed="@string/menu_info"

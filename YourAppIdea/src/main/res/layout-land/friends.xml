@@ -7,13 +7,13 @@
     android:baselineAligned="false">
 	<FrameLayout
 	    android:id="@+id/friendmain_fragment"
-	    android:layout_width="match_parent" 
+	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:layout_weight="1">
 	</FrameLayout>
 	<FrameLayout
 	    android:id="@+id/frienddetail_fragment"
-	    android:layout_width="match_parent" 
+	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:layout_weight="1">
 	</FrameLayout>

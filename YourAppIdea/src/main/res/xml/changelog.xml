@@ -130,7 +130,7 @@
         <change>use ActionBarCompat</change>
         <change>Fix navigation issues</change>
         <change>Fix Friend List/Detail</change>
-    </release>    
+    </release>
     <release version="1.1.0" versioncode="110">
         <change>Add donation screen (paypal)</change>
     </release>
