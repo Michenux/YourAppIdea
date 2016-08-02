@@ -1,11 +1,5 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-    }
+plugins {
+    id "me.tatarka.retrolambda" version "3.2.5"
 }
 
 apply plugin: 'com.android.application'
