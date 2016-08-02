@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.michenux.yourappidea.R;
 import org.mockito.Mock;
@@ -26,6 +27,7 @@ public class AirportServiceInfoTest {
         when(mContext.getString(R.string.airport_rest_url)).thenReturn("http://www.flightradar24.com/");
     }
 
+    @Ignore //TODO: /AirportInfoService.php on flightradar24 returns 404 now
     @Test
     public void testArrivalFlight() throws Exception {
 
