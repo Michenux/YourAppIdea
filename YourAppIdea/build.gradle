@@ -43,8 +43,6 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".debug"
         }
 
@@ -92,30 +90,4 @@ dependencies {
     testCompile testDependencies.hamcrest
 }
 
-def appModuleRootFolder = '.'
-def srcDir = 'src'
-def googleServicesJson = 'google-services.json'
-
-task switchToDebug(type: Copy) {
-    def buildType = 'debug'
-    description = 'Switches to DEBUG google-services.json'
-    from "${srcDir}/${buildType}"
-    include "$googleServicesJson"
-    into "$appModuleRootFolder"
-}
-
-task switchToRelease(type: Copy) {
-    def buildType = 'release'
-    description = 'Switches to RELEASE google-services.json'
-    from "${srcDir}/${buildType}/"
-    include "$googleServicesJson"
-    into "$appModuleRootFolder"
-}
-
-afterEvaluate {
-    processDebugGoogleServices.dependsOn switchToDebug
-    processReleaseGoogleServices.dependsOn switchToRelease
-}
-
-// At bottom, so that no dependency collisions are introduced
 apply plugin: 'com.google.gms.google-services'
