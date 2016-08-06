@@ -8,9 +8,8 @@ import org.michenux.drodrolib.db.AbstractContentProvider;
 import org.michenux.yourappidea.BuildConfig;
 
 public class TutorialContentProvider extends AbstractContentProvider {
-
-    public static final String TABLE_NAME = "T_TUTORIAL" ;
-    public static final String POSTID_COLUMN = "POSTID" ;
+    public static final String TABLE_NAME = "T_TUTORIAL";
+    public static final String POSTID_COLUMN = "POSTID";
     public static final String TITLE_COLUMN = "TITLE";
     public static final String DESCRIPTION_COLUMN = "DESCRIPTION";
     public static final String URL_COLUMN = "URL";
@@ -35,6 +34,6 @@ public class TutorialContentProvider extends AbstractContentProvider {
     }
 
     public TutorialContentProvider() {
-        super(TABLE_NAME, uriMatcher, BASE_PATH );
+        super(TABLE_NAME, uriMatcher, BASE_PATH);
     }
 }

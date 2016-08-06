@@ -14,7 +14,6 @@ import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.YourApplication;
 
 public class DonateFragment extends Fragment implements OnClickListener {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,16 +21,16 @@ public class DonateFragment extends Fragment implements OnClickListener {
     }
 
     @Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		
-		final View view = inflater.inflate(R.layout.donations_fragment, container, false);
-		final Button button = (Button) view.findViewById(R.id.donations_paypal_donate_button);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.donations_fragment, container, false);
+        final Button button = (Button) view.findViewById(R.id.donations_paypal_donate_button);
         button.setOnClickListener(this);
-		return view;
-	}
+        return view;
+    }
+
     @Override
-	public void onClick(View v) {
+    public void onClick(View v) {
         Uri.Builder uriBuilder = new Uri.Builder();
         uriBuilder.scheme("https").authority("www.paypal.com").path("cgi-bin/webscr");
         uriBuilder.appendQueryParameter("cmd", "_donations");
@@ -43,8 +42,8 @@ public class DonateFragment extends Fragment implements OnClickListener {
         uriBuilder.appendQueryParameter("no_shipping", "1");
         uriBuilder.appendQueryParameter("currency_code", "EUR");
         Uri payPalUri = uriBuilder.build();
-    	
-       	Intent viewIntent = new Intent(Intent.ACTION_VIEW, payPalUri);
-       	startActivity(viewIntent);
-	}
+
+        Intent viewIntent = new Intent(Intent.ACTION_VIEW, payPalUri);
+        startActivity(viewIntent);
+    }
 }

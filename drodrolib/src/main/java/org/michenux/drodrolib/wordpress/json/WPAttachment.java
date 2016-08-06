@@ -3,8 +3,7 @@ package org.michenux.drodrolib.wordpress.json;
 import com.google.gson.annotations.SerializedName;
 
 public class WPAttachment {
-
-    private int id ;
+    private int id;
     private String url;
     private String slug;
     private String title;

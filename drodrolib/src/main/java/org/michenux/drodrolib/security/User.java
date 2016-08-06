@@ -1,14 +1,13 @@
 package org.michenux.drodrolib.security;
 
 public class User {
-
     private String userId;
 
     private String provider;
 
     private String providerDisplayName;
 
-    private String userName ;
+    private String userName;
 
     private String displayName;
 

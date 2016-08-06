@@ -5,10 +5,10 @@ import javax.inject.Singleton;
 
 @Singleton
 public class UserHelper {
-
     private User mCurrentUser;
 
-    @Inject public UserHelper() {
+    @Inject
+    public UserHelper() {
     }
 
     public User getCurrentUser() {

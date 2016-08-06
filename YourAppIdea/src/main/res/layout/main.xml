@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".home.HomeActivity"
+    tools:context=".home.YourAppMainActivity"
     tools:openDrawer="start">
 
     <RelativeLayout
@@ -25,40 +25,37 @@
             ads:adSize="SMART_BANNER"
             ads:adUnitId="a150d852e9f388f"/>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/adView">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <include layout="@layout/toolbar" />
-
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:id="@+id/content_frame"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        </FrameLayout>
+            android:layout_above="@id/adView">
 
-    </android.support.design.widget.CoordinatorLayout>
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+                <include layout="@layout/toolbar"/>
+            </android.support.design.widget.AppBarLayout>
+
+            <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </FrameLayout>
+        </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>
 
-    <fragment android:name="org.michenux.yourappidea.home.YourAppNavigationFragment"
+    <fragment
+        android:name="org.michenux.yourappidea.home.YourAppNavigationFragment"
         android:id="@+id/navdrawer_left"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:tag="navdrawer_fragment"
         android:fitsSystemWindows="true"
-        tools:layout="@layout/navdrawer" />
-
+        tools:layout="@layout/navdrawer"/>
 </android.support.v4.widget.DrawerLayout>

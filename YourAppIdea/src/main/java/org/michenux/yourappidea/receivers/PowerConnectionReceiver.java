@@ -10,10 +10,8 @@ import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.YourApplication;
 
 public class PowerConnectionReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
-
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "PowerConnectionReceiver");
             Log.d(YourApplication.LOG_TAG, "  isChargingOrFull: " + BatteryUtils.isChargingOrFull(context));

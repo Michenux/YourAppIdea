@@ -10,7 +10,6 @@ import android.webkit.WebView;
 import org.michenux.drodrolib.info.VersionUtils;
 
 public class ChangeLogDialogFragment extends DialogFragment {
-
     public static ChangeLogDialogFragment newInstance(int title, int closeLabel, String changeLog) {
         ChangeLogDialogFragment changelogDialog = new ChangeLogDialogFragment();
         Bundle args = new Bundle();
@@ -23,7 +22,6 @@ public class ChangeLogDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         int resTitle = getArguments().getInt("title");
         int closeLabel = getArguments().getInt("closeLabel");
         String changeLog = getArguments().getString("changeLog");

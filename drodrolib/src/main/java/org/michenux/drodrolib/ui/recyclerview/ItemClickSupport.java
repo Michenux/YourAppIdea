@@ -6,7 +6,6 @@ import android.view.View;
 import org.michenux.drodrolib.R;
 
 public class ItemClickSupport {
-
     private final RecyclerView mRecyclerView;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
@@ -44,7 +43,6 @@ public class ItemClickSupport {
 
         @Override
         public void onChildViewDetachedFromWindow(View view) {
-
         }
     };
 
@@ -86,12 +84,10 @@ public class ItemClickSupport {
     }
 
     public interface OnItemClickListener {
-
         void onItemClicked(RecyclerView recyclerView, int position, View v);
     }
 
     public interface OnItemLongClickListener {
-
         boolean onItemLongClicked(RecyclerView recyclerView, int position, View v);
     }
 }

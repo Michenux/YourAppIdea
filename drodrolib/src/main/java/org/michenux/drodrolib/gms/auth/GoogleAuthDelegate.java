@@ -21,7 +21,6 @@ import org.michenux.drodrolib.security.UserHelper;
 import org.michenux.drodrolib.security.UserSessionCallback;
 
 public class GoogleAuthDelegate implements GoogleApiClient.OnConnectionFailedListener {
-
     public static final String PROVIDER_NAME = "gplus";
 
     private static final int RC_SIGN_IN = 9001;
@@ -34,7 +33,6 @@ public class GoogleAuthDelegate implements GoogleApiClient.OnConnectionFailedLis
     private GoogleSignInOptions mGso;
 
     public GoogleAuthDelegate(FragmentActivity activity, UserHelper userHelper) {
-
         this.mUserHelper = userHelper;
 
         mGso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -52,7 +50,7 @@ public class GoogleAuthDelegate implements GoogleApiClient.OnConnectionFailedLis
         if (opr.isDone()) {
             // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
             // and the GoogleSignInResult will be available instantly.
-            if (BuildConfig.DEBUG ) {
+            if (BuildConfig.DEBUG) {
                 Log.d(MCXApplication.LOG_TAG, "Got cached sign-in");
             }
             GoogleSignInResult result = opr.get();
@@ -74,18 +72,18 @@ public class GoogleAuthDelegate implements GoogleApiClient.OnConnectionFailedLis
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (BuildConfig.DEBUG ) {
+        if (BuildConfig.DEBUG) {
             Log.d(MCXApplication.LOG_TAG, "onConnectionFailed:" + connectionResult);
         }
     }
 
-    public void signIn( FragmentActivity activity ) {
+    public void signIn(FragmentActivity activity) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     public void signOut() {
-        if (BuildConfig.DEBUG ) {
+        if (BuildConfig.DEBUG) {
             Log.d(MCXApplication.LOG_TAG, "Google Services: signout");
         }
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -100,13 +98,13 @@ public class GoogleAuthDelegate implements GoogleApiClient.OnConnectionFailedLis
 
     public void revokeAccess() {
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-            new ResultCallback<Status>() {
-                @Override
-                public void onResult(Status status) {
-                    mUserHelper.setCurrentUser(null);
-                    mUserSessionCallback.onLogout();
-                }
-            });
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        mUserHelper.setCurrentUser(null);
+                        mUserSessionCallback.onLogout();
+                    }
+                });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -118,7 +116,7 @@ public class GoogleAuthDelegate implements GoogleApiClient.OnConnectionFailedLis
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        if (BuildConfig.DEBUG ) {
+        if (BuildConfig.DEBUG) {
             Log.d(MCXApplication.LOG_TAG, "handleSignInResult:" + result.isSuccess() + " " + result.getStatus().getStatusCode() +
                     result.getStatus().hasResolution());
         }

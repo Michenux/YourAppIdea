@@ -1,6 +1,5 @@
 package org.michenux.yourappidea.tutorial;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -16,7 +15,6 @@ import org.michenux.yourappidea.R;
 import org.michenux.yourappidea.tutorial.sync.TutorialContentProvider;
 
 public class TutorialRecyclerAdapter extends CursorRecyclerViewAdapter<TutorialRecyclerAdapter.TutorialViewHolder> {
-
     public TutorialRecyclerAdapter() {
         super(null);
     }
@@ -47,8 +45,7 @@ public class TutorialRecyclerAdapter extends CursorRecyclerViewAdapter<TutorialR
     }
 
     public static class TutorialViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView mTitleView ;
+        private TextView mTitleView;
         private TextView mDescriptionView;
         private TextView mDateView;
 

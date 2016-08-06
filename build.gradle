@@ -16,10 +16,6 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
-        // twowayview
-        //maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        //for rxPermissions
-        maven { url "http://dl.bintray.com/tbruyelle/tbruyelle" }
     }
 }
 

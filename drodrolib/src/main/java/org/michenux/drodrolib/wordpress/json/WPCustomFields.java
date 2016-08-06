@@ -5,9 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class WPCustomFields {
-
     @SerializedName("android_desc")
-    List<String> description ;
+    List<String> description;
 
     public List<String> getDescription() {
         return description;

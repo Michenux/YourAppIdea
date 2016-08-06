@@ -11,12 +11,11 @@
     android.support.v4.widget.SwipeRefreshLayout
     <android.support.v7.widget.RecyclerView
         -->
-        <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/airport_recyclerview"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="6dp"
         tools:listitem="@layout/airport_listitem"/>
-
 </org.michenux.yourappidea.FixedSwipeRefreshLayout>

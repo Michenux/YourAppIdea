@@ -3,103 +3,83 @@
 [![Build Status](https://travis-ci.org/Michenux/YourAppIdea.svg?branch=master)](https://travis-ci.org/Michenux/YourAppIdea)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-Project template for android and demo app for tutorials on [michenux.net](http://www.michenux.net)
+Project template for Android and demo app for tutorials on [michenux.net](http://www.michenux.net)
 
-The demo application is available on Google Play:
-
- [![Get it on Google Play](http://www.android.com/images/brand/get_it_on_play_logo_small.png)](https://play.google.com/store/apps/details?id=org.michenux.yourappidea)
+<a href='https://play.google.com/store/apps/details?id=org.michenux.yourappidea'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width='200'/></a>
 
 ## Requirements
 
-* Android SDK 23 (with extras/Google Repository)
-* Android Studio 1.5.1
+* Android SDK 24 (with extras/Google Repository)
+* Android Studio 2.1.2 (or later)
 
 ## What you can find inside
 
-**Implemented UI Patterns**
+#### Implemented UI Patterns
 
 * Material Design
 * Navigation Drawer, NavigationView, CoordinatorLayout, AppBarLayout, ToolBar (AppCompatActivity)
 * List/Detail (fragment)
-* Cardview
+* CardView
 * Pull To Refresh
 * Spinner in ToolBar
 * Contextual toasts with SnackBar
 
-
-**Improove UX**
+#### Improved UX
 
 * Fragment transition
 * Different layouts in landscape mode
-* No splashscreen (because anti-pattern)
+* No splash screen (because anti-pattern)
 
-
-**Architecture**
+#### Architecture
 
 * Dependency injection with Dagger
 * RxJava for asking permissions and network requests
 
+#### Persistence
 
-**Persistence**
-
-* Sqlite Database : manage creation/upgrade of database using sql scripts
+* SQLite Database: manage creation/upgrade of database using SQL scripts
 * ContentProvider examples
 * AsyncTaskLoader and CursorLoader
 
+#### Network
 
-**Network**
-
-* Json Request with Retrofit and okhttp
+* JSON Request with Retrofit and OkHttp
 * SyncAdapter
-* Retrieve posts from wordpress website
+* Retrieve posts from WordPress website
 
-
-**Geoloc**
+#### Geoloc
 
 * Localization with Google Play Services
 * Geocoder example, Distance compute, sort by distance
 
-
-**Promote your app**
+#### Promote your app
 
 * Link to the application on Google Play Store for adding rating/comments
 * ChangeLog screen (can show what's new since previous version or display full changelog)
 
+#### Monetize your app
 
-**Monetize your app**
+* Integration of AdMob
+* Donation screen (PayPal)
 
-* Integration of admob
-* Donation screen (paypal)
+#### Others
 
-
-**Others**
-
-* User sign in (facebook, google+ )
+* User sign in (Facebook, Google)
 * PreferencesFragmentCompat
-* Eula (End User Licence Agreement) : accept/refuse Eula on first time or just display.
-* Multidex enabled.
+* EULA (End User Licence Agreement): accept/refuse EULA on first time or just display
+* Multidex enabled
 
 ## Credits
 
 Author: Laurent Michenaud (lmichenaud@gmail.com)
 
-<a href="https://plus.google.com/+LaurentMichenaud/posts">
-  <img alt="Follow me on Google+"
-       src="http://www.michenux.net/images/g+64.png" />
-</a>
-<a href="https://twitter.com/Michenux">
-  <img alt="Follow me on Twitter"
-       src="http://www.michenux.net/images/twitter64.png" />
-</a>
-<a href="http://www.linkedin.com/pub/laurent-michenaud/5/148/b32">
-  <img alt="Follow me on LinkedIn"
-       src="http://www.michenux.net/images/linkedin.png" />
-</a>
+[![Follow me on Google+](http://www.michenux.net/images/g+64.png)](https://plus.google.com/+LaurentMichenaud/posts)
+[![Follow me on Twitter](http://www.michenux.net/images/twitter64.png)](https://twitter.com/Michenux)
+[![Follow me on LinkedIn](http://www.michenux.net/images/linkedin.png)](http://www.linkedin.com/pub/laurent-michenaud/5/148/b32)
 
-License
--------
+# License
 
-    Copyright 2013-2014 Laurent Michenaud
+    Copyright 2013-2016 Laurent Michenaud
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -112,8 +92,3 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-
----
-
-

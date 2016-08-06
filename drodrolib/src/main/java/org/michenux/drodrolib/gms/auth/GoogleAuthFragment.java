@@ -17,7 +17,6 @@ import org.michenux.drodrolib.security.UserSessionCallback;
 import javax.inject.Inject;
 
 public class GoogleAuthFragment extends Fragment implements UserSessionCallback, View.OnClickListener {
-
     @Inject
     UserHelper mUserHelper;
 
@@ -76,7 +75,7 @@ public class GoogleAuthFragment extends Fragment implements UserSessionCallback,
 
     @Override
     public void onClick(View view) {
-        if ( view.getId() == R.id.sign_in_button ) {
+        if (view.getId() == R.id.sign_in_button) {
             mGoogleAuthDelegate.signIn(this.getActivity());
         }
     }

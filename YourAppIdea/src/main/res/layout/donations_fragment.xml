@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:ripple="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/donation_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:isScrollContainer="true"
-        android:padding="15dp"
-        android:scrollbars="vertical">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/donation_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:padding="15dp"
+    android:scrollbars="vertical">
 
-        <TextView
-            android:id="@+id/donation_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/donations__description"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+    <TextView
+        android:id="@+id/donation_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/donations__description"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
 
-        <TextView
-            android:id="@+id/paypal_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:text="@string/donations_paypal"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            android:layout_below="@id/donation_description"/>
+    <TextView
+        android:id="@+id/paypal_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="@string/donations_paypal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+        android:layout_below="@id/donation_description"/>
 
-        <include layout="@layout/donations_button"
-            android:layout_height="50dp"
-            android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/paypal_title"/>
-
+    <include
+        layout="@layout/donations_button"
+        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/paypal_title"/>
 </RelativeLayout>

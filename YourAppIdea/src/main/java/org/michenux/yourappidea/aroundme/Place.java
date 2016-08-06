@@ -5,7 +5,6 @@ import android.location.Location;
 import org.michenux.drodrolib.geoloc.DistanceHolder;
 
 public class Place implements DistanceHolder {
-
     private long id;
     private String name;
     private String country;

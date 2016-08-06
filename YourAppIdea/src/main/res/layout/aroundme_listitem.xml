@@ -20,7 +20,8 @@
         card_view:cardElevation="3dp">
 
         <RelativeLayout
-            android:orientation="vertical" android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
@@ -74,8 +75,6 @@
                 android:layout_alignParentRight="true"
                 tools:text="distance">
             </TextView>
-
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-
 </LinearLayout>

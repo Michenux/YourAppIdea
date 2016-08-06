@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/aroundme_menu_info"
-        android:titleCondensed="@string/menu_info"
-        android:title="@string/menu_info"
         android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/menu_info"
+        android:titleCondensed="@string/menu_info"
         yourapp:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/aroundme_menu_myposition"
-        android:titleCondensed="@string/aroundme_menu_mylocation_condensed"
-        android:title="@string/aroundme_menu_mylocation"
         android:icon="@android:drawable/ic_menu_mylocation"
+        android:title="@string/aroundme_menu_mylocation"
+        android:titleCondensed="@string/aroundme_menu_mylocation_condensed"
         yourapp:showAsAction="never"/>
 
     <item
         android:id="@+id/aroundme_menu_selectlocation"
-        android:titleCondensed="@string/aroundme_menu_selectcity_condensed"
         android:title="@string/aroundme_menu_selectcity"
+        android:titleCondensed="@string/aroundme_menu_selectcity_condensed"
         yourapp:showAsAction="never"/>
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single">
         <item
             android:id="@+id/aroundme_menu_localprovider"
-            android:titleCondensed="@string/aroundme_menu_localdatabase_condensed"
             android:title="@string/aroundme_menu_localdatabase"
+            android:titleCondensed="@string/aroundme_menu_localdatabase_condensed"
             yourapp:showAsAction="never"/>
         <item
             android:id="@+id/aroundme_menu_remoteprovider"
-            android:titleCondensed="@string/aroundme_menu_remotedatabase_condensed"
             android:title="@string/aroundme_menu_remotedatabase"
+            android:titleCondensed="@string/aroundme_menu_remotedatabase_condensed"
             yourapp:showAsAction="never"/>
     </group>
 </menu>

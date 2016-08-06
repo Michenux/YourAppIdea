@@ -17,7 +17,6 @@ import rx.observers.TestSubscriber;
 import static org.mockito.Mockito.when;
 
 public class MongolabPlaceServiceTest {
-
     @Mock
     private Context mContext;
 

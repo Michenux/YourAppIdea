@@ -11,9 +11,7 @@ import org.michenux.drodrolib.db.CursorRecyclerViewAdapter;
 import org.michenux.drodrolib.db.utils.CursorUtils;
 import org.michenux.yourappidea.R;
 
-
 public class CityRecyclerAdapter extends CursorRecyclerViewAdapter<CityRecyclerAdapter.CityViewHolder> {
-
     public CityRecyclerAdapter(Cursor cursor) {
         super(cursor);
     }
@@ -34,8 +32,7 @@ public class CityRecyclerAdapter extends CursorRecyclerViewAdapter<CityRecyclerA
     }
 
     public static class CityViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView mNameView ;
+        private TextView mNameView;
         private TextView mCountryView;
 
         public CityViewHolder(View itemView) {

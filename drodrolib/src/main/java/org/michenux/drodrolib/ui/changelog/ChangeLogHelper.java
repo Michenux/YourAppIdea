@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ChangeLogHelper {
-
     private static final String PREFERENCE_CHANGELOG_LASTSHOWN_VERSION = "changelog.lastshown.version";
 
     private static String cssStyle = "h1 { margin-left: 0px; font-size: 12pt; }"
@@ -29,24 +28,24 @@ public class ChangeLogHelper {
             + ".summary { font-size: 9pt; color: #606060; display: block; clear: left; }"
             + ".date { font-size: 9pt; color: #606060;  display: block; }";
 
-    public void showWhatsNew( int resTitle, int resCloseLabel, int resChangeLog, FragmentActivity fragmentActivity ) {
+    public void showWhatsNew(int resTitle, int resCloseLabel, int resChangeLog, FragmentActivity fragmentActivity) {
         int lastShownVersion = this.loadLastShownVersion(fragmentActivity);
         int appVersion = VersionUtils.getVersionCode(fragmentActivity);
-        if ( lastShownVersion < appVersion ) {
-            if ( lastShownVersion != 0 ) {
+        if (lastShownVersion < appVersion) {
+            if (lastShownVersion != 0) {
                 this.showChangeLogFromVersion(resTitle, resCloseLabel, resChangeLog, lastShownVersion, fragmentActivity);
             }
             this.saveLastShownVersion(appVersion, fragmentActivity);
         }
     }
 
-    public void showFullChangeLog( int resTitle, int resCloseLabel, int resChangeLog, FragmentActivity fragmentActivity ) {
+    public void showFullChangeLog(int resTitle, int resCloseLabel, int resChangeLog, FragmentActivity fragmentActivity) {
         this.showChangeLogFromVersion(resTitle, resCloseLabel, resChangeLog, 0, fragmentActivity);
     }
 
-    public void showChangeLogFromVersion( int resTitle, int resCloseLabel, int resChangeLog, int fromVersion, FragmentActivity fragmentActivity ) {
+    public void showChangeLogFromVersion(int resTitle, int resCloseLabel, int resChangeLog, int fromVersion, FragmentActivity fragmentActivity) {
         String changeLog = getHTMLChangelog(resChangeLog, fragmentActivity.getResources(), fromVersion, fragmentActivity);
-        if ( !TextUtils.isEmpty(changeLog)) {
+        if (!TextUtils.isEmpty(changeLog)) {
             FragmentManager fm = fragmentActivity.getSupportFragmentManager();
             ChangeLogDialogFragment dialogFragment = ChangeLogDialogFragment.newInstance(resTitle, resCloseLabel, changeLog);
             dialogFragment.show(fm, null);
@@ -65,7 +64,7 @@ public class ChangeLogHelper {
                     //Check if the version matches the release tag.
                     //When version is 0 every release tag is parsed.
                     int versionCode = Integer.parseInt(xmlParser.getAttributeValue(null, "versioncode"));
-                    if (versionCode > fromVersion ) {
+                    if (versionCode > fromVersion) {
                         parseReleaseTag(changeLogBuilder, xmlParser, context);
                         releaseFound = true; //At lease one release tag has been parsed.
                     }
@@ -80,15 +79,15 @@ public class ChangeLogHelper {
         changeLogBuilder.append("</body></html>");
 
         String changeLog = null;
-        if ( releaseFound) {
+        if (releaseFound) {
             changeLog = changeLogBuilder.toString();
         } else {
             changeLog = "";
         }
-        return changeLog ;
+        return changeLog;
     }
 
-    private void parseReleaseTag( StringBuilder changelogBuilder, XmlPullParser resourceParser, Context context) throws XmlPullParserException, IOException {
+    private void parseReleaseTag(StringBuilder changelogBuilder, XmlPullParser resourceParser, Context context) throws XmlPullParserException, IOException {
         changelogBuilder.append("<h1>Release: ").append(resourceParser.getAttributeValue(null, "version")).append("</h1>");
 
         //Add date if available
@@ -135,18 +134,17 @@ public class ChangeLogHelper {
         this.cssStyle = cssStyle;
     }
 
-
-    private int loadLastShownVersion(Context context){
+    private int loadLastShownVersion(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(PREFERENCE_CHANGELOG_LASTSHOWN_VERSION, 0);
     }
 
-    public void saveCurrentVersion( Context context ) {
+    public void saveCurrentVersion(Context context) {
         int appVersion = VersionUtils.getVersionCode(context);
         saveLastShownVersion(appVersion, context);
     }
 
-    private void saveLastShownVersion( int version, Context context ) {
+    private void saveLastShownVersion(int version, Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putInt(PREFERENCE_CHANGELOG_LASTSHOWN_VERSION, version).commit();
     }

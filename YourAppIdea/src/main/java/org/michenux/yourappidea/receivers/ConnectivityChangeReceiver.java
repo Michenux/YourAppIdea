@@ -11,7 +11,6 @@ import org.michenux.yourappidea.BuildConfig;
 import org.michenux.yourappidea.YourApplication;
 
 public class ConnectivityChangeReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
         if (BuildConfig.DEBUG) {
@@ -20,9 +19,9 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
             Log.d(YourApplication.LOG_TAG, "  isWifiConnected: " + ConnectivityUtils.isConnectedWifi(context));
         }
 
-        if ( ConnectivityUtils.isConnected(context)) {
+        if (ConnectivityUtils.isConnected(context)) {
             // When connected, stop listening for changes of connectivity because consumes resource
-            // When refreshing, test if connected, if not, enable the connectivty change listener
+            // When refreshing, test if connected, if not, enable the connectivity change listener
             ReceiverUtils.disableReceiver(this.getClass(), context);
         }
     }

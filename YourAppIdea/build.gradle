@@ -1,24 +1,18 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-    }
+plugins {
+    id "me.tatarka.retrolambda" version "3.2.5"
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         applicationId "org.michenux.yourappidea"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 310
         versionName "3.1.0"
 
@@ -43,8 +37,6 @@ android {
 
     buildTypes {
         debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".debug"
         }
 
@@ -63,10 +55,6 @@ android {
 
     dexOptions {
         javaMaxHeapSize "4g"
-    }
-
-    lintOptions {
-        abortOnError false
     }
 }
 
@@ -96,30 +84,4 @@ dependencies {
     testCompile testDependencies.hamcrest
 }
 
-def appModuleRootFolder = '.'
-def srcDir = 'src'
-def googleServicesJson = 'google-services.json'
-
-task switchToDebug(type: Copy) {
-    def buildType = 'debug'
-    description = 'Switches to DEBUG google-services.json'
-    from "${srcDir}/${buildType}"
-    include "$googleServicesJson"
-    into "$appModuleRootFolder"
-}
-
-task switchToRelease(type: Copy) {
-    def buildType = 'release'
-    description = 'Switches to RELEASE google-services.json'
-    from "${srcDir}/${buildType}/"
-    include "$googleServicesJson"
-    into "$appModuleRootFolder"
-}
-
-afterEvaluate {
-    processDebugGoogleServices.dependsOn switchToDebug
-    processReleaseGoogleServices.dependsOn switchToRelease
-}
-
-// At bottom, so that no dependency collisions are introduced
 apply plugin: 'com.google.gms.google-services'

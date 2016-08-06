@@ -11,11 +11,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
-
     private Drawable mDivider;
     private boolean mShowFirstDivider = false;
     private boolean mShowLastDivider = false;
-
 
     public DividerItemDecoration(Context context, AttributeSet attrs) {
         final TypedArray a = context

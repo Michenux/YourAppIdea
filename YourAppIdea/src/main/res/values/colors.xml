@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="purple_light_more">@color/accent</color> <!--#55466d-->
     <color name="purple_light">@color/primary_light</color> <!-- #4a3e60 -->
     <color name="purple_middle">@color/primary</color> <!-- #3c314d -->

@@ -22,7 +22,6 @@ import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 
 public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
-
     private Cursor mCursor;
 
     private boolean mDataValid;

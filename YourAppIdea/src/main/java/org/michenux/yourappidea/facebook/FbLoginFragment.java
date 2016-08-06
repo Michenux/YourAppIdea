@@ -17,11 +17,10 @@ import org.michenux.yourappidea.YourApplication;
 import javax.inject.Inject;
 
 public class FbLoginFragment extends Fragment implements UserSessionCallback {
-
     @Inject
     UserHelper mUserHelper;
 
-    private FacebookDelegate mFacebookDelegate ;
+    private FacebookDelegate mFacebookDelegate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class FbLoginFragment extends Fragment implements UserSessionCallback {
         loginButton.setFragment(this);
 
         // Hide facebook login button if facebook app not installed
-        if ( !mFacebookDelegate.isFacebookInstalled()) {
+        if (!mFacebookDelegate.isFacebookInstalled()) {
             loginButton.setVisibility(View.GONE);
         }
         return view;
@@ -60,13 +59,12 @@ public class FbLoginFragment extends Fragment implements UserSessionCallback {
 
     @Override
     public void onLogin() {
-        if ( this.getActivity() != null ) {
+        if (this.getActivity() != null) {
             this.getActivity().finish();
         }
     }
 
     @Override
     public void onLogout() {
-
     }
 }

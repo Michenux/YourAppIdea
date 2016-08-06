@@ -13,7 +13,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SecurityUtils {
-
     public static String logHashKey(Context context) {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(

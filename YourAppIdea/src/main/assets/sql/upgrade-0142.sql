@@ -11,4 +11,3 @@ create table T_TUTORIAL (
 	AUTHOR TEXT not null,
 	DATECREATION INTEGER  not null,
 	DATEMODIFICATION INTEGER  not null);
-

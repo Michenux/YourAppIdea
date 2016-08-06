@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/donation_content"
     android:layout_width="match_parent"
@@ -24,5 +24,4 @@
         android:scrollbars="vertical"
         android:layout_below="@id/aroundme_cityname"
         tools:listitem="@layout/aroundme_listitem"/>
-
 </RelativeLayout>

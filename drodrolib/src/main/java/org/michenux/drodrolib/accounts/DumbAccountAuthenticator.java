@@ -8,7 +8,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 public class DumbAccountAuthenticator extends AbstractAccountAuthenticator {
-
     public DumbAccountAuthenticator(Context context) {
         super(context);
     }
@@ -55,6 +54,7 @@ public class DumbAccountAuthenticator extends AbstractAccountAuthenticator {
     public String getAuthTokenLabel(String authTokenType) {
         throw new UnsupportedOperationException();
     }
+
     // Updating user credentials is not supported
     @Override
     public Bundle updateCredentials(
@@ -63,6 +63,7 @@ public class DumbAccountAuthenticator extends AbstractAccountAuthenticator {
             String authTokenType, Bundle options) throws NetworkErrorException {
         throw new UnsupportedOperationException();
     }
+
     // Checking features for the account is not supported
     @Override
     public Bundle hasFeatures(

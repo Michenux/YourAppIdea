@@ -43,7 +43,6 @@ import javax.inject.Inject;
 import rx.Observable;
 
 public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
-
     public static final String SYNC_FINISHED = "sync_finished";
     public static final String SYNC_STARTED = "sync_started";
 
@@ -68,7 +67,6 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
             String authority,
             ContentProviderClient provider,
             SyncResult syncResult) {
-
         ((YourApplication) getContext().getApplicationContext()).setSyncAdapterRunning(true);
         LocalBroadcastManager.getInstance(this.getContext()).sendBroadcast(new Intent(SYNC_STARTED));
 
@@ -77,22 +75,20 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
             WPJsonPost newPost = retrievePosts(AppUsageUtils.getLastSync(this.getContext()), provider);
 
             if (BuildConfig.DEBUG) {
-                Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter.onPerformSync() - manual:" + manualSync );
+                Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter.onPerformSync() - manual:" + manualSync);
             }
-            if ( newPost != null ) {
-
+            if (newPost != null) {
                 // notification only if not manual sync
-                if ( !manualSync ) {
+                if (!manualSync) {
                     sendNotification(newPost);
                 }
-            }
-            else {
+            } else {
                 if (BuildConfig.DEBUG) {
                     Log.d(YourApplication.LOG_TAG, "  no new post");
                 }
             }
 
-            if ( !manualSync) {
+            if (!manualSync) {
                 mSyncHelper.adjustSyncInterval(TutorialSyncAdapter.this.getContext());
             }
             AppUsageUtils.updateLastSync(TutorialSyncAdapter.this.getContext());
@@ -104,7 +100,7 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
             Log.e(YourApplication.LOG_TAG, "tutorialSyncAdapter.onPerformSync()", e);
             syncResult.stats.numIoExceptions++;
         } finally {
-            LocalBroadcastManager.getInstance(this.getContext()).sendBroadcast( new Intent(SYNC_FINISHED));
+            LocalBroadcastManager.getInstance(this.getContext()).sendBroadcast(new Intent(SYNC_FINISHED));
             ((YourApplication) getContext().getApplicationContext()).setSyncAdapterRunning(false);
         }
     }
@@ -133,8 +129,8 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
         notificationManager.notify(0, noti);
     }
 
-    private WPJsonPost retrievePosts( long lastSync, ContentProviderClient provider ) throws InterruptedException, ExecutionException, ParseException, RemoteException, OperationApplicationException {
-        if ( BuildConfig.DEBUG) {
+    private WPJsonPost retrievePosts(long lastSync, ContentProviderClient provider) throws InterruptedException, ExecutionException, ParseException, RemoteException, OperationApplicationException {
+        if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "tutorialSyncAdapter.retrievePosts()");
         }
 
@@ -150,7 +146,6 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
         if (response.getStatus().equals(WPJsonResponse.STATUS_OK) &&
                 response.getPosts() != null &&
                 !response.getPosts().isEmpty()) {
-
             final WPJsonPost lastPost = response.getPosts().get(0);
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
@@ -172,7 +167,7 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
 
             //if (ConnectivityUtils.isConnectedWifi(TutorialSyncAdapter.this.getContext()) &&
             //        BatteryUtils.isChargingOrFull(TutorialSyncAdapter.this.getContext())) {
-                //load image
+            //load image
             //}
 
         } else if (BuildConfig.DEBUG) {
@@ -182,15 +177,15 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
         return newPost;
     }
 
-    private void updateDatabase( List<WPJsonPost> posts, ContentProviderClient provider ) throws RemoteException, OperationApplicationException, ParseException {
+    private void updateDatabase(List<WPJsonPost> posts, ContentProviderClient provider) throws RemoteException, OperationApplicationException, ParseException {
         ArrayList<ContentProviderOperation> ops = new ArrayList<>();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
         sdf.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
 
-        for( WPJsonPost post : posts ) {
+        for (WPJsonPost post : posts) {
             String thumbnail = "";
-            if ( post.getThumbnailImages() != null && post.getThumbnailImages().getFoundationFeaturedImage() != null) {
+            if (post.getThumbnailImages() != null && post.getThumbnailImages().getFoundationFeaturedImage() != null) {
                 thumbnail = post.getThumbnailImages().getFoundationFeaturedImage().getUrl();
             }
 
@@ -199,17 +194,16 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
 
             Cursor cursor = getContext().getContentResolver().query(
                     TutorialContentProvider.CONTENT_URI,   // The content URI of the words table
-                    new String[] { TutorialContentProvider.DATEMODIFICATION_COLUMN },                        // The columns to return for each row
+                    new String[]{TutorialContentProvider.DATEMODIFICATION_COLUMN},                        // The columns to return for each row
                     TutorialContentProvider.POSTID_COLUMN + "= ?",                     // Selection criteria
-                    new String[]{ Integer.toString(post.getId())},                     // Selection criteria
+                    new String[]{Integer.toString(post.getId())},                     // Selection criteria
                     null);
 
             boolean insertOrModified = false;
-            if ( cursor != null ) {
+            if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     long modificationDate = CursorUtils.getLong(TutorialContentProvider.DATEMODIFICATION_COLUMN, cursor);
                     if (modificationDate != (postModifDate.getTime() / 1000)) {
-
                         if (BuildConfig.DEBUG) {
                             Log.d(YourApplication.LOG_TAG, "updated post: " + post.getId());
                         }
@@ -232,48 +226,46 @@ public class TutorialSyncAdapter extends AbstractThreadedSyncAdapter {
                 cursor.close();
             }
 
-            if ( insertOrModified ) {
-
+            if (insertOrModified) {
                 // insert if new or modified
                 ops.add(
-                    ContentProviderOperation.newInsert(TutorialContentProvider.CONTENT_URI)
-                        .withValue(TutorialContentProvider.POSTID_COLUMN, post.getId())
-                            .withValue(TutorialContentProvider.TITLE_COLUMN, post.getTitle())
-                            .withValue(TutorialContentProvider.DESCRIPTION_COLUMN, post.getExcerpt())
-                            .withValue(TutorialContentProvider.THUMBNAIL_COLMUN, thumbnail)
-                            .withValue(TutorialContentProvider.URL_COLUMN, post.getUrl())
-                            .withValue(TutorialContentProvider.CONTENT_COLUMN, post.getContent())
-                            .withValue(TutorialContentProvider.AUTHOR_COLUMN, post.getAuthor().getName())
-                            .withValue(TutorialContentProvider.DATECREATION_COLUMN, postCreationDate.getTime() / 1000)
-                            .withValue(TutorialContentProvider.DATEMODIFICATION_COLUMN, postModifDate.getTime() / 1000)
-                            .withYieldAllowed(false)
-                            .build());
+                        ContentProviderOperation.newInsert(TutorialContentProvider.CONTENT_URI)
+                                .withValue(TutorialContentProvider.POSTID_COLUMN, post.getId())
+                                .withValue(TutorialContentProvider.TITLE_COLUMN, post.getTitle())
+                                .withValue(TutorialContentProvider.DESCRIPTION_COLUMN, post.getExcerpt())
+                                .withValue(TutorialContentProvider.THUMBNAIL_COLMUN, thumbnail)
+                                .withValue(TutorialContentProvider.URL_COLUMN, post.getUrl())
+                                .withValue(TutorialContentProvider.CONTENT_COLUMN, post.getContent())
+                                .withValue(TutorialContentProvider.AUTHOR_COLUMN, post.getAuthor().getName())
+                                .withValue(TutorialContentProvider.DATECREATION_COLUMN, postCreationDate.getTime() / 1000)
+                                .withValue(TutorialContentProvider.DATEMODIFICATION_COLUMN, postModifDate.getTime() / 1000)
+                                .withYieldAllowed(false)
+                                .build());
             }
         }
 
         // Keep last 50 posts
         String deleteSelection = TutorialContentProvider.ID_COLUMN + " not in ( select " +
                 TutorialContentProvider.ID_COLUMN + " from " + TutorialContentProvider.TABLE_NAME +
-                " order by "+ TutorialContentProvider.DATECREATION_COLUMN + " desc limit 50 )";
+                " order by " + TutorialContentProvider.DATECREATION_COLUMN + " desc limit 50 )";
         String[] deleteParams = new String[]{};
         int actuToDelete = ContentProviderUtils.count(TutorialContentProvider.CONTENT_URI, deleteSelection, deleteParams, this.getContext().getContentResolver());
-        if ( BuildConfig.DEBUG ) {
+        if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, actuToDelete + " old posts to delete");
         }
-        if ( actuToDelete > 0 ) {
+        if (actuToDelete > 0) {
             ops.add(ContentProviderOperation.newDelete(TutorialContentProvider.CONTENT_URI).withSelection(deleteSelection, deleteParams).build());
         }
 
-        if ( !ops.isEmpty()) {
-            if ( BuildConfig.DEBUG ) {
+        if (!ops.isEmpty()) {
+            if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "execute batch");
             }
             provider.applyBatch(ops);
-        }
-        else {
-            if ( BuildConfig.DEBUG ) {
+        } else {
+            if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "ignore batch, empty");
             }
         }
     }
- }
+}

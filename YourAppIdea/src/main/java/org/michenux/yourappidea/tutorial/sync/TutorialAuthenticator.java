@@ -8,7 +8,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 public class TutorialAuthenticator extends AbstractAccountAuthenticator {
-
     public TutorialAuthenticator(Context context) {
         super(context);
     }
@@ -55,6 +54,7 @@ public class TutorialAuthenticator extends AbstractAccountAuthenticator {
     public String getAuthTokenLabel(String authTokenType) {
         throw new UnsupportedOperationException();
     }
+
     // Updating user credentials is not supported
     @Override
     public Bundle updateCredentials(
@@ -63,6 +63,7 @@ public class TutorialAuthenticator extends AbstractAccountAuthenticator {
             String authTokenType, Bundle options) throws NetworkErrorException {
         throw new UnsupportedOperationException();
     }
+
     // Checking features for the account is not supported
     @Override
     public Bundle hasFeatures(

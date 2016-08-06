@@ -14,7 +14,6 @@ import javax.inject.Singleton;
 
 @Singleton
 public class SquashAndStretch {
-
     private final AccelerateInterpolator sAccelerator = new AccelerateInterpolator();
     private final DecelerateInterpolator sDecelerator = new DecelerateInterpolator();
 
@@ -23,7 +22,7 @@ public class SquashAndStretch {
     }
 
     public void animate(View view, View container, long baseDuration, long animatorScale) {
-        if (android.os.Build.VERSION.SDK_INT>=14) {
+        if (android.os.Build.VERSION.SDK_INT >= 14) {
             this.animateApi14(view, container, baseDuration, animatorScale);
         }
     }
