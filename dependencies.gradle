@@ -1,5 +1,5 @@
 ext {
-    supportLibrary = '24.1.1'
+    supportLibrary = '24.2.0'
 
     espressoVersion = "2.2.2"
     testRunnerVersion = "0.5"
@@ -36,7 +36,7 @@ ext {
     ]
 
     playServicesDependencies = [
-            ads     : "com.google.android.gms:play-services-ads:${playServicesVersion}",
+            ads     : "com.google.firebase:firebase-ads:${playServicesVersion}",
             location: "com.google.android.gms:play-services-location:${playServicesVersion}",
             maps    : "com.google.android.gms:play-services-maps:${playServicesVersion}",
             auth    : "com.google.android.gms:play-services-auth:${playServicesVersion}"
