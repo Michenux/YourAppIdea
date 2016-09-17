@@ -1,5 +1,5 @@
 ext {
-    supportLibrary = '24.2.0'
+    supportLibrary = '24.2.1'
 
     espressoVersion = "2.2.2"
     testRunnerVersion = "0.5"
