@@ -52,10 +52,6 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
 }
 
 dependencies {
