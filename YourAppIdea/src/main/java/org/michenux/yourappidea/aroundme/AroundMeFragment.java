@@ -1,6 +1,7 @@
 package org.michenux.yourappidea.aroundme;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Address;
@@ -222,6 +223,7 @@ public class AroundMeFragment extends Fragment implements
         registerLocationUpdates();
     }
 
+    @SuppressLint("MissingPermission") // Permissions enforced through RxPermissions
     private void registerLocationUpdates() {
         PendingResult<Status> result = LocationServices.FusedLocationApi
                 .requestLocationUpdates(
