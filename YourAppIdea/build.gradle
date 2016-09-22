@@ -1,5 +1,5 @@
 plugins {
-    id "me.tatarka.retrolambda" version "3.2.5"
+    id "me.tatarka.retrolambda" version "3.3.0"
 }
 
 apply plugin: 'com.android.application'
