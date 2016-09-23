@@ -2,5 +2,7 @@
 <lint>
     <issue id="InvalidPackage">
         <ignore regexp=".*javapoet.*"/>
+        <ignore regexp=".*okio.*"/>
+        <ignore regexp=".*retrofit.*"/>
     </issue>
 </lint>

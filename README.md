@@ -10,7 +10,7 @@ Project template for Android and demo app for tutorials on [michenux.net](http:/
 ## Requirements
 
 * Android SDK 24 (with extras/Google Repository)
-* Android Studio 2.1.3 (or later)
+* Android Studio 2.2 (or later)
 
 ## What you can find inside
 
