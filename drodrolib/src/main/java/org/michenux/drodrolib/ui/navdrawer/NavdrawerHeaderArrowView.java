@@ -5,9 +5,8 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 public class NavdrawerHeaderArrowView extends ImageView {
-
     private boolean mExpanded = false;
-    private static final int[] EXPANDED_STATE = new int[] { android.R.attr.state_expanded };
+    private static final int[] EXPANDED_STATE = new int[]{android.R.attr.state_expanded};
 
     public NavdrawerHeaderArrowView(Context context) {
         super(context);
@@ -37,7 +36,7 @@ public class NavdrawerHeaderArrowView extends ImageView {
     }
 
     public void setExpanded(boolean expanded) {
-        if ( mExpanded != expanded) {
+        if (mExpanded != expanded) {
             switchExpandedState();
         }
     }

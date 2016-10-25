@@ -24,4 +24,3 @@ insert into T_CITY(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Paris'
 insert into T_CITY(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Lagos','Nigeria', 3.3958333, 6.4530556);
 insert into T_CITY(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Bogota','Colombia', -74.0833333, 4.6 );
 insert into T_CITY(_id, NAME, COUNTRY, LONGITUDE, LATITUDE) values (null,'Berlin','Germany', 13.4, 52.5166667);
-

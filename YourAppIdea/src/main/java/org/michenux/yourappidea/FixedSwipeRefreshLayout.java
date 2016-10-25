@@ -18,8 +18,7 @@ public class FixedSwipeRefreshLayout extends SwipeRefreshLayout {
     }
 
     @Override
-    protected Parcelable onSaveInstanceState()
-    {
+    protected Parcelable onSaveInstanceState() {
         clearAnimation();
         return super.onSaveInstanceState();
     }

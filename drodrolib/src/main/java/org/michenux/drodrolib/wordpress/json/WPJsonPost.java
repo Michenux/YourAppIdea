@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class WPJsonPost {
-    private int id ;
+    private int id;
     private String post;
     private String slug;
     private String url;

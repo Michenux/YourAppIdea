@@ -5,8 +5,8 @@
     <string name="cities_contentprovider_authority">org.michenux.yourappidea.cities</string>
 
     <string name="aroundme_nolocation">Waiting for location updates...</string>
-    <string name="aroundme_placedistance">%1$s km</string>
-    <string name="aroundme_placeremoteprovider_url" >https://api.mongolab.com/</string>
+    <string name="aroundme_placedistance">%1$d km</string>
+    <string name="aroundme_placeremoteprovider_url">https://api.mongolab.com/</string>
     <string name="cityactivity_title">Select city...</string>
     <string name="aroundme_info_title">Info</string>
     <string name="aroundme_apiKey">50a2444ae4b0cd0bfc124248</string>

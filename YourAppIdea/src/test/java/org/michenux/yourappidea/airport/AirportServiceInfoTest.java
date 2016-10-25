@@ -4,19 +4,20 @@ import android.content.Context;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.michenux.yourappidea.R;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.when;
 
 import java.util.List;
 
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
-public class AirportServiceInfoTest {
+import static org.mockito.Mockito.when;
 
+public class AirportServiceInfoTest {
     @Mock
     private Context mContext;
 
@@ -26,9 +27,9 @@ public class AirportServiceInfoTest {
         when(mContext.getString(R.string.airport_rest_url)).thenReturn("http://www.flightradar24.com/");
     }
 
+    @Ignore //TODO: /AirportInfoService.php on flightradar24 returns 404 now
     @Test
     public void testArrivalFlight() throws Exception {
-
         AirportInfoService airportInfoService = AirportInfoServiceFactory.create(mContext);
         Observable<AirportRestResponse> observable =
                 airportInfoService.getFlights("ORY", "in");

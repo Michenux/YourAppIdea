@@ -1,7 +1,6 @@
 package org.michenux.yourappidea.friends;
 
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import org.michenux.drodrolib.resources.ResourceUtils;
 import org.michenux.yourappidea.R;
 
 public class FriendRecyclerAdapter extends CursorRecyclerViewAdapter<FriendRecyclerAdapter.FriendViewHolder> {
-
     public FriendRecyclerAdapter(Cursor cursor) {
         super(cursor);
     }
@@ -35,7 +33,6 @@ public class FriendRecyclerAdapter extends CursorRecyclerViewAdapter<FriendRecyc
     }
 
     public static class FriendViewHolder extends RecyclerView.ViewHolder {
-
         public TextView nameView;
         public ImageView imageView;
 

@@ -17,18 +17,17 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class PlaceRemoteProvider implements PlaceProvider {
-
     private Location mCurrentLocation;
 
     private PlaceLoaderCallback mCallback;
 
     private boolean mRequestRunning = false;
 
-    private Fragment mFragment ;
+    private Fragment mFragment;
 
     private MongolabPlaceService mPlaceService;
 
-    public PlaceRemoteProvider( Fragment fragment, PlaceLoaderCallback callback ) {
+    public PlaceRemoteProvider(Fragment fragment, PlaceLoaderCallback callback) {
         this.mCallback = callback;
         this.mFragment = fragment;
         mPlaceService = MongolabPlaceServiceFactory.create(fragment.getContext());
@@ -36,13 +35,13 @@ public class PlaceRemoteProvider implements PlaceProvider {
 
     @Override
     public void onLocationChanged(Location location) {
-        mCurrentLocation = location ;
+        mCurrentLocation = location;
         this.startRequest();
     }
 
     private void startRequest() {
-        if ( !mRequestRunning ) {
-            this.mRequestRunning = true ;
+        if (!mRequestRunning) {
+            this.mRequestRunning = true;
 
             String query = "{\\\'location\\\':{$near:{$geometry:{\\\'type\':\\\'Point\\\',\\\'coordinates\':["
                     + this.mCurrentLocation.getLongitude() + "," + this.mCurrentLocation.getLatitude()
@@ -52,37 +51,37 @@ public class PlaceRemoteProvider implements PlaceProvider {
                     mPlaceService.getPlaces(query, mFragment.getString(R.string.aroundme_apiKey));
 
             observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<Place>>() {
-                    @Override
-                    public void onCompleted() {
-                        PlaceRemoteProvider.this.mRequestRunning = false;
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(YourApplication.LOG_TAG, "PlaceRemoteProvider.onErrorResponse", e.getCause());
-                        PlaceRemoteProvider.this.mRequestRunning = false ;
-
-                        SnackbarHelper.showInfoLongMessage(PlaceRemoteProvider.this.mFragment.getView(), R.string.error_retrievingdata);
-                    }
-
-                    @Override
-                    public void onNext(List<Place> places) {
-                        if (BuildConfig.DEBUG) {
-                            Log.i(YourApplication.LOG_TAG, "PlaceRemoteProvider.onResponse");
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribe(new Subscriber<List<Place>>() {
+                        @Override
+                        public void onCompleted() {
+                            PlaceRemoteProvider.this.mRequestRunning = false;
                         }
 
-                        for (Place place : places) {
-                            place.setDistance(PlaceRemoteProvider.this.mCurrentLocation.distanceTo(place.getLocation()));
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e(YourApplication.LOG_TAG, "PlaceRemoteProvider.onErrorResponse", e.getCause());
+                            PlaceRemoteProvider.this.mRequestRunning = false;
+
+                            SnackbarHelper.showInfoLongMessage(PlaceRemoteProvider.this.mFragment.getView(), R.string.error_retrievingdata);
                         }
 
-                        if (PlaceRemoteProvider.this.mCallback != null) {
-                            PlaceRemoteProvider.this.mCallback.onPlaceLoadFinished(places);
+                        @Override
+                        public void onNext(List<Place> places) {
+                            if (BuildConfig.DEBUG) {
+                                Log.i(YourApplication.LOG_TAG, "PlaceRemoteProvider.onResponse");
+                            }
+
+                            for (Place place : places) {
+                                place.setDistance(PlaceRemoteProvider.this.mCurrentLocation.distanceTo(place.getLocation()));
+                            }
+
+                            if (PlaceRemoteProvider.this.mCallback != null) {
+                                PlaceRemoteProvider.this.mCallback.onPlaceLoadFinished(places);
+                            }
                         }
-                    }
-                });
+                    });
 
         } else if (BuildConfig.DEBUG) {
             Log.i(YourApplication.LOG_TAG, "  request is already running");
@@ -90,7 +89,6 @@ public class PlaceRemoteProvider implements PlaceProvider {
     }
 
     private void cancelRequests() {
-
     }
 
     @Override

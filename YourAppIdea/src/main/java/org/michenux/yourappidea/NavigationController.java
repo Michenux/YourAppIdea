@@ -23,19 +23,18 @@ import javax.inject.Singleton;
 
 @Singleton
 public class NavigationController {
-
     public static final String HOME_FRAGMENT_TAG = "home";
 
-	@Inject public NavigationController() {
-		
-	}
-	
-	public void startAppRating(Context context) {
-		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri
-				.parse("market://details?id=" + context.getPackageName())));
-	}
+    @Inject
+    public NavigationController() {
+    }
 
-    public void goHomeFragment( YourAppMainActivity activity) {
+    public void startAppRating(Context context) {
+        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri
+                .parse("market://details?id=" + context.getPackageName())));
+    }
+
+    public void goHomeFragment(YourAppMainActivity activity) {
         NavigationDrawerFragment fragment = activity.findNavDrawerFragment();
         fragment.setTitleWithDrawerTitle();
         fragment.resetSelection();
@@ -57,20 +56,20 @@ public class NavigationController {
                 R.string.eula_refuse, R.string.changelog_whatsnew_title, R.string.changelog_close, R.xml.changelog);
     }
 
-	public void confirmEula(FragmentActivity activity) {
+    public void confirmEula(FragmentActivity activity) {
         EulaHelper.showAcceptRefuse(activity, R.string.eula_title, R.string.eula_accept, R.string.eula_refuse);
-	}
+    }
 
-	public void showEula(FragmentActivity activity) {
+    public void showEula(FragmentActivity activity) {
         EulaHelper.show(activity, R.string.eula_title);
-	}
+    }
 
-    public void showWhatsNew( FragmentActivity activity ) {
+    public void showWhatsNew(FragmentActivity activity) {
         ChangeLogHelper changeLogHelper = new ChangeLogHelper();
         changeLogHelper.showWhatsNew(R.string.changelog_title, R.string.changelog_close, R.xml.changelog, activity);
     }
 
-    public void showChangeLog( FragmentActivity activity ) {
+    public void showChangeLog(FragmentActivity activity) {
         ChangeLogHelper changeLogHelper = new ChangeLogHelper();
         changeLogHelper.showFullChangeLog(R.string.changelog_title, R.string.changelog_close, R.xml.changelog, activity);
     }
@@ -84,6 +83,6 @@ public class NavigationController {
         Intent oIntent = new Intent(activity, LoginActivity.class);
         activity.startActivity(oIntent);
         // no animation
-        activity.overridePendingTransition(0,0);
+        activity.overridePendingTransition(0, 0);
     }
 }

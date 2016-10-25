@@ -25,7 +25,6 @@ import org.michenux.yourappidea.tutorial.TutorialListFragment;
 import javax.inject.Inject;
 
 public class YourAppNavigationFragment extends NavigationDrawerFragment {
-
     @Inject
     NavigationController navController;
 
@@ -40,7 +39,7 @@ public class YourAppNavigationFragment extends NavigationDrawerFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if ( savedInstanceState != null ) {
+        if (savedInstanceState != null) {
             mPrimaryMenuDisplayed = savedInstanceState.getBoolean("primaryMenuDisplayed");
         }
     }
@@ -68,27 +67,25 @@ public class YourAppNavigationFragment extends NavigationDrawerFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if ( !this.mPrimaryMenuDisplayed) {
-            mHeaderArrowOpened = true ;
+        if (!this.mPrimaryMenuDisplayed) {
+            mHeaderArrowOpened = true;
         }
 
-        if ( this.mPrimaryMenuDisplayed ) {
+        if (this.mPrimaryMenuDisplayed) {
             createMenu(R.menu.navigation_drawer_menu);
-        }
-        else {
+        } else {
             createMenu(R.menu.navigation_drawer_secondarymenu);
 
         }
     }
 
-    protected void createMenu( @MenuRes int menu ) {
+    protected void createMenu(@MenuRes int menu) {
         this.getNavigationView().getMenu().clear();
         this.getNavigationView().inflateMenu(menu);
         setupHeaderView();
     }
 
     public void setupHeaderView() {
-
         View headerView = this.getNavigationView().getHeaderView(0);
         ViewGroup connectedViewGroup = (ViewGroup) headerView.findViewById(R.id.nadrawer_loginheader_connected_viewgroup);
         TextView nameView = (TextView) headerView.findViewById(R.id.nadrawer_loginheader_name);
@@ -97,17 +94,16 @@ public class YourAppNavigationFragment extends NavigationDrawerFragment {
         ViewGroup disconnectedViewGroup = (ViewGroup) headerView.findViewById(R.id.nadrawer_loginheader_disconnected_viewgroup);
         TextView loginView = (TextView) headerView.findViewById(R.id.nadrawer_loginheader_login);
 
-        if ( mUserHelper.getCurrentUser() == null ) {
+        if (mUserHelper.getCurrentUser() == null) {
             loginView.setOnClickListener(v -> {
-                if ( mUserHelper.getCurrentUser() == null ) {
+                if (mUserHelper.getCurrentUser() == null) {
                     navController.showLogin(YourAppNavigationFragment.this.getActivity());
                 }
             });
             connectedViewGroup.setVisibility(View.GONE);
             disconnectedViewGroup.setVisibility(View.VISIBLE);
             arrowView.setOnClickListener(null);
-        }
-        else {
+        } else {
             nameView.setText(mUserHelper.getCurrentUser().getDisplayName());
             mailView.setText(mUserHelper.getCurrentUser().getMail());
             loginView.setOnClickListener(null);
@@ -142,7 +138,7 @@ public class YourAppNavigationFragment extends NavigationDrawerFragment {
     }
 
     @Override
-    protected void onNavItemSelected(int menuItemId ) {
+    protected void onNavItemSelected(int menuItemId) {
         switch (menuItemId) {
             case R.id.navdrawer_friends:
                 FriendMainFragment fg = new FriendMainFragment();
@@ -188,13 +184,13 @@ public class YourAppNavigationFragment extends NavigationDrawerFragment {
                 this.navController.showEula(this.getActivity());
                 break;
             case R.id.navdrawer_logout:
-                if ( mUserHelper.getCurrentUser() != null ) {
+                if (mUserHelper.getCurrentUser() != null) {
                     switch (mUserHelper.getCurrentUser().getProvider()) {
                         case FacebookDelegate.PROVIDER_NAME:
-                            ((YourAppMainActivity)this.getActivity()).getFacebookDelegate().logout();
+                            ((YourAppMainActivity) this.getActivity()).getFacebookDelegate().logout();
                             break;
                         case GoogleAuthDelegate.PROVIDER_NAME:
-                            ((YourAppMainActivity)this.getActivity()).getGoogleAuthDelegate().signOut();
+                            ((YourAppMainActivity) this.getActivity()).getGoogleAuthDelegate().signOut();
                             break;
                     }
                 }

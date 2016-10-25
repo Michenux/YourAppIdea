@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class EulaHelper {
-
     private static final String ASSET_EULA = "EULA";
     private static final String PREFERENCES_EULA = "eula";
     private static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted";
@@ -48,7 +47,7 @@ public class EulaHelper {
         return shown;
     }
 
-    public static void show(FragmentActivity activity, int title ) {
+    public static void show(FragmentActivity activity, int title) {
         String eula = readEula(activity);
         new MaterialDialog.Builder(activity)
                 .title(title)
@@ -57,17 +56,16 @@ public class EulaHelper {
                 .show();
     }
 
-    public static boolean isAccepted( FragmentActivity activity ) {
+    public static boolean isAccepted(FragmentActivity activity) {
         SharedPreferences preferences = activity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE);
         return preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false);
     }
 
-    public static void saveAccept( FragmentActivity activity ) {
+    public static void saveAccept(FragmentActivity activity) {
         activity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE).edit().putBoolean(PREFERENCE_EULA_ACCEPTED, true).commit();
     }
 
     private static String readEula(FragmentActivity activity) {
-
         StringBuilder buffer = new StringBuilder();
         try {
             InputStreamReader is = new InputStreamReader(activity.getAssets().open(ASSET_EULA));

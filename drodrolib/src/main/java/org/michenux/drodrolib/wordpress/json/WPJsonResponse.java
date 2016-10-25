@@ -5,11 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class WPJsonResponse {
-
     public static final String STATUS_OK = "ok";
 
-    private String status ;
-    private int count ;
+    private String status;
+    private int count;
     @SerializedName("count_total")
     private int countTotal;
     private int pages;

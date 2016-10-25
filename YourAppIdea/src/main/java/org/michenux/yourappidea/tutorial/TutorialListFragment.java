@@ -42,9 +42,7 @@ public class TutorialListFragment extends Fragment
         implements
         LoaderManager.LoaderCallbacks<Cursor>,
         SwipeRefreshLayout.OnRefreshListener,
-        ItemClickSupport.OnItemClickListener
-        {
-
+        ItemClickSupport.OnItemClickListener {
     /**
      * True if has already synchronized
      */
@@ -62,9 +60,7 @@ public class TutorialListFragment extends Fragment
     @Inject
     TutorialSyncHelper mTutorialSyncHelper;
 
-
     private BroadcastReceiver onFinishSyncReceiver = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             updateRefresh(false);
@@ -73,7 +69,6 @@ public class TutorialListFragment extends Fragment
     };
 
     private BroadcastReceiver onStartSyncReceiver = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             updateRefresh(true);
@@ -117,13 +112,12 @@ public class TutorialListFragment extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if ( ((YourApplication) getActivity().getApplication()).isSyncAdapterRunning()) {
+        if (((YourApplication) getActivity().getApplication()).isSyncAdapterRunning()) {
             if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "onViewCreated: synchronizing");
             }
             updateRefresh(true);
-        }
-        else {
+        } else {
             if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "onViewCreated: not synchronizing");
             }
@@ -138,7 +132,6 @@ public class TutorialListFragment extends Fragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.aroundme_menu_info:
                 new MaterialDialog.Builder(this.getActivity())
                         .title(R.string.tutorial_info_title)
@@ -157,10 +150,9 @@ public class TutorialListFragment extends Fragment
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(onFinishSyncReceiver, new IntentFilter(TutorialSyncAdapter.SYNC_FINISHED));
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(onStartSyncReceiver, new IntentFilter(TutorialSyncAdapter.SYNC_STARTED));
 
-        if ( !mHasSync ) {
+        if (!mHasSync) {
             mTutorialSyncHelper.performSync();
-        }
-        else {
+        } else {
             updateRefresh(mRefreshing);
         }
     }
@@ -191,8 +183,8 @@ public class TutorialListFragment extends Fragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle bundle) {
-        String[] projection = { TutorialContentProvider.ID_COLUMN,
-                TutorialContentProvider.TITLE_COLUMN, TutorialContentProvider.DESCRIPTION_COLUMN, TutorialContentProvider.URL_COLUMN, TutorialContentProvider.DATECREATION_COLUMN };
+        String[] projection = {TutorialContentProvider.ID_COLUMN,
+                TutorialContentProvider.TITLE_COLUMN, TutorialContentProvider.DESCRIPTION_COLUMN, TutorialContentProvider.URL_COLUMN, TutorialContentProvider.DATECREATION_COLUMN};
         return new CursorLoader(this.getActivity(),
                 TutorialContentProvider.CONTENT_URI, projection, null, null, null);
     }
@@ -214,17 +206,17 @@ public class TutorialListFragment extends Fragment
 
     /**
      * Update status of SwipeRefreshLayout
+     *
      * @param isSyncing true if synchronization is progress
      */
     private void updateRefresh(final boolean isSyncing) {
-        if ( !isSyncing) {
+        if (!isSyncing) {
             if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "show as not refreshing");
             }
             mSwipeRefreshLayout.setRefreshing(false);
             mRefreshing = false;
-        }
-        else {
+        } else {
             if (BuildConfig.DEBUG) {
                 Log.d(YourApplication.LOG_TAG, "show as refreshing");
             }

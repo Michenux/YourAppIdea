@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import dagger.ObjectGraph;
 
 public class YourApplication extends MCXApplication {
-
     public static final String LOG_TAG = "YAI";
 
     private boolean syncAdapterRunning = false;

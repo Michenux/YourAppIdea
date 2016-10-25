@@ -21,7 +21,6 @@ import org.michenux.drodrolib.ui.recyclerview.ItemClickSupport;
 import org.michenux.yourappidea.R;
 
 public class CityListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ItemClickSupport.OnItemClickListener {
-
     public static final String CITY_NAME = "city_name";
     public static final String CITY_COUNTRY = "city_country";
     public static final String CITY_LONGITUDE = "city_longitude";
@@ -54,8 +53,8 @@ public class CityListFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String[] projection = { CityContentProvider.ID_COLUMN,
-                CityContentProvider.NAME_COLUMN, CityContentProvider.COUNTRY_COLUMN, CityContentProvider.LATITUDE_COLUMN, CityContentProvider.LONGITUDE_COLUMN };
+        String[] projection = {CityContentProvider.ID_COLUMN,
+                CityContentProvider.NAME_COLUMN, CityContentProvider.COUNTRY_COLUMN, CityContentProvider.LATITUDE_COLUMN, CityContentProvider.LONGITUDE_COLUMN};
         return new CursorLoader(this.getActivity(),
                 CityContentProvider.CONTENT_URI, projection, null, null, CityContentProvider.NAME_COLUMN);
     }

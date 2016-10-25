@@ -43,7 +43,6 @@ public class SimpleMapFragment extends Fragment implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
         OnMapReadyCallback {
-
     private static final int LOCATIONSERVICES_RESOLUTION_RESULCODE = 765;
 
     private GoogleMap mMap;
@@ -138,7 +137,6 @@ public class SimpleMapFragment extends Fragment implements
 
     @SuppressWarnings({"MissingPermission"})
     private void registerLocationUpdates() {
-
         PendingResult<Status> result = LocationServices.FusedLocationApi
                 .requestLocationUpdates(
                         mGoogleApiClient,
@@ -166,7 +164,7 @@ public class SimpleMapFragment extends Fragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ( requestCode == LOCATIONSERVICES_RESOLUTION_RESULCODE && resultCode == Activity.RESULT_OK ) {
+        if (requestCode == LOCATIONSERVICES_RESOLUTION_RESULCODE && resultCode == Activity.RESULT_OK) {
             registerLocationUpdates();
         }
     }
@@ -176,7 +174,7 @@ public class SimpleMapFragment extends Fragment implements
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onLocationChanged");
         }
-        if ( mMap != null ) {
+        if (mMap != null) {
             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(loc, 15);
             mMap.animateCamera(cameraUpdate);
@@ -185,7 +183,7 @@ public class SimpleMapFragment extends Fragment implements
 
     @SuppressWarnings({"MissingPermission"})
     private void enableLocationOnMap() {
-        if ( mPermissionGranted && mMap != null && !mMap.isMyLocationEnabled()) {
+        if (mPermissionGranted && mMap != null && !mMap.isMyLocationEnabled()) {
             mMap.setMyLocationEnabled(true);
         }
     }
@@ -198,7 +196,6 @@ public class SimpleMapFragment extends Fragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.simplemap_menu_info:
                 new MaterialDialog.Builder(this.getActivity())
                         .title(R.string.simplemap_info_title)
@@ -212,13 +209,11 @@ public class SimpleMapFragment extends Fragment implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
         SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_connectionfailed);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
         SnackbarHelper.showInfoLongMessage(this.getView(), R.string.error_connectionsuspended);
     }
 
@@ -227,7 +222,7 @@ public class SimpleMapFragment extends Fragment implements
         if (BuildConfig.DEBUG) {
             Log.d(YourApplication.LOG_TAG, "simpleMapFragment.onMapCreated - map: " + googleMap);
         }
-        if ( googleMap != null ) {
+        if (googleMap != null) {
             mMap = googleMap;
             this.enableLocationOnMap();
         }

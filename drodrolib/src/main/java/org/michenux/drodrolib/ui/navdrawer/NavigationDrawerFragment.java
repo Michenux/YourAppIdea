@@ -2,11 +2,9 @@ package org.michenux.drodrolib.ui.navdrawer;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -24,16 +22,15 @@ import org.michenux.drodrolib.MCXApplication;
 
 public abstract class NavigationDrawerFragment extends Fragment implements
         NavigationView.OnNavigationItemSelectedListener {
-
     private DrawerLayout mDrawerLayoutView;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
 
-    private NavDrawerActivityConfiguration mNavConf ;
+    private NavDrawerActivityConfiguration mNavConf;
 
-    private Integer mSelectItemOnClosed ;
+    private Integer mSelectItemOnClosed;
 
     private NavigationView mNavigationView;
 
@@ -43,10 +40,9 @@ public abstract class NavigationDrawerFragment extends Fragment implements
         ((MCXApplication) getActivity().getApplication()).inject(this);
         setHasOptionsMenu(true);
 
-        if ( savedInstanceState == null ) {
+        if (savedInstanceState == null) {
             mTitle = mDrawerTitle = this.getActivity().getTitle();
-        }
-        else {
+        } else {
             mTitle = savedInstanceState.getCharSequence("title");
             mDrawerTitle = savedInstanceState.getCharSequence("drawerTitle");
         }
@@ -57,14 +53,13 @@ public abstract class NavigationDrawerFragment extends Fragment implements
     protected abstract NavDrawerActivityConfiguration createNavigurationConfiguration();
 
     /**
-     *
      * @param menuItemId menuItem id
      */
-    protected abstract void onNavItemSelected( @IdRes int menuItemId );
+    protected abstract void onNavItemSelected(@IdRes int menuItemId);
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate( mNavConf.getLayout(), container, false);
+        View view = inflater.inflate(mNavConf.getLayout(), container, false);
         return view;
     }
 
@@ -95,11 +90,10 @@ public abstract class NavigationDrawerFragment extends Fragment implements
                 (Toolbar) activity.findViewById(mNavConf.getToolbarId()),
                 mNavConf.getDrawerOpenDesc(),
                 mNavConf.getDrawerCloseDesc()) {
-
             public void onDrawerClosed(View view) {
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(mTitle);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mTitle);
 
-                if ( NavigationDrawerFragment.this.mSelectItemOnClosed != null ) {
+                if (NavigationDrawerFragment.this.mSelectItemOnClosed != null) {
                     NavigationDrawerFragment.this.deferedOnNavItemSelected();
                 }
             }
@@ -119,18 +113,18 @@ public abstract class NavigationDrawerFragment extends Fragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     /**
      * Close drawer when back pressed
+     *
      * @return true if closeDrawer() is invoked.
      */
     public boolean onBackPressed() {
-        if(getDrawerLayoutView().isDrawerOpen(GravityCompat.START)){
+        if (getDrawerLayoutView().isDrawerOpen(GravityCompat.START)) {
             getDrawerLayoutView().closeDrawer(GravityCompat.START);
             return true;
         } else {
@@ -140,29 +134,28 @@ public abstract class NavigationDrawerFragment extends Fragment implements
 
     /**
      * Select a item in the menu
+     *
      * @param menuItemId menu item id
-     * @param deferred wait for drawer to close, then select item.
+     * @param deferred   wait for drawer to close, then select item.
      */
     public void selectItem(@IdRes int menuItemId, boolean deferred) {
-
         MenuItem menuItem = mNavigationView.getMenu().findItem(menuItemId);
 
-        if ( menuItem.isCheckable()) {
+        if (menuItem.isCheckable()) {
             mNavigationView.setCheckedItem(menuItemId);
         }
 
-        if ( deferred ) {
+        if (deferred) {
             this.mSelectItemOnClosed = menuItemId;
-        }
-        else {
+        } else {
             onNavItemSelected(menuItemId);
         }
 
-        if ( mNavConf.updateTitleWhenMenuItemClick(menuItemId)) {
+        if (mNavConf.updateTitleWhenMenuItemClick(menuItemId)) {
             setTitle(menuItem.getTitle());
         }
 
-        if ( mNavConf.closeDrawerWhenMenuItemClick(menuItemId) && this.mDrawerLayoutView.isDrawerOpen(GravityCompat.START)) {
+        if (mNavConf.closeDrawerWhenMenuItemClick(menuItemId) && this.mDrawerLayoutView.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayoutView.closeDrawer(GravityCompat.START);
         }
     }
@@ -174,7 +167,7 @@ public abstract class NavigationDrawerFragment extends Fragment implements
 
     public void setTitle(CharSequence title) {
         mTitle = title;
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(mTitle);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(mTitle);
     }
 
     public void setTitleWithDrawerTitle() {
@@ -212,21 +205,21 @@ public abstract class NavigationDrawerFragment extends Fragment implements
 
     /**
      * Close or open drawer when hardware menu button is pressed.
+     *
      * @param keyCode key code
-     * @param event key event
+     * @param event   key event
      * @return true if key event is consumed.
      */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ( keyCode == KeyEvent.KEYCODE_MENU ) {
-            if ( this.mDrawerLayoutView.isDrawerOpen(GravityCompat.START)) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            if (this.mDrawerLayoutView.isDrawerOpen(GravityCompat.START)) {
                 this.mDrawerLayoutView.closeDrawer(GravityCompat.START);
-            }
-            else {
+            } else {
                 this.mDrawerLayoutView.openDrawer(GravityCompat.START);
             }
             return true;
         }
-        return false ;
+        return false;
     }
 
     public CharSequence getDrawerTitle() {
@@ -234,9 +227,9 @@ public abstract class NavigationDrawerFragment extends Fragment implements
     }
 
     public void resetSelection() {
-        for( int i = 0 ; i < mNavigationView.getMenu().size(); i++ ) {
+        for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
             MenuItem menuItem = mNavigationView.getMenu().getItem(i);
-            if ( menuItem.isChecked()) {
+            if (menuItem.isChecked()) {
                 menuItem.setChecked(false);
             }
         }

@@ -14,9 +14,8 @@ import org.michenux.yourappidea.R;
 
 import java.util.List;
 
-public class PlaceRecyclerAdapter extends RecyclerView.Adapter<PlaceRecyclerAdapter.PlaceViewHolder>{
-
-    private List<Place> places ;
+public class PlaceRecyclerAdapter extends RecyclerView.Adapter<PlaceRecyclerAdapter.PlaceViewHolder> {
+    private List<Place> places;
 
     public PlaceRecyclerAdapter(List<Place> places) {
         super();
@@ -54,7 +53,6 @@ public class PlaceRecyclerAdapter extends RecyclerView.Adapter<PlaceRecyclerAdap
     }
 
     public static class PlaceViewHolder extends RecyclerView.ViewHolder {
-
         private TextView nameView;
         private TextView distanceView;
         private TextView countryView;

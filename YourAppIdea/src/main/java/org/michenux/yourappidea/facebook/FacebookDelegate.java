@@ -29,15 +29,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class FacebookDelegate implements FacebookCallback {
-
     public static final String PROVIDER_NAME = "facebook";
 
     @Inject
-    UserHelper mUserHelper ;
+    UserHelper mUserHelper;
 
     private Activity mActivity;
 
-    private List<String> mPermissions ;
+    private List<String> mPermissions;
 
     private CallbackManager mCallbackManager;
 
@@ -62,7 +61,6 @@ public class FacebookDelegate implements FacebookCallback {
             protected void onCurrentAccessTokenChanged(
                     AccessToken oldAccessToken,
                     AccessToken currentAccessToken) {
-
                 mAccessToken = AccessToken.getCurrentAccessToken();
             }
         };
@@ -72,16 +70,14 @@ public class FacebookDelegate implements FacebookCallback {
             protected void onCurrentProfileChanged(
                     Profile oldProfile,
                     Profile currentProfile) {
-
-                if ( currentProfile == null ) {
+                if (currentProfile == null) {
                     mUserHelper.setCurrentUser(null);
 
                     // Logout
-                    if ( oldProfile != null && mUserSessionCallback != null) {
+                    if (oldProfile != null && mUserSessionCallback != null) {
                         mUserSessionCallback.onLogout();
                     }
-                }
-                else {
+                } else {
                     requestUserData();
                 }
             }
@@ -101,24 +97,21 @@ public class FacebookDelegate implements FacebookCallback {
 
     @Override
     public void onSuccess(Object o) {
-
     }
 
     @Override
     public void onCancel() {
-
     }
 
     @Override
     public void onError(FacebookException error) {
-
     }
 
     public boolean isFacebookInstalled() {
-        try{
-            mActivity.getPackageManager().getApplicationInfo("com.facebook.katana", 0 );
+        try {
+            mActivity.getPackageManager().getApplicationInfo("com.facebook.katana", 0);
             return true;
-        } catch( PackageManager.NameNotFoundException e ){
+        } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
     }
@@ -130,11 +123,10 @@ public class FacebookDelegate implements FacebookCallback {
 
     public void requestUserData() {
         GraphRequest request = GraphRequest.newMeRequest(
-            this.mAccessToken,
+                this.mAccessToken,
                 (object, response) -> {
                     try {
-                        if ( response.getError() == null ) {
-
+                        if (response.getError() == null) {
                             User currentUser = new User();
                             currentUser.setUserId(object.getString("id")); // id from public_profile
                             currentUser.setUserName(object.getString("id")); // id from public_profile
@@ -150,8 +142,7 @@ public class FacebookDelegate implements FacebookCallback {
                             if (mUserSessionCallback != null) {
                                 mUserSessionCallback.onLogin();
                             }
-                        }
-                        else {
+                        } else {
                             Log.e(YourApplication.LOG_TAG, "Error facebook graph request: " + response.getError().toString());
                         }
 

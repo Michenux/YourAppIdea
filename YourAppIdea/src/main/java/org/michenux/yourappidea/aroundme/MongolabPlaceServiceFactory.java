@@ -18,9 +18,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MongolabPlaceServiceFactory {
-
-    public static MongolabPlaceService create( Context context ) {
-
+    public static MongolabPlaceService create(Context context) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Timestamp.class, new TimestampDeserializer());
         gsonBuilder.registerTypeAdapter(Location.class, new LocationDeserializer());

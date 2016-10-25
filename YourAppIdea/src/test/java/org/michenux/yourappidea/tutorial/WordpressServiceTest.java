@@ -2,8 +2,6 @@ package org.michenux.yourappidea.tutorial;
 
 import android.content.Context;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +21,6 @@ import rx.observers.TestSubscriber;
 import static org.mockito.Mockito.when;
 
 public class WordpressServiceTest {
-
     @Mock
     private Context mContext;
 
@@ -35,7 +32,6 @@ public class WordpressServiceTest {
 
     @Test
     public void testQuery() throws Exception {
-
         WordpressService wordpressService = WordpressServiceFactory.create(mContext);
         Observable<WPJsonResponse> observable =
                 wordpressService.query("get_recent_posts", "android", "android_desc", "android", 9999);
