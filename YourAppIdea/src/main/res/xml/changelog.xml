@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
     <!--
-    For 3.1.0 :
-        - Dagger:
+    For 3.2.0 :
+           - Dagger:
             GsonConverter
             Okhttp client
             MVP
@@ -11,8 +11,6 @@
         - MVP
         - Airport: tabs
         - Dagger 2
-
-    For 3.2.0 :
         - Fix: Selected item on friend list
         - Float action button
         - Bug: ensure visible sur la friend list
@@ -38,12 +36,13 @@
         <change>Fix to work with Android Studio Instant Run</change>
         <change>Upgrade Google Services Gradle Plugin to 3.0.0</change>
         <change>Upgrade Google Play Services 9.2.1</change>
-        <change>Upgrade to Support Library 23.4.0</change>
+        <change>Upgrade to Support Library 25.0.0</change>
         <change>Upgrade to Espresso 2.2.2, TestRunner 0.5, Spoon Client 1.3.1, Hamcrest 1.3</change>
         <change>Upgrade to Retrofit 2.1.0, OkHttp 3.4.1</change>
         <change>Upgrade to Dagger 1.2.5</change>
         <change>Upgrade to Material Dialogs 0.8.6.2</change>
-        <change>Upgrade to RxPermission 0.7.0, RxBinding 0.4.0, RxAndroid 1.2.1</change>
+        <change>Upgrade to RxPermission 0.8.0, RxBinding 0.4.0, RxAndroid 1.2.1</change>
+        <change>Upgrade to Facebook 4.16.1</change>
     </release>
     <release
         version="3.0.0"
