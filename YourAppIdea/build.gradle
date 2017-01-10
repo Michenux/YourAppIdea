@@ -7,14 +7,14 @@ apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "org.michenux.yourappidea"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 310
-        versionName "3.1.0"
+        versionCode 320
+        versionName "3.2.0"
 
         multiDexEnabled true
     }
